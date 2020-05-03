@@ -1,5 +1,6 @@
 package com.galid.commerce.domains.item.domain;
 
+import com.galid.commerce.common.config.logging.BaseEntity;
 import lombok.Getter;
 
 import javax.persistence.Entity;
@@ -10,7 +11,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "category")
 @Getter
-public class CategoryEntity {
+public class CategoryEntity extends BaseEntity {
     @Id @GeneratedValue
     private Long id;
     private String categoryName;
