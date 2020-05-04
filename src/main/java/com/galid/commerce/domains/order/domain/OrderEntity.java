@@ -15,6 +15,7 @@ public class OrderEntity extends BaseEntity {
     @Id @GeneratedValue
     private Long id;
     private int totalAmount;
+    @Enumerated(value = EnumType.STRING)
     private OrderStatus status;
 
     @OneToOne(fetch = FetchType.LAZY)
