@@ -25,5 +25,6 @@ public class OrderEntity extends BaseEntity {
     @JoinColumn(name = "delivery_id")
     private DeliveryEntity deliveryInformation;
     @OneToMany
+    @JoinColumn(name = "order_item_id")
     private List<OrderItemEntity> orderItemList;
 }
