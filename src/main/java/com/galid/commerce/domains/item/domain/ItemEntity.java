@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "item")
+@Table(name = "items")
 @Getter
 public class ItemEntity extends BaseEntity {
     @Id @GeneratedValue

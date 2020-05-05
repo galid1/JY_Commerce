@@ -9,7 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "category")
+@Table(name = "categories")
 @Getter
 public class CategoryEntity extends BaseEntity {
     @Id @GeneratedValue

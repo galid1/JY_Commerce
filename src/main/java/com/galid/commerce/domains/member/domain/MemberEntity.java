@@ -7,7 +7,7 @@ import lombok.Getter;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "member")
+@Table(name = "members")
 @Getter
 public class MemberEntity extends BaseEntity {
     @Id @GeneratedValue
