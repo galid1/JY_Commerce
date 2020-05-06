@@ -8,6 +8,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "items")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Getter
 public class ItemEntity extends BaseEntity {
     @Id @GeneratedValue
