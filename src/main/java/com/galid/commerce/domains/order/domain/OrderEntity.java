@@ -4,10 +4,13 @@ import com.galid.commerce.common.config.logging.BaseEntity;
 import com.galid.commerce.domains.delivery.domain.DeliveryEntity;
 import com.galid.commerce.domains.member.domain.MemberEntity;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Entity
@@ -29,9 +32,26 @@ public class OrderEntity extends BaseEntity {
     private DeliveryEntity deliveryInformation;
     @OneToMany
     @JoinColumn(name = "order_item_id")
-    private List<OrderItemEntity> orderItemList;
+    private List<OrderItemEntity> orderItemList = new ArrayList<>();
 
-    public OrderEntity() {
-
+    @Builder
+    public OrderEntity(MemberEntity orderer, DeliveryEntity deliveryInformation, OrderItemEntity... orderItemEntityList) {
+        this.orderer = orderer;
+        this.deliveryInformation = deliveryInformation;
+        this.setOrderItemList(orderItemEntityList);
+        this.status = OrderStatus.ORDERED_STATUS;
     }
+
+    private void setOrderItemList(OrderItemEntity... orderItemEntityList) {
+        Arrays.stream(orderItemEntityList)
+                .forEach(orderItemEntity -> this.orderItemList.add(orderItemEntity));
+        this.setTotalAmount();
+    }
+
+    private void setTotalAmount() {
+        this.totalAmount = this.orderItemList.stream()
+                .mapToInt(orderItem -> orderItem.getOrderItemAmount())
+                .sum();
+    }
+
 }
