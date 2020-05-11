@@ -4,5 +4,5 @@ import javax.persistence.Embeddable;
 
 @Embeddable
 public enum OrderStatus {
-    ORDER_STATUS, CANCEL_STATUS
+    ORDERED_STATUS, CANCEL_STATUS
 }
