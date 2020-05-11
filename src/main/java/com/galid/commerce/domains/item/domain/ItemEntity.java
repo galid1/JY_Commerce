@@ -2,6 +2,7 @@ package com.galid.commerce.domains.item.domain;
 
 import com.galid.commerce.common.config.logging.BaseEntity;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -24,4 +25,19 @@ public class ItemEntity extends BaseEntity {
     @JoinColumn(name = "category_id")
     private List<CategoryEntity> categoryList;
 
+    @Builder
+    public ItemEntity(String name, int price, int stockQuantity) {
+        this.name = name;
+        this.price = price;
+        this.stockQuantity = stockQuantity;
+    }
+
+    public void removeStockQuantity(int orderQuantity) {
+        int restStockQuantity = this.stockQuantity - orderQuantity;
+
+        if(restStockQuantity < 0)
+            throw new NotEnoughStockQuantityException();
+
+        this.stockQuantity = restStockQuantity;
+    }
 }
