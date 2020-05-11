@@ -1,7 +1,9 @@
 package com.galid.commerce.domains.item.domain;
 
 import com.galid.commerce.common.config.logging.BaseEntity;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
@@ -10,6 +12,7 @@ import java.util.List;
 @Table(name = "items")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ItemEntity extends BaseEntity {
     @Id @GeneratedValue
     private Long id;
