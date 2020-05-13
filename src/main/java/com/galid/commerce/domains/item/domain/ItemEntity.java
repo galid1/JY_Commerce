@@ -32,6 +32,8 @@ public class ItemEntity extends BaseEntity {
         this.stockQuantity = stockQuantity;
     }
 
+    // ==== 비즈니스 로직 ====
+
     public void removeStockQuantity(int orderQuantity) {
         int restStockQuantity = this.stockQuantity - orderQuantity;
 
@@ -39,5 +41,9 @@ public class ItemEntity extends BaseEntity {
             throw new NotEnoughStockQuantityException();
 
         this.stockQuantity = restStockQuantity;
+    }
+
+    public void addStockQuantity(int quantity) {
+        this.stockQuantity += quantity;
     }
 }
