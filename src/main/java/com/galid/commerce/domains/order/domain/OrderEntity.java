@@ -2,6 +2,7 @@ package com.galid.commerce.domains.order.domain;
 
 import com.galid.commerce.common.config.logging.BaseEntity;
 import com.galid.commerce.domains.delivery.domain.DeliveryEntity;
+import com.galid.commerce.domains.delivery.domain.DeliveryStatus;
 import com.galid.commerce.domains.member.domain.MemberEntity;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -45,13 +46,24 @@ public class OrderEntity extends BaseEntity {
     private void setOrderItemList(OrderItemEntity... orderItemEntityList) {
         Arrays.stream(orderItemEntityList)
                 .forEach(orderItemEntity -> this.orderItemList.add(orderItemEntity));
-        this.setTotalAmount();
+        this.calculateTotalAmount();
     }
 
-    private void setTotalAmount() {
+    private void calculateTotalAmount() {
         this.totalAmount = this.orderItemList.stream()
                 .mapToInt(orderItem -> orderItem.getOrderItemAmount())
                 .sum();
     }
 
+    // ==== 비즈니스 로직 ====
+    public void cancel() {
+        if(this.deliveryInformation.getStatus() == DeliveryStatus.COMPLETE_STATUS
+                || this.deliveryInformation.getStatus() == DeliveryStatus.SHIPPING_STATUS)
+            throw new IllegalStateException("이미 배송중이거나 배송이 완료된 주문은 취소가 불가능합니다.");
+
+        this.orderItemList.stream()
+                .forEach(orderItem -> orderItem.cancel());
+
+        this.status = OrderStatus.CANCEL_STATUS;
+    }
 }
