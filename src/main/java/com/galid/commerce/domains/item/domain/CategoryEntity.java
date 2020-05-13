@@ -20,4 +20,7 @@ public class CategoryEntity extends BaseEntity {
     private Long id;
     private String categoryName;
 
+    public CategoryEntity(String categoryName) {
+        this.categoryName = categoryName;
+    }
 }
