@@ -4,5 +4,5 @@ import javax.persistence.Embeddable;
 
 @Embeddable
 public enum DeliveryStatus {
-    SHIPPING, PAYMENT_WAITING
+    READY_STATUS, SHIPPING_STATUS, COMPLETE_STATUS
 }
