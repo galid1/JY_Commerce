@@ -25,17 +25,22 @@ public class OrderItemEntity extends BaseEntity {
 
     @Builder
     public OrderItemEntity(ItemEntity item, int orderQuantity) {
-        this.setItem(item, orderQuantity);
+        this.order(item, orderQuantity);
         this.orderQuantity = orderQuantity;
-        this.setOrderItemAmount();
+        this.calculateOrderItemTotalAmount();
     }
 
-    private void setItem(ItemEntity item, int orderQuantity) {
+    private void order(ItemEntity item, int orderQuantity) {
         item.removeStockQuantity(orderQuantity);
         this.item = item;
     }
 
-    private void setOrderItemAmount() {
+    private void calculateOrderItemTotalAmount() {
         this.orderItemAmount = this.item.getPrice() * orderQuantity;
+    }
+
+    // ==== 비즈니스 로직 ====
+    public void cancel() {
+        this.item.addStockQuantity(this.orderQuantity);
     }
 }
