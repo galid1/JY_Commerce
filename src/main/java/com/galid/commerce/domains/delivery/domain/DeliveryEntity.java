@@ -15,7 +15,7 @@ import javax.persistence.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class DeliveryEntity extends BaseEntity {
     @Id @GeneratedValue
-    private Long id;
+    private Long deliveryId;
     private Address address;
 
     @Enumerated(value = EnumType.STRING)

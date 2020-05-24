@@ -15,7 +15,7 @@ import javax.persistence.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class OrderItemEntity extends BaseEntity {
     @Id @GeneratedValue
-    private Long id;
+    private Long orderItemId;
     private int orderQuantity;
     private int orderItemAmount;
 

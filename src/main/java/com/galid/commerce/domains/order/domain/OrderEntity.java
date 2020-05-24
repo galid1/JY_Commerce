@@ -20,7 +20,7 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class OrderEntity extends BaseEntity {
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private Long orderId;
     private int totalAmount;
     @Enumerated(value = EnumType.STRING)
     private OrderStatus status;

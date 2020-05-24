@@ -15,7 +15,7 @@ import javax.persistence.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class MemberEntity extends BaseEntity {
     @Id @GeneratedValue
-    private Long id;
+    private Long memberId;
     private String name;
     @Embedded
     private Address address;

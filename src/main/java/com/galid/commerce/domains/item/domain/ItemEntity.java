@@ -16,7 +16,7 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ItemEntity extends BaseEntity {
     @Id @GeneratedValue
-    private Long id;
+    private Long itemId;
     private String name;
     private int price;
     private int stockQuantity;
