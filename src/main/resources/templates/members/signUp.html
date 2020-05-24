@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/configHeader :: header">
+
+<body>
+    <div th:replace="fragments/header :: header"/>
+
+    <div class="jumbotron">
+        <div class="container">
+            <div class="h3 mb-3 font-weight-normal">
+               My Commerce sign up
+            </div>
+
+            <div class="formContainer">
+                <form action="/members/signUp" method="post">
+                        <input class="form-control" type="text" id="id" placeholder="아이디">
+                        <input class="form-control" type="password" id="password" placeholder="패스워드">
+                        <input class="form-control" type="passwordCheck" id="passwordCheck" placeholder="패스워드 확인">
+                        <input class="form-control" type="text" id="city" placeholder="도시">
+                        <input class="form-control" type="text" id="street" placeholder="거리">
+                    <div style="margin-top: 3vh;">
+                        <button class="btn btn-primary right" type="submit">회원가입</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+<style>
+    input {
+        margin-bottom: 5px;
+    }
+
+    .form-control {
+        max-width: 30%;
+    }
+</style>
+
+</html>
