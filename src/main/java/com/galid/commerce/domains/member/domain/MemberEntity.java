@@ -16,13 +16,18 @@ import javax.persistence.*;
 public class MemberEntity extends BaseEntity {
     @Id @GeneratedValue
     private Long memberId;
-    private String name;
+
+    private String id;
+    private String pw;
+
     @Embedded
     private Address address;
 
     @Builder
-    private MemberEntity(String name, Address address) {
-        this.name = name;
+    private MemberEntity(String id, String pw, Address address) {
+        this.id = id;
+        this.pw = pw;
         this.address = address;
     }
+
 }
