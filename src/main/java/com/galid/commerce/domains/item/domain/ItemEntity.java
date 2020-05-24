@@ -22,7 +22,7 @@ public class ItemEntity extends BaseEntity {
     private int stockQuantity;
 
     @OneToMany
-    @JoinColumn(name = "category_id")
+    @JoinColumn(name = "item_id")
     private List<CategoryEntity> categoryList;
 
     @Builder
