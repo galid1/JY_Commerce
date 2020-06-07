@@ -1,6 +1,5 @@
 package com.galid.commerce.domains.member.service;
 
-import com.galid.commerce.common.value.Address;
 import lombok.*;
 
 @Getter
@@ -10,5 +9,6 @@ import lombok.*;
 public class SignUpRequest {
     private String id;
     private String password;
-    private Address address;
+    private String city;
+    private String street;
 }
