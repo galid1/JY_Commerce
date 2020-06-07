@@ -17,16 +17,16 @@ public class MemberEntity extends BaseEntity {
     @Id @GeneratedValue
     private Long memberId;
 
-    private String id;
-    private String pw;
+    private String authId;
+    private String authPw;
 
     @Embedded
     private Address address;
 
     @Builder
-    private MemberEntity(String id, String pw, Address address) {
-        this.id = id;
-        this.pw = pw;
+    private MemberEntity(String authId, String authPw, Address address) {
+        this.authId = authId;
+        this.authPw = authPw;
         this.address = address;
     }
 
