@@ -22,7 +22,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .frameOptions().disable()
                 .disable()
             .authorizeRequests()
-                .antMatchers("/h2-console/**", "/members/signIn", "/members/signUp")
+                .antMatchers("/h2-console/**", "/static/**", "/members/signIn", "/members/signUp", "/signIn", "/signUp")
                     .permitAll()
                 .anyRequest()
                     .authenticated()
