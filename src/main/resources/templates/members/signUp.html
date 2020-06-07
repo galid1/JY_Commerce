@@ -13,11 +13,11 @@
 
             <div class="formContainer">
                 <form action="/members/signUp" method="post">
-                        <input class="form-control" type="text" id="id" placeholder="아이디">
-                        <input class="form-control" type="password" id="password" placeholder="패스워드">
-                        <input class="form-control" type="passwordCheck" id="passwordCheck" placeholder="패스워드 확인">
-                        <input class="form-control" type="text" id="city" placeholder="도시">
-                        <input class="form-control" type="text" id="street" placeholder="거리">
+                    <input class="form-control" type="text" id="id" name="id" placeholder="아이디">
+                    <input class="form-control" type="password" id="password" name="password" placeholder="패스워드">
+                    <input class="form-control" type="password" id="passwordCheck" placeholder="패스워드 확인">
+                    <input class="form-control" type="text" id="city" name="city" placeholder="도시">
+                    <input class="form-control" type="text" id="street" name="street" placeholder="거리">
                     <div style="margin-top: 3vh;">
                         <button class="btn btn-primary right" type="submit">회원가입</button>
                     </div>
@@ -26,6 +26,14 @@
         </div>
     </div>
 </body>
+
+<script>
+    $(function() {
+
+
+    });
+
+</script>
 
 <style>
     input {
