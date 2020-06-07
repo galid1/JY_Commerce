@@ -21,9 +21,9 @@ public class MemberService {
 
     public Long signUp(SignUpRequest request) {
         MemberEntity newMember = MemberEntity.builder()
-                .address(request.getAddress())
-                .id(request.getId())
-                .pw(encoder.encode(request.getPassword()))
+                .address(new Address(request.getCity(), request.getStreet()))
+                .authId(request.getId())
+                .authPw(encoder.encode(request.getPassword()))
                 .build();
 
         validateDuplicateMember(newMember);
@@ -31,7 +31,7 @@ public class MemberService {
     }
 
     private void validateDuplicateMember(MemberEntity memberEntity) {
-        Optional<MemberEntity> findMember = memberRepository.findById(memberEntity.getMemberId());
+        Optional<MemberEntity> findMember = memberRepository.findByAuthId(memberEntity.getAuthId());
         if(findMember.isPresent())
             throw new IllegalStateException("이미 존재하는 회원입니다.");
     }
@@ -56,7 +56,7 @@ public class MemberService {
 
     private MemberDto toMemberDto(MemberEntity memberEntity) {
         return MemberDto.builder()
-                .id(memberEntity.getId())
+                .id(memberEntity.getAuthId())
                 .address(toAddress(memberEntity.getAddress()))
                 .build();
     }
