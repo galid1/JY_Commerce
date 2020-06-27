@@ -18,7 +18,7 @@ public class MemberController {
         return "members/signUp";
     }
 
-    @PostMapping("/auth/members")
+    @PostMapping("/signUp")
     public String signUp(@ModelAttribute SignUpRequest request) {
         memberService.signUp(request);
         return "redirect:/signIn";
@@ -28,4 +28,6 @@ public class MemberController {
     public String getSignInPage() {
         return "members/signIn";
     }
+    
+    // signIn 처리는 Spring security
 }
