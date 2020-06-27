@@ -3,18 +3,41 @@
 <head th:replace="fragments/configHeader :: header"></head>
 
 <body>
-    <div th:replace="fragments/header :: header"></div>
+<div th:replace="fragments/header :: header"></div>
 
-    <div class="jumbotron">
-        <div class="container">
-            <div class="h3 mb-3 front-weight-normal">
-                My Commerce Sign In
-            </div>
+<div class="jumbotron">
+    <div class="container">
+        <div class="h3 mb-3 front-weight-normal">
+            My Commerce Sign In
+        </div>
 
-            <div class="formContainer">
-                <form action="/auth/" method="post"></form>
-            </div>
+        <div class="formContainer">
+            <form th:action="@{/auth/signIn}" method="post">
+                <input class="form-control" type="text" name="id" placeholder="아이디">
+                <input class="form-control" type="password" name="pw" placeholder="패스워드">
+                <p th:if="${loginError}" class="loginError">아이디 또는 패스워드가 잘못되었습니다.</p>
+
+                <div style="margin-top: 3vh;">
+                    <button class="btn btn-primary right" th:type="submit">로그인</button>
+                </div>
+            </form>
         </div>
     </div>
+</div>
 </body>
 </html>
+
+<style>
+    input {
+        margin-bottom: 5px;
+    }
+
+    .form-control {
+        max-width: 30%;
+    }
+
+    .loginError {
+        font-size: 10px;
+        color: orangered;
+    }
+</style>

@@ -22,14 +22,17 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .frameOptions().disable()
                 .disable()
             .authorizeRequests()
-                .antMatchers("/h2-console/**", "/static/**", "/signIn", "/signUp")
+                .antMatchers("/h2-console/**", "/static/**", "/auth/**")
                     .permitAll()
                 .anyRequest()
                     .authenticated()
             .and()
             .formLogin()
-                .loginPage("/signIn")
-                .loginProcessingUrl("/signIn");
+                .loginPage("/auth/signIn")
+                .failureUrl("/auth/signInError")
+                .loginProcessingUrl("/auth/signIn")
+                .usernameParameter("id")
+                .passwordParameter("pw");
     }
 
 }

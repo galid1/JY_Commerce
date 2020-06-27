@@ -4,6 +4,7 @@ import com.galid.commerce.domains.member.service.MemberService;
 import com.galid.commerce.domains.member.service.SignUpRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,21 +14,27 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class MemberController {
     private final MemberService memberService;
 
-    @GetMapping("/signUp")
+    @GetMapping("/auth/signUp")
     public String getSignUpPage() {
         return "members/signUp";
     }
 
-    @PostMapping("/signUp")
+    @PostMapping("/auth/signUp")
     public String signUp(@ModelAttribute SignUpRequest request) {
         memberService.signUp(request);
-        return "redirect:/signIn";
+        return "redirect:/auth/signIn";
     }
 
-    @GetMapping("/signIn")
+    @GetMapping("/auth/signIn")
     public String getSignInPage() {
         return "members/signIn";
     }
-    
+
     // signIn 처리는 Spring security
+    @GetMapping("/auth/signInError")
+    public String getSignInPageWithError(Model model) {
+        model.addAttribute("loginError", "true");
+        return "members/signIn";
+    }
+
 }
