@@ -36,35 +36,44 @@ public class MemberService {
             throw new IllegalStateException("이미 존재하는 회원입니다.");
     }
 
-    public MemberDto findMember(Long memberId) {
-        MemberEntity memberEntity = validateExistMember(memberRepository.findById(memberId));
-
-        return toMemberDto(memberEntity);
-    }
-
-    public List<MemberDto> findAllMember() {
-        return memberRepository.findAll().stream()
-                .map(member -> toMemberDto(member))
-                .collect(Collectors.toList());
-    }
-
     private MemberEntity validateExistMember(Optional<MemberEntity> memberEntity) {
         if(!memberEntity.isPresent())
             throw new IllegalStateException("존재하지 않는 유저입니다.");
         return memberEntity.get();
     }
 
-    private MemberDto toMemberDto(MemberEntity memberEntity) {
-        return MemberDto.builder()
-                .id(memberEntity.getAuthId())
-                .address(toAddress(memberEntity.getAddress()))
-                .build();
+    public MemberEntity findMember(Long memberId) {
+        MemberEntity memberEntity = validateExistMember(memberRepository.findById(memberId));
+
+        return memberEntity;
     }
 
-    private AddressDto toAddress(Address address) {
-        return AddressDto.builder()
-                .street(address.getStreet())
-                .city(address.getCity())
-                .build();
+    public List<MemberEntity> findAllMember() {
+        return memberRepository.findAll();
     }
 }
+
+//    public MemberDto findMember(Long memberId) {
+//        MemberEntity memberEntity = validateExistMember(memberRepository.findById(memberId));
+//
+//        return toMemberDto(memberEntity);
+//    }
+//
+//    public List<MemberDto> findAllMember() {
+//        return memberRepository.findAll().stream()
+//                .map(member -> toMemberDto(member))
+//                .collect(Collectors.toList());
+//    }
+//    private MemberDto toMemberDto(MemberEntity memberEntity) {
+//        return MemberDto.builder()
+//                .id(memberEntity.getAuthId())
+//                .address(toAddress(memberEntity.getAddress()))
+//                .build();
+//    }
+//
+//    private AddressDto toAddress(Address address) {
+//        return AddressDto.builder()
+//                .street(address.getStreet())
+//                .city(address.getCity())
+//                .build();
+//    }
