@@ -16,7 +16,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         http
             .csrf()
                 .requireCsrfProtectionMatcher(new AntPathRequestMatcher("!/h2-console/**"))
-                .and()
+            .and()
                 .headers()
                 .addHeaderWriter(new StaticHeadersWriter("X-Content-Security-Policy","script-src 'self'"))
                 .frameOptions().disable()
@@ -32,7 +32,13 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .failureUrl("/auth/signInError")
                 .loginProcessingUrl("/auth/signIn")
                 .usernameParameter("id")
-                .passwordParameter("pw");
+                .passwordParameter("pw")
+                .successHandler(new SignInSuccessHandler())
+            .and()
+                .csrf()
+                .disable()
+            .logout()
+                .logoutSuccessUrl("/auth/signIn");
     }
 
 }
