@@ -7,7 +7,7 @@ import lombok.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @ToString
 public class SignUpRequest {
-    private String id;
+    private String authId;
     private String password;
     private String city;
     private String street;
