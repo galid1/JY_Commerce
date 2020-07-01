@@ -20,18 +20,19 @@ public class MemberService {
     private final PasswordEncoder encoder;
 
     public Long signUp(SignUpRequest request) {
+        validateDuplicateMember(request.getAuthId());
+
         MemberEntity newMember = MemberEntity.builder()
                 .address(new Address(request.getCity(), request.getStreet()))
-                .authId(request.getId())
+                .authId(request.getAuthId())
                 .authPw(encoder.encode(request.getPassword()))
                 .build();
 
-        validateDuplicateMember(newMember);
         return memberRepository.save(newMember).getMemberId();
     }
 
-    private void validateDuplicateMember(MemberEntity memberEntity) {
-        Optional<MemberEntity> findMember = memberRepository.findFirstByAuthId(memberEntity.getAuthId());
+    private void validateDuplicateMember(String authId) {
+        Optional<MemberEntity> findMember = memberRepository.findFirstByAuthId(authId);
         if(findMember.isPresent())
             throw new IllegalStateException("이미 존재하는 회원입니다.");
     }
