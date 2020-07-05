@@ -33,6 +33,7 @@ public class MemberService {
 
     private void validateDuplicateMember(String authId) {
         Optional<MemberEntity> findMember = memberRepository.findFirstByAuthId(authId);
+
         if(findMember.isPresent())
             throw new IllegalStateException("이미 존재하는 회원입니다.");
     }
