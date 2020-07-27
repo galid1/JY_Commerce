@@ -36,15 +36,15 @@ public class OrderEntity extends BaseEntity {
     private List<OrderItemEntity> orderItemList = new ArrayList<>();
 
     @Builder
-    public OrderEntity(MemberEntity orderer, DeliveryEntity deliveryInformation, OrderItemEntity... orderItemEntityList) {
+    public OrderEntity(MemberEntity orderer, DeliveryEntity deliveryInformation, List<OrderItemEntity> orderItemEntityList) {
         this.orderer = orderer;
         this.deliveryInformation = deliveryInformation;
         this.setOrderItemList(orderItemEntityList);
         this.status = OrderStatus.ORDERED_STATUS;
     }
 
-    private void setOrderItemList(OrderItemEntity... orderItemEntityList) {
-        Arrays.stream(orderItemEntityList)
+    private void setOrderItemList(List<OrderItemEntity> orderItemEntityList) {
+        orderItemEntityList.stream()
                 .forEach(orderItemEntity -> this.orderItemList.add(orderItemEntity));
         this.calculateTotalAmount();
     }
@@ -67,3 +67,4 @@ public class OrderEntity extends BaseEntity {
         this.status = OrderStatus.CANCEL_STATUS;
     }
 }
+
