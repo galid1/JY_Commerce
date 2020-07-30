@@ -13,6 +13,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
@@ -38,7 +40,7 @@ public class OrderService {
         OrderEntity orderEntity = OrderEntity.builder()
                 .orderer(memberEntity)
                 .deliveryInformation(deliveryEntity)
-                .orderItemEntityList(orderItemEntity)
+                .orderItemEntityList(List.of(orderItemEntity))
                 .build();
 
         return orderRepository.save(orderEntity).getOrderId();
