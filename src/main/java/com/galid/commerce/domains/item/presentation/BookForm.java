@@ -17,12 +17,13 @@ public class BookForm {
     private String isbn;
 
     public Book toBookEntity() {
-        Book book = new Book();
-        book.setName(this.name);
-        book.setPrice(this.price);
-        book.setStockQuantity(this.stockQuantity);
-        book.setAuthor(this.author);
-        book.setIsbn(this.isbn);
+        Book book = Book.builder()
+                .author("TEST")
+                .isbn("TEST")
+                .name("TEST")
+                .price(1000)
+                .stockQuantity(2)
+                .build();
 
         return book;
     }
