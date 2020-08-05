@@ -2,6 +2,7 @@ package com.galid.commerce.domains.order.service;
 
 import com.galid.commerce.common.BaseTest;
 import com.galid.commerce.common.value.Address;
+import com.galid.commerce.domains.item.domain.Book;
 import com.galid.commerce.domains.item.domain.ItemEntity;
 import com.galid.commerce.domains.item.service.ItemService;
 import com.galid.commerce.domains.member.domain.MemberEntity;
@@ -30,7 +31,7 @@ class OrderServiceTest extends BaseTest {
     private EntityManager em;
 
     @Test
-    public void 주문() {
+    public void 책_주문() {
         //given
         MemberEntity TEST_MEMBER = MemberEntity.builder()
                 .authId("TEST")
@@ -39,7 +40,9 @@ class OrderServiceTest extends BaseTest {
                 .build();
         em.persist(TEST_MEMBER);
 
-        ItemEntity TEST_ITEM = ItemEntity.builder()
+        ItemEntity TEST_ITEM = Book.builder()
+                .author("TEST")
+                .isbn("TEST")
                 .name("TEST")
                 .price(1000)
                 .stockQuantity(2)
