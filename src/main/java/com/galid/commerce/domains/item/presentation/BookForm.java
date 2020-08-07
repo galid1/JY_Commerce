@@ -1,6 +1,7 @@
 package com.galid.commerce.domains.item.presentation;
 
 import com.galid.commerce.domains.item.domain.Book;
+import com.galid.commerce.domains.item.domain.ItemEntity;
 import lombok.*;
 
 @Getter
@@ -16,15 +17,13 @@ public class BookForm {
     private String author;
     private String isbn;
 
-    public Book toBookEntity() {
-        Book book = Book.builder()
+    public ItemEntity toEntity() {
+        return Book.builder()
                 .author("TEST")
                 .isbn("TEST")
                 .name("TEST")
                 .price(1000)
                 .stockQuantity(2)
                 .build();
-
-        return book;
     }
 }

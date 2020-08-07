@@ -22,7 +22,7 @@ public class ItemController {
 
     @PostMapping("/items/new")
     public String createItem(@ModelAttribute BookForm bookForm) {
-        itemService.saveItem(bookForm.toBookEntity());
+        itemService.saveItem(bookForm.toEntity());
         return "redirect:/items/new";
     }
 }
