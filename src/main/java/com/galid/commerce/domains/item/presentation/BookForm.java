@@ -4,6 +4,8 @@ import com.galid.commerce.domains.item.domain.Book;
 import com.galid.commerce.domains.item.domain.ItemEntity;
 import lombok.*;
 
+import javax.validation.constraints.NotNull;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -11,8 +13,11 @@ import lombok.*;
 @Builder
 @ToString
 public class BookForm {
+    @NotNull
     private String name;
+    @NotNull
     private int price;
+    @NotNull
     private int stockQuantity;
     private String author;
     private String isbn;

@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.validation.Valid;
+
 @Controller
 @RequiredArgsConstructor
 public class ItemController {
@@ -21,8 +23,8 @@ public class ItemController {
     }
 
     @PostMapping("/items/new")
-    public String createItem(@ModelAttribute BookForm bookForm) {
-        itemService.saveItem(bookForm.toEntity());
-        return "redirect:/items/new";
+    public String createItem(@ModelAttribute @Valid BookForm bookForm) {
+        Long newItemId = itemService.saveItem(bookForm.toEntity());
+        return "redirect:/items/details?item_id=" + newItemId;
     }
 }
