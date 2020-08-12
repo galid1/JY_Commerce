@@ -17,8 +17,9 @@ public class Book extends ItemEntity{
     private String isbn;
 
     @Builder
-    public Book(String name, int price, int stockQuantity, String author, String isbn) {
+    public Book(String name, String imagePath, int price, int stockQuantity, String author, String isbn) {
         super.setName(name);
+        super.setImagePath(imagePath);
         super.setPrice(price);
         super.setStockQuantity(stockQuantity);
         this.author = author;

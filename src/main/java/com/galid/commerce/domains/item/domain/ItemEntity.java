@@ -15,6 +15,7 @@ import java.util.List;
 public abstract class ItemEntity extends BaseEntity {
     @Id @GeneratedValue
     private Long itemId;
+    private String imagePath;
     private String name;
     private int price;
     private int stockQuantity;
