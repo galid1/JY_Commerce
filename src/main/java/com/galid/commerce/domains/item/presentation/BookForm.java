@@ -16,6 +16,8 @@ public class BookForm {
     @NotNull
     private String name;
     @NotNull
+    private String imagePath;
+    @NotNull
     private int price;
     @NotNull
     private int stockQuantity;
@@ -24,11 +26,12 @@ public class BookForm {
 
     public ItemEntity toEntity() {
         return Book.builder()
-                .author("TEST")
-                .isbn("TEST")
-                .name("TEST")
-                .price(1000)
-                .stockQuantity(2)
+                .author(author)
+                .isbn(isbn)
+                .imagePath(imagePath)
+                .name(name)
+                .price(price)
+                .stockQuantity(stockQuantity)
                 .build();
     }
 }
