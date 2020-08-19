@@ -51,12 +51,11 @@ public class CartEntity {
         return cart.containsKey(itemId);
     }
 
-    public void removeById(Long itemId) {
-        cart.remove(itemId);
-    }
-
     public void removeAll() {
         cart.clear();
     }
 
+    public void removeCartLine(Long itemId) {
+        cart.remove(itemId);
+    }
 }
