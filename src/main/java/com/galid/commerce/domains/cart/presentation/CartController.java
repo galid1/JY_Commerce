@@ -7,6 +7,7 @@ import com.galid.commerce.domains.item.domain.ItemEntity;
 import com.galid.commerce.domains.item.domain.ItemRepository;
 import com.galid.commerce.domains.member.domain.MemberEntity;
 import com.galid.commerce.domains.member.domain.MemberRepository;
+import com.galid.commerce.infra.AuthenticationConverter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -24,11 +25,12 @@ public class CartController {
     private final MemberRepository memberRepository;
     private final ItemRepository itemRepository;
     private final CartService cartService;
+    private final AuthenticationConverter authenticationConverter;
 
     @GetMapping("/carts")
     public String getCartPage(Authentication authentication,
                               Model model) {
-        MemberEntity memberEntity = getMemberEntityByAuthentication(authentication);
+        MemberEntity memberEntity = authenticationConverter.getMemberFromAuthentication(authentication);
         List<CartLineForm> cartLineFormList = toCartLineFormList(cartService.getCart(memberEntity.getMemberId()));
 
         model.addAttribute("cartLineList", cartLineFormList);
@@ -52,29 +54,32 @@ public class CartController {
     }
 
     @PostMapping("/carts")
-    @ResponseBody
-    public ResponseEntity addToCart(@ModelAttribute AddToCartRequestForm addToCartRequestForm,
+    public String addToCart(@ModelAttribute AddToCartRequestForm addToCartRequestForm,
                             Authentication authentication) {
-        MemberEntity memberEntity = getMemberEntityByAuthentication(authentication);
+        MemberEntity memberEntity = authenticationConverter.getMemberFromAuthentication(authentication);
 
         cartService.addToCart(memberEntity.getMemberId(), addToCartRequestForm);
 
-        return ResponseEntity.ok().build();
+        return "redirect:/carts";
     }
 
     @PutMapping("/carts")
     @ResponseBody
     public ResponseEntity modifyCartLine(@ModelAttribute ModifyCartLineRequestForm modifyCartLineRequestForm,
                                          Authentication authentication) {
-        MemberEntity memberEntity = getMemberEntityByAuthentication(authentication);
+        MemberEntity memberEntity = authenticationConverter.getMemberFromAuthentication(authentication);
 
         cartService.modifyCartLine(memberEntity.getMemberId(), modifyCartLineRequestForm);
 
         return ResponseEntity.ok().build();
     }
 
-    // 현재 로그인한 유저 조회
-    private MemberEntity getMemberEntityByAuthentication(Authentication authentication) {
-        return memberRepository.findFirstByAuthId(authentication.getName()).get();
+    @DeleteMapping("/carts")
+    @ResponseBody
+    public ResponseEntity deleteCartLine(@RequestParam("itemId") Long itemId,
+                                         Authentication authentication) {
+        MemberEntity member = authenticationConverter.getMemberFromAuthentication(authentication);
+        cartService.removeItem(member.getMemberId(), itemId);
+        return ResponseEntity.ok().build();
     }
 }
