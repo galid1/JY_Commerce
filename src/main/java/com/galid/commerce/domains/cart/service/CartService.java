@@ -18,6 +18,10 @@ public class CartService {
     private final CartRepository cartRepository;
     private final ItemRepository itemRepository;
 
+    public CartEntity createCart(Long memberId) {
+        return cartRepository.save(new CartEntity(memberId));
+    }
+
     @Transactional(readOnly = true)
     public Map<Long, Integer> getCart(Long memberId) {
         return cartRepository.findFirstByMemberId(memberId)
@@ -26,22 +30,18 @@ public class CartService {
     }
 
     public void addToCart(Long memberId, AddToCartRequestForm addToCartRequestForm) {
-        Optional<CartEntity> findCart = cartRepository.findFirstByMemberId(memberId);
+        CartEntity cart = cartRepository.findFirstByMemberId(memberId)
+                .get();
 
-        if (findCart.isPresent())
-            findCart.get().addToCart(addToCartRequestForm.getItemId(), addToCartRequestForm.getOrderCount());
-        else {
-            CartEntity cart = createCart(memberId);
-            cart.addToCart(addToCartRequestForm.getItemId(), addToCartRequestForm.getOrderCount());
-        }
-    }
-
-    private CartEntity createCart(Long memberId) {
-        return cartRepository.save(new CartEntity(memberId));
+        cart.addToCart(addToCartRequestForm.getItemId(),
+                       addToCartRequestForm.getOrderCount());
     }
 
     public void removeItem(Long memberId, Long itemId) {
+        CartEntity cart = cartRepository.findFirstByMemberId(memberId)
+                .get();
 
+        cart.removeCartLine(itemId);
     }
 
     public void modifyCartLine(Long memberId, ModifyCartLineRequestForm modifyCartLineRequestForm) {
