@@ -5,11 +5,14 @@
 <body>
     <nav style="left: 0; right: 0; top: 0;"
          th:fragment="head" class="navbar navbar-expand-md navbar-dark bg-dark">
-        <a class="navbar-brand" href="#">My Commerce</a>
+        <a class="navbar-brand" th:href="@{/main}">My Commerce</a>
 
         <div th:if="${session.login} eq true">
             <a th:href="@{/logout}">
                 로그아웃
+            </a>
+            <a th:href="@{/carts}">
+                장바구니
             </a>
         </div>
         <div th:if="${session.login} eq null">
