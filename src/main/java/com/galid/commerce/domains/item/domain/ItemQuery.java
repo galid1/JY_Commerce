@@ -2,6 +2,9 @@ package com.galid.commerce.domains.item.domain;
 
 import com.galid.commerce.domains.item.service.ItemSearchForm;
 import com.galid.commerce.domains.item.presentation.Sorter;
+import com.galid.commerce.domains.item.service.ItemSummaryInItemList;
+import com.galid.commerce.domains.item.service.QItemSummaryInItemList;
+import com.galid.commerce.domains.order.service.OrderItemListInOrder;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Predicate;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -21,9 +24,10 @@ public class ItemQuery {
         this.query = new JPAQueryFactory(entityManager);
     }
 
-    public List<ItemEntity> searchItem(ItemSearchForm searchForm)  {
+    public List<ItemSummaryInItemList> searchItem(ItemSearchForm searchForm)  {
         return query
-                .selectFrom(itemEntity)
+                .select(new QItemSummaryInItemList(itemEntity.itemId, itemEntity.imagePath, itemEntity.name, itemEntity.price))
+                .from(itemEntity)
                 .where(nameLike(searchForm.getName()))
                 .orderBy(sorter(searchForm.getSorter()))
                 .fetch();
@@ -39,14 +43,13 @@ public class ItemQuery {
         if (sorter == null)
             return itemEntity.createdDate.desc();
 
-        switch (sorter) {
-            case PRICE:
-                return itemEntity.price.desc();
-            case LATEST:
-                return itemEntity.createdDate.desc();
-            default:
-                return itemEntity.createdDate.desc();
-        }
+        if (sorter == Sorter.PRICE)
+            return itemEntity.price.desc();
+
+        if (sorter == Sorter.LATEST)
+            return itemEntity.createdDate.desc();
+
+        return itemEntity.createdDate.desc();
     }
 
     public List<ItemEntity> findItemsByIds(List<Long> ids) {
