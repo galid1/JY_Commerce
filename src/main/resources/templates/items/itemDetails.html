@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="fragments/configHeader"/>
+<body>
+<div th:replace="fragments/head"/>
+
+<div class="container">
+    <div class="itemContainer">
+        <div class="imageContainer">
+            <img class="itemImage" th:src="@{${item.imagePath}}" alt="">
+        </div>
+        <div class="informationContainer">
+            <div class="itemNameContainer">
+                <h2 class="itemName" th:text="${item.name}"></h2>
+            </div>
+            <div class="itemPriceContainer">
+                <h2 class="itemPrice" th:text="${item.price} + ' 원'"></h2>
+            </div>
+            <div class="orderContainer">
+                <form>
+                    <div class="form-group">
+                        <input id="itemIdInput" type="text" th:name="itemId" th:value="${item.itemId}"
+                               style="display: none;">
+                        <input id="orderCountInput" type="number" min="1" th:max="${item.stockQuantity}"
+                               th:name="orderCount" th:value="1">
+                        <button th:formmethod="post" th:formaction="@{/carts}" id="addToCartBtn" class="btn btn-light">
+                            장바구니
+                        </button>
+                    </div>
+                </form>
+                <div class="form-group">
+                    <button id="orderBtn" class="btn btn-primary">
+                        바로구매
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
+
+<style>
+    .container {
+
+    }
+
+    .itemContainer {
+        height: 50vh;
+        margin-top: 5vh;
+        border: solid 1px #CECECE;
+        display: flex;
+        align-items: center;
+    }
+
+    .imageContainer {
+        flex: 1;
+        height: 90%;
+        display: flex;
+        justify-content: center;
+    }
+
+    .itemImage {
+        height: 100%;
+        object-fit: contain;
+    }
+
+    .informationContainer {
+        flex: 1;
+        max-width: 50%;
+        height: 90%;
+    }
+
+    .itemNameContainer {
+        max-width: 90%;
+        border-bottom: 1px solid #CCC;
+    }
+
+    .itemName {
+        overflow: auto;
+        text-overflow: ellipsis;
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+    .itemPriceContainer {
+        padding: 12px 0px;
+    }
+
+    .itemPrice {
+        font-size: 18px;
+        font-weight: bold;
+        color: #AE0000;
+    }
+
+    .orderContainer {
+        display: flex;
+    }
+
+    .addToCartAlertBox {
+        width: 100px;
+        height: 100px;
+        background-color: orangered;
+    }
+</style>
+
+<script>
+  $(function () {
+    // 가격에 ,(comma) 부여 ====================
+    function appendComma(integer) {
+      return integer.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+    $(".itemPrice").text(appendComma($(".itemPrice").text()));
+
+    // 바로 구매 ====================
+    function getCartInputList() {
+      let itemId = $("#itemIdInput").val();
+      let orderCount = $("#orderCountInput").val();
+      return "<input type='text' name='" + itemId + "' value='" + orderCount + "'>"
+    }
+
+    $("#orderBtn").on("click", function() {
+        let form = $("<form action='/orders' method='post'>" +
+                        getCartInputList() +
+                    "</form> ");
+        $("body").append(form);
+        form.submit();
+    });
+
+  });
+</script>
