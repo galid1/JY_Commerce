@@ -15,7 +15,6 @@ import java.util.List;
 
 import static com.galid.commerce.domains.item.domain.QItemEntity.itemEntity;
 
-
 @Repository
 public class ItemQuery {
     private JPAQueryFactory query;

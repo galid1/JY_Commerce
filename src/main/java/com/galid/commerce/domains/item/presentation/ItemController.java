@@ -5,6 +5,7 @@ import com.galid.commerce.domains.item.domain.ItemQuery;
 import com.galid.commerce.domains.item.service.AddBookForm;
 import com.galid.commerce.domains.item.service.ItemSearchForm;
 import com.galid.commerce.domains.item.service.ItemService;
+import com.galid.commerce.domains.item.service.ItemSummaryInItemList;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -44,7 +45,7 @@ public class ItemController {
             model.addAttribute("itemSearchForm", searchForm);
 
         // 아이템 리스트
-        List<ItemEntity> items = itemQuery.searchItem(searchForm);
+        List<ItemSummaryInItemList> items = itemQuery.searchItem(searchForm);
         model.addAttribute("items", items);
 
         return "items/itemList";
