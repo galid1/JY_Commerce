@@ -10,47 +10,55 @@
     <div class="cartContainer">
         <table class="table">
             <thead>
-                <th><input type="checkbox"></th>
-                <th>이미지</th>
-                <th>상품정보</th>
-                <th>상품금액</th>
-                <th>수량</th>
-                <th>총 금액</th>
+            <th><input type="checkbox"></th>
+            <th>이미지</th>
+            <th>상품정보</th>
+            <th>상품금액</th>
+            <th>수량</th>
+            <th>총 금액</th>
             </thead>
             <tbody th:each="cartLine: ${cartLineList}">
-                <tr>
-                    <td class="checkBoxTd">
-                        <input type="checkbox" class="checkBox">
-                    </td>
-                    <td class="itemImageTd">
-                        <a th:href="@{/items/{itemId}(itemId=${cartLine.getItemId()})}">
-                            <img class="itemImage" src="/images/items/book.png" alt="">
-                        </a>
-                    </td>
-                    <td class="itemInfoTd">
-                        <a th:href="@{/items/{itemId}(itemId=${cartLine.getItemId()})}">
-                            <span th:text="${cartLine.getItemName()}"></span>
-                        </a>
-                    </td>
-                    <td class="itemPriceTd">
-                        <span th:text="${cartLine.getItemPrice()}"></span>
-                    </td>
-                    <td class="orderCountTd">
-                        <!-- itemId를 가져오기 위한 필드 -->
-                        <input class="itemId" type="text" style="display: none;" th:value="${cartLine.getItemId()}" th:name="itemId">
-                        <input class="orderCount" type="number" th:value="${cartLine.getOrderCount()}" th:min="1" th:name="orderCount" >
-                        <button class="btn btn-light orderCountModifyBtn">변경</button>
-                    </td>
-                    <td class="totalPriceTd">
-                        <span th:text="${cartLine.getItemPrice()} * ${cartLine.getOrderCount()}"></span>
-                    </td>
-                </tr>
+            <tr>
+                <td class="checkBoxTd">
+                    <input type="checkbox" class="checkBox">
+                </td>
+                <td class="itemImageTd">
+                    <a th:href="@{/items/{itemId}(itemId=${cartLine.getItemId()})}">
+                        <img class="itemImage" th:src="@{${cartLine.itemImagePath}}" alt="">
+                    </a>
+                </td>
+                <td class="itemInfoTd">
+                    <a th:href="@{/items/{itemId}(itemId=${cartLine.getItemId()})}">
+                        <span th:text="${cartLine.getItemName()}"></span>
+                    </a>
+                </td>
+                <td class="itemPriceTd">
+                    <span th:text="${#numbers.formatInteger(cartLine.itemPrice, 3, 'COMMA')}"></span>
+                </td>
+                <td class="orderCountTd">
+                    <!-- itemId를 가져오기 위한 필드 -->
+                    <input class="itemId" type="text" style="display: none;" th:value="${cartLine.getItemId()}"
+                           th:name="itemId">
+                    <input class="orderCount" type="number" th:value="${cartLine.getOrderCount()}" th:min="1"
+                           th:name="orderCount">
+                    <button class="btn btn-light orderCountModifyBtn">
+                        변경
+                    </button>
+                    <button type="button" class="close removeCartItemBtn" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </td>
+                <td class="totalPriceTd">
+                    <span
+                        th:text="${#numbers.formatInteger(cartLine.itemPrice * cartLine.orderCount, 3, 'COMMA')}"></span>
+                </td>
+            </tr>
             </tbody>
         </table>
     </div>
 
     <div>
-        <button class="btn btn-primary">구매하기</button>
+        <button id="orderBtn" class="btn btn-primary">구매하기</button>
     </div>
 </div>
 </body>
@@ -89,7 +97,7 @@
     }
 
     .orderCountTd {
-        max-width: 40px;
+        max-width: 65px;
         max-height: 100px;
     }
 
@@ -104,9 +112,9 @@
 </style>
 
 <script>
-  // 장바구니 수량변경
-  $(function() {
-    $(".orderCountModifyBtn").on("click", function() {
+  $(function () {
+    // 장바구니 수량변경 ====================
+    $(".orderCountModifyBtn").on("click", function () {
       let itemId = $(this).parent().find(".itemId").val();
       let newOrderCount = $(this).parent().find(".orderCount").val();
 
@@ -120,11 +128,51 @@
         processData: false,
         contentType: false,
         type: 'PUT',
-        success: function(data){
-          location.href = "/carts";
+        success: function (data) {
+          location.reload();
         }
       });
     })
+
+    // 장바구니 삭제 요청 ====================
+    $(".removeCartItemBtn").on("click", function () {
+      let itemId = $(this).parent().find(".itemId").val();
+      console.log("삭제 요청 @@@");
+
+      $.ajax({
+        url: `/carts?itemId=${itemId}`,
+        type: 'DELETE',
+        success: function (data) {
+          location.reload();
+        }
+      });
+    })
+
+    // 주문 요청 폼생성 ====================
+    // 선택된 input dom을 만들어 반환
+    function getCartInputList() {
+      let trList = $("tr");
+      let cartInputList = "";
+
+      for (let i = 1; i < trList.length; i++) {
+        let itemId = $(trList[i]).find(".orderCountTd .itemId").val();
+        let orderCount = $(trList[i]).find(".orderCountTd .orderCount").val();
+        cartInputList += "<input type='text' name='" + itemId + "' value='" + orderCount + "'>";
+      }
+
+      return cartInputList;
+    }
+
+    // form 생성
+    $("#orderBtn").on("click", function () {
+      let form = $("<form action='/orders' method='post'>" +
+        getCartInputList() +
+        "</form> ");
+      $("body").append(form);
+
+      form.submit();
+    });
+
   });
 
 
