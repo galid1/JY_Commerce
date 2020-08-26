@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="fragments/configHeader"/>
+<body>
+<div th:replace="fragments/head"/>
+
+<div class="container">
+    <h2>주문/결제</h2>
+
+    <!-- 주문자 정보 -->
+    <div class="componentContainer">
+        <div class="componentHeaderContainer">
+            <h5>구매자정보</h5>
+        </div>
+        <div class="component">
+            <table class="table table-bordered">
+                <tbody>
+                <tr>
+                    <th scope="row">이름</th>
+                    <td th:text="${ordererInfo.name}"></td>
+                </tr>
+                <tr>
+                    <th scope="row">연락처</th>
+                    <td th:text="${ordererInfo.phone}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- 받는 사람 정보 -->
+    <div class="componentContainer">
+        <div class="componentHeaderContainer">
+            <h5>받는사람정보</h5>
+            <button class="btn btn-light">배송지변경</button>
+        </div>
+        <div class="component">
+            <table class="table table-bordered">
+                <tbody>
+                <tr>
+                    <th scope="row">이름</th>
+                    <td>JJY</td>
+                </tr>
+                <tr>
+                    <th scope="row">배송주소</th>
+                    <td>abc@gmail.com</td>
+                </tr>
+                <tr>
+                    <th scope="row">연락처</th>
+                    <td>010-xxxx-xxxx</td>
+                </tr>
+                <tr>
+                    <th scope="row">배송요청사항</th>
+                    <td>하이</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- 주문상품 정보 -->
+    <div class="componentContainer">
+        <div class="componentHeaderContainer">
+            <h5>주문상품정보</h5>
+        </div>
+        <div class="component">
+            <table class="table">
+                <tbody>
+                <tr class="orderItemListTr" th:each="item : ${orderItemList.orderItemList}">
+                    <td class="itemIdTd" style="display: none;" th:text="${item.itemId}"></td>
+                    <td style="max-width: 500px; min-width: 450px; padding-left: 15px;" th:text="${item.name}"></td>
+                    <td class="orderCountTd" style="max-width: 50px; min-width: 50px;" th:text="${item.orderCount}"></td>
+                    <td style="max-width: 100px; min-width: 100px;" th:text="${#numbers.formatInteger(item.totalAmount, 3, 'COMMA')} +
+                                                                                '(' + ${#numbers.formatInteger(item.price, 3, 'COMMA')} + ')'"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- 결제 -->
+    <div class="componentContainer">
+        <div class="componentHeaderContainer">
+            <h5>결제정보</h5>
+        </div>
+        <div class="component">
+            <table class="table table-bordered">
+                <tbody>
+                <tr>
+                    <th scope="row">총상품가격</th>
+                    <td th:text="${#numbers.formatInteger(orderItemList.totalAmount, 3, 'COMMA')} + ' 원'"></td>
+                </tr>
+                <tr>
+                    <th scope="row">배송비</th>
+                    <td>2,500 원</td>
+                </tr>
+                <tr>
+                    <th scope="row">총결제금액</th>
+                    <td th:text="${#numbers.formatInteger(orderItemList.totalAmount + 2500, 3, 'COMMA')} + ' 원'"></td>
+                </tr>
+                <tr>
+                    <th scope="row">결제방법</th>
+                    <td>하이</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="payButtonContainer">
+        <div id="payBtn">
+            <span>결제하기</span>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>
+
+<style>
+    h2, h5 {
+        font-weight: bold;
+    }
+
+    .table {
+        margin-bottom: 0px;
+        border-right: none;
+        border-left: none;
+    }
+
+    .table th {
+        width: 15%;
+        background-color: #F4F4F4;
+        font-size: 12px;
+        padding: 10px;
+        padding-right: 15px;
+        text-align: right;
+    }
+
+    .table td {
+        font-size: 12px;
+        padding: 10px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .componentContainer {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .component {
+        border-top: 2px solid #CECECE;
+        border-bottom: 1px solid #CECECE;
+    }
+
+    .componentHeaderContainer {
+        margin-top: 30px;
+        display: flex;
+    }
+
+    .payButtonContainer {
+        margin-top: 50px;
+        display: flex;
+        justify-content: center;
+    }
+
+    #payBtn {
+        width: 30%;
+        height: 7vh;
+        border-radius: 5px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #007BFF;
+        color: white;
+        font-size: 20px;
+        font-weight: bold;
+        margin-bottom: 5vh;
+    }
+
+    #payBtn:hover {
+        cursor: pointer;
+    }
+</style>
+
+<script>
+    $(function() {
+      // 주문 요청 폼생성 ====================
+      // 선택된 input dom을 만들어 반환
+      function getCartInputList() {
+        let trList = $(".orderItemListTr");
+        let orderInputList = "";
+
+        // 테이블의 형태에 따라서 시작 인덱스(i)의 값이 유동적
+        for (let i = 0; i < trList.length; i++) {
+          let itemId = $(trList[i]).find(".itemIdTd").text();
+          let orderCount = $(trList[i]).find(".orderCountTd").text();
+          orderInputList += "<input type='text' name='itemIdAndOrderCountMap[" + itemId + "]' value='" + orderCount + "'>";
+        }
+
+        return orderInputList;
+      }
+
+      // form 생성
+      $("#payBtn").on("click", function () {
+        let form = $("<form action='/orders/confirm' method='post'>" +
+          getCartInputList() +
+          "</form> ");
+        $("body").append(form);
+
+        form.submit();
+      });
+    });
+</script>
