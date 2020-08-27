@@ -1,11 +1,12 @@
 package com.galid.commerce.domains.cart.domain;
 
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Entity
@@ -16,46 +17,44 @@ public class CartEntity {
     @Id @GeneratedValue
     private Long cartId;
 
+    // Member를 참조하는 외래키 역할
     private Long memberId;
 
-    // key : itemId
-    // value : orderCount
+    // Map을 이용하므로써 @ElementCollection의 단점을 보완
+    // itemId를 키로 사용
+    // 1. 수정시, 모든 로우를 삭제 후, 수정된 로우를 추가하는 문제
+    // 2. 삭제시, 모든 로우를 삭제 후, 삭제 대상을 제외한 모든 로우를 다시 입력하는 문제
     @ElementCollection
-    @JoinTable(name="cart_item", joinColumns=@JoinColumn(name="cart_id"))
-    @MapKeyColumn (name="item_id")
-    @Column(name="order_count")
-    private Map<Long, Integer> cart = new HashMap<>();
+    @CollectionTable(
+            name = "cart_line",
+            joinColumns = @JoinColumn(name = "cart_id")
+    )
+    private Map<Long, CartLine> cart = new HashMap<>();
 
     public CartEntity(Long memberId) {
         this.memberId = memberId;
     }
 
-    public void addToCart(Long itemId, Integer orderCount) {
-        if (isInCart(itemId)) {
-            Integer beforeOrderCount = cart.get(itemId);
-            cart.put(itemId, beforeOrderCount + orderCount);
+    public void addItemToCart(CartLine cartLine) {
+        Long mapKey = cartLine.getItemId();
+
+        // 기존 아이템이 존재한다면 수량을 더함
+        if (cart.containsKey(mapKey)) {
+            CartLine existCartLine = cart.get(cartLine.getItemId());
+            int newOrderCount = existCartLine.getOrderCount() + cartLine.getOrderCount();
+            cart.replace(mapKey, new CartLine(cartLine.getItemId(), newOrderCount));
         }
         else {
-            cart.put(itemId, orderCount);
+            cart.put(mapKey, cartLine);
         }
     }
 
-    public void modifyOrderCount(Long itemId, Integer orderCount) {
-        if (!isInCart(itemId))
-            throw new IllegalArgumentException("수정하려는 아이템이 카트에 존재하지 않습니다.");
-
-        cart.put(itemId, orderCount);
+    public void modifyOrderCount(CartLine newCartLine) {
+        this.cart.replace(newCartLine.getItemId(), newCartLine);
     }
 
-    private boolean isInCart(Long itemId) {
-        return cart.containsKey(itemId);
+    public void removeCartLine(Long cartItemId) {
+        this.cart.remove(cartItemId);
     }
 
-    public void removeAll() {
-        cart.clear();
-    }
-
-    public void removeCartLine(Long itemId) {
-        cart.remove(itemId);
-    }
 }
