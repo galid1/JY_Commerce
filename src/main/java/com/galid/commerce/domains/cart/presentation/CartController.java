@@ -1,9 +1,9 @@
 package com.galid.commerce.domains.cart.presentation;
 
 import com.galid.commerce.domains.cart.service.AddToCartRequestForm;
+import com.galid.commerce.domains.cart.service.CartLineForm;
 import com.galid.commerce.domains.cart.service.CartService;
 import com.galid.commerce.domains.cart.service.ModifyCartLineRequestForm;
-import com.galid.commerce.domains.item.domain.ItemEntity;
 import com.galid.commerce.domains.item.domain.ItemRepository;
 import com.galid.commerce.domains.member.domain.MemberEntity;
 import com.galid.commerce.domains.member.domain.MemberRepository;
@@ -16,8 +16,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 @Controller
 @RequiredArgsConstructor
@@ -30,35 +28,21 @@ public class CartController {
     @GetMapping("/carts")
     public String getCartPage(Authentication authentication,
                               Model model) {
-        MemberEntity memberEntity = authenticationConverter.getMemberFromAuthentication(authentication);
-        List<CartLineForm> cartLineFormList = toCartLineFormList(cartService.getCart(memberEntity.getMemberId()));
+        Long memberId = authenticationConverter.getMemberFromAuthentication(authentication)
+                .getMemberId();
+        List<CartLineForm> cartLineFormsInCartPage = cartService.getCartInCartPage(memberId);
 
-        model.addAttribute("cartLineList", cartLineFormList);
+        model.addAttribute("cartLineList", cartLineFormsInCartPage);
 
         return "carts/cart";
     }
 
-    private List<CartLineForm> toCartLineFormList(Map<Long, Integer> cart) {
-        return cart.entrySet()
-                .stream()
-                .map(entry -> {
-                    ItemEntity itemEntity = itemRepository.findById(entry.getKey()).get();
-
-                    return new CartLineForm(itemEntity.getItemId(),
-                            itemEntity.getImagePath(),
-                            itemEntity.getName(),
-                            itemEntity.getPrice(),
-                            entry.getValue());
-                })
-                .collect(Collectors.toList());
-    }
-
     @PostMapping("/carts")
-    public String addToCart(@ModelAttribute AddToCartRequestForm addToCartRequestForm,
+    public String addItemToCart(@ModelAttribute AddToCartRequestForm addToCartRequestForm,
                             Authentication authentication) {
         MemberEntity memberEntity = authenticationConverter.getMemberFromAuthentication(authentication);
 
-        cartService.addToCart(memberEntity.getMemberId(), addToCartRequestForm);
+        cartService.addItemToCart(memberEntity.getMemberId(), addToCartRequestForm);
 
         return "redirect:/carts";
     }
@@ -79,7 +63,7 @@ public class CartController {
     public ResponseEntity deleteCartLine(@RequestParam("itemId") Long itemId,
                                          Authentication authentication) {
         MemberEntity member = authenticationConverter.getMemberFromAuthentication(authentication);
-        cartService.removeItem(member.getMemberId(), itemId);
+        cartService.removeCartLine(member.getMemberId(), itemId);
         return ResponseEntity.ok().build();
     }
 }
