@@ -26,8 +26,7 @@ public class CartEntity {
     // 2. 삭제시, 모든 로우를 삭제 후, 삭제 대상을 제외한 모든 로우를 다시 입력하는 문제
     @ElementCollection
     @CollectionTable(
-            name = "cart_line",
-            joinColumns = @JoinColumn(name = "cart_id")
+            name = "cart_line"
     )
     private Map<Long, CartLine> cart = new HashMap<>();
 
@@ -42,7 +41,7 @@ public class CartEntity {
         if (cart.containsKey(mapKey)) {
             CartLine existCartLine = cart.get(cartLine.getItemId());
             int newOrderCount = existCartLine.getOrderCount() + cartLine.getOrderCount();
-            cart.replace(mapKey, new CartLine(cartLine.getItemId(), newOrderCount));
+            cart.replace(mapKey, new CartLine(cartId, cartLine.getItemId(), newOrderCount));
         }
         else {
             cart.put(mapKey, cartLine);
