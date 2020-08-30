@@ -16,13 +16,17 @@
             <div class="itemPriceContainer">
                 <h2 class="itemPrice" th:text="${item.price} + ' 원'"></h2>
             </div>
-            <div class="orderContainer">
-                <form>
+
+            <div th:if="${item.stockQuantity &lt; 1}" class="soldOutContainer">
+                <i class="fas fa-ban" style="color: #CCC;"></i> 품절
+            </div>
+            <div th:unless="${item.stockQuantity &lt; 1}" class="orderContainer">
+                <form th:onsubmit="return validateOrderCount()">
                     <div class="form-group">
                         <input id="itemIdInput" type="text" th:name="itemId" th:value="${item.itemId}"
                                style="display: none;">
-                        <input id="orderCountInput" type="number" min="1" th:max="${item.stockQuantity}"
-                               th:name="orderCount" th:value="1">
+                        <input id="orderCountInput" type="number" th:value="1" th:min="1" th:max="${item.stockQuantity}"
+                               th:name="orderCount">
                         <button th:formmethod="post" th:formaction="@{/carts}" id="addToCartBtn" class="btn btn-light">
                             장바구니
                         </button>
@@ -94,19 +98,33 @@
         color: #AE0000;
     }
 
+    .soldOutContainer {
+        color: #CCC;
+    }
+
     .orderContainer {
         display: flex;
     }
 
-    .addToCartAlertBox {
-        width: 100px;
-        height: 100px;
-        background-color: orangered;
+    .orderCountError {
+        font-size: 10px;
+        color: orangered;
     }
+
 </style>
 
 <script>
-  $(function () {
+  function validateOrderCount() {
+    let orderCount = parseInt(document.getElementById("orderCountInput").value);
+
+    if(orderCount <= 0) {
+        alert("주문 수량은 1개 이상이어야 합니다.");
+        return false;
+    }
+    return true;
+  }
+
+ $(function () {
     // 가격에 ,(comma) 부여 ====================
     function appendComma(integer) {
       return integer.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
