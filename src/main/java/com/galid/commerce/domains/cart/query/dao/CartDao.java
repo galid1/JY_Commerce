@@ -1,9 +1,9 @@
 package com.galid.commerce.domains.cart.query.dao;
 
-import com.galid.commerce.domains.cart.service.CartLineForm;
+import com.galid.commerce.domains.cart.query.dto.CartLine;
 
 import java.util.List;
 
 public interface CartDao {
-    List<CartLineForm> getCartLineListInCartPage(Long memberId);
+    List<CartLine> getCartLineListInCartPage(Long memberId);
 }

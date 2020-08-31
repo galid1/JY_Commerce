@@ -1,9 +1,8 @@
 package com.galid.commerce.domains.cart.infra;
 
 import com.galid.commerce.domains.cart.query.dao.CartDao;
-import com.galid.commerce.domains.cart.service.CartLineForm;
+import com.galid.commerce.domains.cart.query.dto.CartLine;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -20,9 +19,9 @@ public class JpaCartDao implements CartDao {
     }
 
     @Override
-    public List<CartLineForm> getCartLineListInCartPage(Long memberId) {
-        List<CartLineForm> cartLineFormList = em
-                .createQuery("select new com.galid.commerce.domains.cart.service.CartLineForm(i.itemId, i.imagePath, i.name, i.price, cl.orderCount)" +
+    public List<CartLine> getCartLineListInCartPage(Long memberId) {
+        List<CartLine> cartLineList = em
+                .createQuery("select new com.galid.commerce.domains.cart.service.CartLine(i.itemId, i.imagePath, i.name, i.price, cl.orderCount)" +
                         " from CartEntity c" +
                         " join c.cart cl" +
                         " on c.cartId = cl.cartId" +
@@ -30,10 +29,10 @@ public class JpaCartDao implements CartDao {
                         " on c.memberId = m.memberId" +
                         " join ItemEntity i" +
                         " on cl.itemId = i.itemId" +
-                        " where m.memberId = :memberId", CartLineForm.class)
+                        " where m.memberId = :memberId", CartLine.class)
                 .setParameter("memberId", memberId)
                 .getResultList();
 
-        return cartLineFormList;
+        return cartLineList;
     }
 }
