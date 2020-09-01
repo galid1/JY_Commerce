@@ -1,7 +1,7 @@
 package com.galid.commerce.domains.cart.presentation;
 
+import com.galid.commerce.domains.cart.query.dto.CartLineDto;
 import com.galid.commerce.domains.cart.service.AddToCartRequestForm;
-import com.galid.commerce.domains.cart.service.CartLineForm;
 import com.galid.commerce.domains.cart.service.CartService;
 import com.galid.commerce.domains.cart.service.ModifyCartLineRequestForm;
 import com.galid.commerce.domains.item.domain.ItemRepository;
@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -30,16 +31,16 @@ public class CartController {
                               Model model) {
         Long memberId = authenticationConverter.getMemberFromAuthentication(authentication)
                 .getMemberId();
-        List<CartLineForm> cartLineFormsInCartPage = cartService.getCartInCartPage(memberId);
+        List<CartLineDto> cartLineDtoInCartPage = cartService.getCartInCartPage(memberId);
 
-        model.addAttribute("cartLineList", cartLineFormsInCartPage);
+        model.addAttribute("cartLineList", cartLineDtoInCartPage);
 
         return "carts/cart";
     }
 
     @PostMapping("/carts")
-    public String addItemToCart(@ModelAttribute AddToCartRequestForm addToCartRequestForm,
-                            Authentication authentication) {
+    public String addItemToCart(@ModelAttribute @Valid AddToCartRequestForm addToCartRequestForm,
+                                Authentication authentication) {
         MemberEntity memberEntity = authenticationConverter.getMemberFromAuthentication(authentication);
 
         cartService.addItemToCart(memberEntity.getMemberId(), addToCartRequestForm);
