@@ -21,7 +21,7 @@ public class JpaCartDao implements CartDao {
     @Override
     public List<CartLineDto> getCartLineListInCartPage(Long memberId) {
         List<CartLineDto> cartLineDtoList = em
-                .createQuery("select new com.galid.commerce.domains.cart.query.dto.CartLineDto(i.itemId, i.imagePath, i.name, i.price, cl.orderCount)" +
+                .createQuery("select new com.galid.commerce.domains.cart.query.dto.CartLineDto(i.itemId, i.imagePath, i.name, i.price, cl.orderCount, i.stockQuantity)" +
                         " from CartEntity c" +
                         " join c.cart cl" +
                         " on c.cartId = cl.cartId" +
