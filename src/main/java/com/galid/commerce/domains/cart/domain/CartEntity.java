@@ -4,9 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @Entity
@@ -28,6 +26,7 @@ public class CartEntity {
     @CollectionTable(
             name = "cart_line"
     )
+    @MapKeyColumn(name = "map_key")
     private Map<Long, CartLine> cart = new HashMap<>();
 
     public CartEntity(Long memberId) {
@@ -48,7 +47,8 @@ public class CartEntity {
         }
     }
 
-    public void modifyOrderCount(CartLine newCartLine) {
+    public void modifyOrderCount(CheckStockQuantityService checkStockQuantityService, CartLine newCartLine) {
+        checkStockQuantityService.checkEnoughStockQuantity();
         this.cart.replace(newCartLine.getItemId(), newCartLine);
     }
 
