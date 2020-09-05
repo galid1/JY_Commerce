@@ -3,7 +3,7 @@ package com.galid.commerce.domains.cart.presentation;
 import com.galid.commerce.domains.cart.query.dto.CartLineDto;
 import com.galid.commerce.domains.cart.service.AddToCartRequestForm;
 import com.galid.commerce.domains.cart.service.CartService;
-import com.galid.commerce.domains.cart.service.ModifyCartLineRequestForm;
+import com.galid.commerce.domains.cart.service.ModifyOrderCountRequestForm;
 import com.galid.commerce.domains.item.domain.ItemRepository;
 import com.galid.commerce.domains.member.domain.MemberEntity;
 import com.galid.commerce.domains.member.domain.MemberRepository;
@@ -50,11 +50,11 @@ public class CartController {
 
     @PutMapping("/carts")
     @ResponseBody
-    public ResponseEntity modifyCartLine(@ModelAttribute ModifyCartLineRequestForm modifyCartLineRequestForm,
+    public ResponseEntity modifyCartLine(@ModelAttribute ModifyOrderCountRequestForm modifyOrderCountRequestForm,
                                          Authentication authentication) {
         MemberEntity memberEntity = authenticationConverter.getMemberFromAuthentication(authentication);
 
-        cartService.modifyCartLine(memberEntity.getMemberId(), modifyCartLineRequestForm);
+        cartService.modifyOrderCount(memberEntity.getMemberId(), modifyOrderCountRequestForm);
 
         return ResponseEntity.ok().build();
     }
