@@ -1,52 +1,60 @@
 package com.galid.commerce.domains.cart.service;
 
-import com.galid.commerce.domains.cart.domain.CartEntity;
-import com.galid.commerce.domains.cart.domain.CartRepository;
+import com.galid.commerce.domains.cart.domain.*;
+import com.galid.commerce.domains.cart.query.dao.CartDao;
+import com.galid.commerce.domains.cart.query.dto.CartLineDto;
+import com.galid.commerce.domains.item.domain.ItemEntity;
 import com.galid.commerce.domains.item.domain.ItemRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 @Transactional
 public class CartService {
     private final CartRepository cartRepository;
+    private final CartDao cartDao;
     private final ItemRepository itemRepository;
 
-    public CartEntity createCart(Long memberId) {
-        return cartRepository.save(new CartEntity(memberId));
+    public Long createCart(Long memberId) {
+        return cartRepository.save(new CartEntity(memberId))
+                .getCartId();
     }
 
-    @Transactional(readOnly = true)
-    public Map<Long, Integer> getCart(Long memberId) {
-        return cartRepository.findFirstByMemberId(memberId)
-                .get()
-                .getCart();
+    public void addItemToCart(Long memberId, AddToCartRequestForm addToCartRequestForm) {
+        CartEntity cartEntity = cartRepository.findFirstByMemberId(memberId);
+
+        CartLine newCartLine = new CartLine(cartEntity.getCartId(), addToCartRequestForm.getItemId(), addToCartRequestForm.getOrderCount());
+        cartEntity.addItemToCart(newCartLine);
     }
 
-    public void addToCart(Long memberId, AddToCartRequestForm addToCartRequestForm) {
-        CartEntity cart = cartRepository.findFirstByMemberId(memberId)
-                .get();
-
-        cart.addToCart(addToCartRequestForm.getItemId(),
-                       addToCartRequestForm.getOrderCount());
+    public List<CartLineDto> getCartInCartPage(Long memberId) {
+        return cartDao.getCartLineListInCartPage(memberId);
     }
 
-    public void removeItem(Long memberId, Long itemId) {
-        CartEntity cart = cartRepository.findFirstByMemberId(memberId)
-                .get();
+    public void modifyOrderCount(Long memberId, ModifyOrderCountRequestForm modifyOrderCountRequestForm) {
+        // 엔티티 조회
+        CartEntity cartEntity = cartRepository.findFirstByMemberId(memberId);
+        ItemEntity itemEntity = itemRepository.findById(modifyOrderCountRequestForm.getItemId()).get();
 
-        cart.removeCartLine(itemId);
+        CartLine newCartLine = new CartLine(cartEntity.getCartId(), modifyOrderCountRequestForm.getItemId(), modifyOrderCountRequestForm.getOrderCount());
+
+        CheckStockQuantityService checkStockQuantityService = new CheckStockQuantityService(newCartLine.getOrderCount(), itemEntity.getStockQuantity());
+        cartEntity.modifyOrderCount(checkStockQuantityService,newCartLine);
     }
 
-    public void modifyCartLine(Long memberId, ModifyCartLineRequestForm modifyCartLineRequestForm) {
-        CartEntity cartEntity = cartRepository.findFirstByMemberId(memberId).get();
+    public void removeCartLine(Long memberId, Long itemId) {
+        CartEntity cartEntity = cartRepository.findFirstByMemberId(memberId);
+        cartEntity.removeCartLine(itemId);
+    }
 
-        cartEntity.modifyOrderCount(modifyCartLineRequestForm.getItemId(), modifyCartLineRequestForm.getOrderCount());
+    public void removeCartLines(Long memberId, List<Long> itemIds) {
+        CartEntity cartEntity = cartRepository.findFirstByMemberId(memberId);
+
+        itemIds.stream()
+                .forEach(itemId -> cartEntity.removeCartLine(itemId));
     }
 }
