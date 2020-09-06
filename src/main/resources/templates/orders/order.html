@@ -43,7 +43,7 @@
                 </tr>
                 <tr>
                     <th scope="row">배송주소</th>
-                    <td>abc@gmail.com</td>
+                    <td th:text="${shippingInfo.getCity()}"></td>
                 </tr>
                 <tr>
                     <th scope="row">연락처</th>
@@ -192,25 +192,25 @@
       // 선택된 input dom을 만들어 반환
       function getCartInputList() {
         let trList = $(".orderItemListTr");
-        let orderInputList = "";
+        let orderLineInputList = "";
 
         // 테이블의 형태에 따라서 시작 인덱스(i)의 값이 유동적
         for (let i = 0; i < trList.length; i++) {
           let itemId = $(trList[i]).find(".itemIdTd").text();
           let orderCount = $(trList[i]).find(".orderCountTd").text();
-          orderInputList += "<input type='text' name='itemIdAndOrderCountMap[" + itemId + "]' value='" + orderCount + "'>";
+          orderLineInputList += "<input type='text' name='orderLineList[" + i + "].itemId'  value='" + itemId +"'> ";
+          orderLineInputList += "<input type='text' value='" + orderCount + "' name='orderLineList[" + i + "].orderCount'> ";
         }
 
-        return orderInputList;
+        return orderLineInputList;
       }
 
       // form 생성
       $("#payBtn").on("click", function () {
-        let form = $("<form action='/orders/confirm' method='post'>" +
+        let form = $("<form action='/orders/order' method='post'>" +
           getCartInputList() +
           "</form> ");
         $("body").append(form);
-
         form.submit();
       });
     });
