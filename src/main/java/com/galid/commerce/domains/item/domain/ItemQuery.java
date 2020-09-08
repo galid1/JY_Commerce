@@ -4,7 +4,6 @@ import com.galid.commerce.domains.item.service.ItemSearchForm;
 import com.galid.commerce.domains.item.presentation.Sorter;
 import com.galid.commerce.domains.item.service.ItemSummaryInItemList;
 import com.galid.commerce.domains.item.service.QItemSummaryInItemList;
-import com.galid.commerce.domains.order.service.OrderItemListInOrder;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Predicate;
 import com.querydsl.jpa.impl.JPAQueryFactory;
