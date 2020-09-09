@@ -23,15 +23,19 @@ public class MemberEntity extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    private String name;
+    private String phone;
     @Embedded
     private Address address;
 
 
     @Builder
-    private MemberEntity(String authId, String authPw, Address address) {
+    private MemberEntity(String authId, String authPw, String name, String phone, Address address) {
+        this.role = Role.USER;
         this.authId = authId;
         this.authPw = authPw;
-        this.role = Role.USER;
+        this.name = name;
+        this.phone = phone;
         this.address = address;
     }
 
