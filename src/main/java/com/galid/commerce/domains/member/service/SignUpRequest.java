@@ -14,6 +14,10 @@ public class SignUpRequest {
     @NotBlank
     private String password;
     @NotBlank
+    private String name;
+    @NotBlank
+    private String phone;
+    @NotBlank
     private String city;
     @NotBlank
     private String street;
