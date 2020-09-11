@@ -3,7 +3,7 @@ package com.galid.commerce.domains.item.domain;
 public class NotEnoughStockQuantityException extends RuntimeException {
 
     public NotEnoughStockQuantityException() {
-        super();
+        super("해당 상품의 재고가 부족합니다.");
     }
 
     public NotEnoughStockQuantityException(String message) {
