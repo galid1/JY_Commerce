@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="fragments/configHeader"/>
+<body>
+
+<div th:replace="fragments/head"/>
+
+<div class="container">
+    <div>
+        <h2>
+            에러
+        </h2>
+    </div>
+
+    <div>
+        <i class="fas fa-exclamation-circle" style="color=#CCC"></i>
+    </div>
+
+    <div>
+        <span th:text="${errorMessage}"></span>
+    </div>
+</div>
+
+</body>
+</html>
