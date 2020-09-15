@@ -13,6 +13,11 @@
             </div>
 
             <div class="form-group">
+                <label th:for="imagePath">상품사진</label>
+                <input type="text" th:field="*{imagePath}" class="form-control" placeholder="상품 사진">
+            </div>
+
+            <div class="form-group">
                 <label th:for="price">상품가격</label>
                 <input type="text" th:field="*{price}" class="form-control" placeholder="상품 가격">
             </div>
