@@ -1,10 +1,11 @@
 package com.galid.commerce.domains.order.presentation;
 
 import com.galid.commerce.domains.member.domain.MemberEntity;
-import com.galid.commerce.domains.order.service.OrderItemListInOrder;
+import com.galid.commerce.domains.order.query.dao.OrderDao;
+import com.galid.commerce.domains.order.query.dto.OrderSummaryDto;
+import com.galid.commerce.domains.order.query.dto.OrdererInfoDto;
 import com.galid.commerce.domains.order.service.OrderRequest;
 import com.galid.commerce.domains.order.service.OrderService;
-import com.galid.commerce.domains.order.service.OrdererInfo;
 import com.galid.commerce.infra.AuthenticationConverter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
@@ -15,34 +16,40 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequiredArgsConstructor
-@SessionAttributes
 public class OrderController {
     private final OrderService orderService;
+    private final OrderDao orderDao;
     private final AuthenticationConverter authenticationConverter;
 
     // 주문 페이지
     // 장바구니에 담긴 item id 들만을 받아옴
-    // querydsl을 이용해, 유저의 장바구니의 itemId를 이용해, 한번에 dto로 받아옴 (조인문 연습하기)
     @PostMapping("/orders")
     public String getOrderPage(Authentication authentication,
+                               @ModelAttribute OrderRequest orderRequest,
                                Model model) {
         MemberEntity memberEntity = authenticationConverter.getMemberFromAuthentication(authentication);
         model.addAttribute("shippingInfo", memberEntity.getAddress());
 
-        OrdererInfo ordererInfo = createOrdererInfo(memberEntity);
-        model.addAttribute("ordererInfo", ordererInfo);
+        OrdererInfoDto ordererInfoDto = createOrdererInfo(memberEntity);
+        model.addAttribute("ordererInfo", ordererInfoDto);
 
-        OrderItemListInOrder orderItemListInOrder = orderService.getOrderItemListInOrder(memberEntity.getMemberId());
-        model.addAttribute("orderItemList", orderItemListInOrder);
+        List<Long> orderItemIdList = orderRequest.getOrderLineList()
+                .stream()
+                .map(ol -> ol.getItemId())
+                .collect(Collectors.toList());
+        OrderSummaryDto orderSummaryDto = orderDao.getOrderSummary(memberEntity.getMemberId(), orderItemIdList);
+        model.addAttribute("orderSummary", orderSummaryDto);
 
         return "orders/order";
     }
 
-    private OrdererInfo createOrdererInfo(MemberEntity orderer) {
-        return new OrdererInfo(orderer.getMemberId(),
+    private OrdererInfoDto createOrdererInfo(MemberEntity orderer) {
+        return new OrdererInfoDto(orderer.getMemberId(),
                 orderer.getName(),
                 orderer.getPhone());
     }
