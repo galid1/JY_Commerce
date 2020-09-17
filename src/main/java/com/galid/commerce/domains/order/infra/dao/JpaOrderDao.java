@@ -21,7 +21,7 @@ public class JpaOrderDao implements OrderDao {
     }
 
     @Override
-    public OrderSummaryDto getOrderSummary(Long memberId) {
+    public OrderSummaryDto getOrderSummaryInCart(Long memberId, List<Long> itemIdList) {
         List<OrderItemDto> orderItemList = em.createQuery("select new com.galid.commerce.domains.order.query.dto.OrderItemDto(i.itemId, i.name, i.price, cl.orderCount)" +
                 " from CartEntity c" +
                 " join c.cart cl" +
@@ -30,8 +30,10 @@ public class JpaOrderDao implements OrderDao {
                 " on c.memberId = m.memberId" +
                 " join ItemEntity i" +
                 " on cl.itemId = i.itemId" +
-                " where m.memberId = :memberId", OrderItemDto.class)
+                " where m.memberId = :memberId" +
+                " and cl.itemId in :cartItemList", OrderItemDto.class)
                 .setParameter("memberId", memberId)
+                .setParameter("cartItemList", itemIdList)
                 .getResultList();
 
         return new OrderSummaryDto(orderItemList);
