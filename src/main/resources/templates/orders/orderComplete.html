@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="fragments/configHeader"/>
+<body>
+<div th:replace="fragments/head"/>
+
+<div class="container">
+    <h2>주문완료</h2>
+    <div class="component">
+        <div class="messageContainer">
+            <div class="completeMessageContainer">
+                <span style="color: #007BFF">주문이 완료</span>
+                <span>되었습니다. 감사합니다!</span>
+            </div>
+            <div class="completeOrderInfoContainer">
+                <div class="orderDateContainer">
+                    <span>주문일</span>
+                    <span th:text="${orderDate}"></span>
+                </div>
+                <div class="orderIdContainer">
+                    <span>주문번호</span>
+                    <a th:href="@{/my/orders/{orderId}(orderId=${orderId})}">
+                        <span th:text="${orderId}"></span>
+                    </a>
+                </div>
+            </div>
+            <div class="continueShoppingBtnContainer">
+                <a th:href="@{/items}">
+                    <div class="btn btn-primary" id="continueShoppingBtn">계속 쇼핑하기 ></div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
+
+<style>
+    .component {
+        border-top: 2px solid #CECECE;
+        border-bottom: 1px solid #CECECE;
+    }
+
+    .messageContainer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .messageContainer div {
+        margin-top: 15px;
+    }
+
+    .completeMessageContainer {
+        font-size: 30px;
+    }
+
+    .completeOrderInfoContainer {
+        max-width: 40%;
+        min-width: 40%;
+        display: flex;
+        justify-content: space-around;
+    }
+
+    .completeOrderInfoContainer div {
+        margin-top: 0px;
+    }
+
+    #continueShoppingBtn {
+        margin-bottom: 15px;
+    }
+</style>
