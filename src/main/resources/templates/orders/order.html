@@ -66,7 +66,7 @@
         <div class="component">
             <table class="table">
                 <tbody>
-                <tr class="orderItemListTr" th:each="item : ${orderItemList.orderItemList}">
+                <tr class="orderItemListTr" th:each="item : ${orderSummary.orderItemList}">
                     <td class="itemIdTd" style="display: none;" th:text="${item.itemId}"></td>
                     <td style="max-width: 500px; min-width: 450px; padding-left: 15px;" th:text="${item.name}"></td>
                     <td class="orderCountTd" style="max-width: 50px; min-width: 50px;" th:text="${item.orderCount}"></td>
@@ -88,7 +88,7 @@
                 <tbody>
                 <tr>
                     <th scope="row">총상품가격</th>
-                    <td th:text="${#numbers.formatInteger(orderItemList.totalAmount, 3, 'COMMA')} + ' 원'"></td>
+                    <td th:text="${#numbers.formatInteger(orderSummary.totalAmount, 3, 'COMMA')} + ' 원'"></td>
                 </tr>
                 <tr>
                     <th scope="row">배송비</th>
@@ -96,7 +96,7 @@
                 </tr>
                 <tr>
                     <th scope="row">총결제금액</th>
-                    <td th:text="${#numbers.formatInteger(orderItemList.totalAmount + 2500, 3, 'COMMA')} + ' 원'"></td>
+                    <td th:text="${#numbers.formatInteger(orderSummary.totalAmount + 2500, 3, 'COMMA')} + ' 원'"></td>
                 </tr>
                 <tr>
                     <th scope="row">결제방법</th>
