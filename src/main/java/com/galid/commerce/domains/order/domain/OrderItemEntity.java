@@ -16,7 +16,7 @@ import javax.persistence.*;
 public class OrderItemEntity extends BaseEntity {
     @Id @GeneratedValue
     private Long orderItemId;
-    private int orderQuantity;
+    private int orderCount;
     private int orderItemAmount;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -24,23 +24,23 @@ public class OrderItemEntity extends BaseEntity {
     private ItemEntity item;
 
     @Builder
-    public OrderItemEntity(ItemEntity item, int orderQuantity) {
-        this.order(item, orderQuantity);
-        this.orderQuantity = orderQuantity;
-        this.calculateOrderItemTotalAmount();
+    public OrderItemEntity(ItemEntity item, int orderCount) {
+        this.order(item, orderCount);
+        this.orderCount = orderCount;
+        this.calculateOrderItemAmount();
     }
 
-    private void order(ItemEntity item, int orderQuantity) {
-        item.removeStockQuantity(orderQuantity);
+    private void order(ItemEntity item, int orderCount) {
+        item.removeStockQuantity(orderCount);
         this.item = item;
     }
 
-    private void calculateOrderItemTotalAmount() {
-        this.orderItemAmount = this.item.getPrice() * orderQuantity;
+    private void calculateOrderItemAmount() {
+        this.orderItemAmount = this.item.getPrice() * orderCount;
     }
 
     // ==== 비즈니스 로직 ====
     public void cancel() {
-        this.item.addStockQuantity(this.orderQuantity);
+        this.item.addStockQuantity(this.orderCount);
     }
 }
