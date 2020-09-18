@@ -172,6 +172,10 @@
         }
       }
 
+      if (cartInputList.length == 0) {
+        throw alert("한 개 이상의 품목을 선택하세요.");
+      }
+
       return cartInputList;
     }
 
