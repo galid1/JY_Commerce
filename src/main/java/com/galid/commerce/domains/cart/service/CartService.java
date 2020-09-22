@@ -17,7 +17,7 @@ import java.util.List;
 public class CartService {
     private final CartRepository cartRepository;
     private final CartDao cartDao;
-    private final ItemRepository itemRepository;
+    private final CheckStockQuantityService checkStockQuantityService;
 
     public Long createCart(Long memberId) {
         return cartRepository.save(new CartEntity(memberId))
@@ -27,7 +27,9 @@ public class CartService {
     public void addItemToCart(Long memberId, AddToCartRequestForm addToCartRequestForm) {
         CartEntity cartEntity = cartRepository.findFirstByMemberId(memberId);
 
-        CartLine newCartLine = new CartLine(cartEntity.getCartId(), addToCartRequestForm.getItemId(), addToCartRequestForm.getOrderCount());
+        CartLine newCartLine = new CartLine(cartEntity.getCartId(),
+                addToCartRequestForm.getItemId(),
+                addToCartRequestForm.getOrderCount());
         cartEntity.addItemToCart(newCartLine);
     }
 
@@ -38,12 +40,9 @@ public class CartService {
     public void modifyOrderCount(Long memberId, ModifyOrderCountRequestForm modifyOrderCountRequestForm) {
         // 엔티티 조회
         CartEntity cartEntity = cartRepository.findFirstByMemberId(memberId);
-        ItemEntity itemEntity = itemRepository.findById(modifyOrderCountRequestForm.getItemId()).get();
 
         CartLine newCartLine = new CartLine(cartEntity.getCartId(), modifyOrderCountRequestForm.getItemId(), modifyOrderCountRequestForm.getOrderCount());
-
-        CheckStockQuantityService checkStockQuantityService = new CheckStockQuantityService(newCartLine.getOrderCount(), itemEntity.getStockQuantity());
-        cartEntity.modifyOrderCount(checkStockQuantityService,newCartLine);
+        cartEntity.modifyOrderCount(checkStockQuantityService, newCartLine);
     }
 
     public void removeCartLine(Long memberId, Long itemId) {
