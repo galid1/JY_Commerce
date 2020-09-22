@@ -1,5 +1,6 @@
 package com.galid.commerce.domains.cart.domain;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -48,7 +49,7 @@ public class CartEntity {
     }
 
     public void modifyOrderCount(CheckStockQuantityService checkStockQuantityService, CartLine newCartLine) {
-        checkStockQuantityService.checkEnoughStockQuantity();
+        checkStockQuantityService.checkEnoughStockQuantity(newCartLine.getOrderCount(), newCartLine.getItemId());
         this.cart.replace(newCartLine.getItemId(), newCartLine);
     }
 
