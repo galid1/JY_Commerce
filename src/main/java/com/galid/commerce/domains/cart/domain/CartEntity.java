@@ -34,7 +34,9 @@ public class CartEntity {
         this.memberId = memberId;
     }
 
-    public void addItemToCart(CartLine cartLine) {
+    public void addItemToCart(CheckStockQuantityService checkStockQuantityService, CartLine cartLine) {
+        checkStockQuantityService.checkEnoughStockQuantity(cartLine.getOrderCount(), cartLine.getItemId());
+
         Long mapKey = cartLine.getItemId();
 
         // 기존 아이템이 존재한다면 수량을 더함
