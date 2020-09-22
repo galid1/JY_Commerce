@@ -30,7 +30,7 @@ public class CartService {
         CartLine newCartLine = new CartLine(cartEntity.getCartId(),
                 addToCartRequestForm.getItemId(),
                 addToCartRequestForm.getOrderCount());
-        cartEntity.addItemToCart(newCartLine);
+        cartEntity.addItemToCart(checkStockQuantityService, newCartLine);
     }
 
     public List<CartLineDto> getCartInCartPage(Long memberId) {
@@ -45,15 +45,14 @@ public class CartService {
         cartEntity.modifyOrderCount(checkStockQuantityService, newCartLine);
     }
 
-    public void removeCartLine(Long memberId, Long itemId) {
-        CartEntity cartEntity = cartRepository.findFirstByMemberId(memberId);
-        cartEntity.removeCartLine(itemId);
-    }
-
     public void removeCartLines(Long memberId, List<Long> itemIds) {
         CartEntity cartEntity = cartRepository.findFirstByMemberId(memberId);
 
         itemIds.stream()
                 .forEach(itemId -> cartEntity.removeCartLine(itemId));
+    }
+
+    public void removeCartLine(Long memberId, Long itemId) {
+        removeCartLines(memberId, List.of(itemId));
     }
 }
