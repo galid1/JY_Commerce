@@ -5,20 +5,16 @@ import com.galid.commerce.domains.cart.domain.CartLine;
 import com.galid.commerce.domains.cart.domain.CartRepository;
 import com.galid.commerce.domains.cart.domain.CheckStockQuantityService;
 import com.galid.commerce.domains.cart.query.dao.CartDao;
-import com.galid.commerce.domains.item.domain.ItemRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.util.AssertionErrors;
 
 import java.util.Map;
 
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.doNothing;
-import static org.springframework.test.util.AssertionErrors.*;
+import static org.springframework.test.util.AssertionErrors.assertEquals;
 
 @SpringBootTest(classes = {
         CartService.class,
