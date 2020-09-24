@@ -2,7 +2,7 @@ package com.galid.commerce.domains.item.presentation;
 
 import com.galid.commerce.domains.item.domain.ItemEntity;
 import com.galid.commerce.domains.item.domain.ItemQuery;
-import com.galid.commerce.domains.item.service.AddBookForm;
+import com.galid.commerce.domains.item.service.AddItemRequest;
 import com.galid.commerce.domains.item.service.ItemSearchForm;
 import com.galid.commerce.domains.item.service.ItemService;
 import com.galid.commerce.domains.item.service.ItemSummaryInItemList;
@@ -25,13 +25,13 @@ public class ItemController {
 
     @GetMapping("/items/new")
     public String getNewItemPage(Model model) {
-        model.addAttribute("form", new AddBookForm());
+        model.addAttribute("form", new AddItemRequest());
         return "items/createItemForm";
     }
 
     @PostMapping("/items/new")
-    public String createItem(@ModelAttribute @Valid AddBookForm addBookForm) {
-        Long newItemId = itemService.saveItem(addBookForm.toEntity());
+    public String createItem(@ModelAttribute @Valid AddItemRequest addItemRequest) {
+        Long newItemId = itemService.saveItem(addItemRequest);
         return "redirect:/items/"+ newItemId;
     }
 
