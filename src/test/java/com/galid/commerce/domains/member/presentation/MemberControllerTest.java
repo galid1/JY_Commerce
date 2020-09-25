@@ -1,10 +1,12 @@
 package com.galid.commerce.domains.member.presentation;
 
-import com.galid.commerce.common.BaseWebTest;
 import com.galid.commerce.domains.member.service.MemberService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -14,8 +16,10 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
-
-class MemberControllerTest extends BaseWebTest {
+@WebMvcTest(value = MemberController.class)
+class MemberControllerTest {
+    @Autowired
+    private MockMvc mvc;
     @MockBean
     private MemberService service;
 
@@ -40,7 +44,9 @@ class MemberControllerTest extends BaseWebTest {
         //given, when
         ResultActions resultActions = mvc.perform(post("/auth/signUp")
                 .param("authId", "GALID")
-                .param("password", "test")
+                .param("password", "TEST")
+                .param("name", "TEST")
+                .param("phone", "TEST")
                 .param("city", "TEST")
                 .param("street", "TEST")
         );
