@@ -1,38 +1,79 @@
 package com.galid.commerce.domains.item.service;
 
-import com.galid.commerce.common.BaseTest;
 import com.galid.commerce.domains.item.domain.Book;
 import com.galid.commerce.domains.item.domain.ItemEntity;
 import com.galid.commerce.domains.item.domain.ItemRepository;
+import com.galid.commerce.domains.item.infra.ItemFactory;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.test.util.ReflectionTestUtils;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.util.Optional;
 
-class ItemServiceTest extends BaseTest {
-   @Autowired
-   private ItemService itemService;
-   @Autowired
-   private ItemRepository itemRepository;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.BDDMockito.given;
 
-   @Test
-   public void 책_아이템_저장() {
-       //given
-      ItemEntity newItem = Book.builder()
-              .author("TEST")
-              .isbn("TEST")
-              .name("TEST")
-              .price(1)
-              .stockQuantity(2)
-              .build();
+@ExtendWith(MockitoExtension.class)
+class ItemServiceTest {
+    @InjectMocks
+    private ItemService itemService;
+    @Mock
+    private ItemFactory itemFactory;
+    @Mock
+    private ItemRepository itemRepository;
 
-       //when
-      Long newItemId = itemService.saveItem(newItem);
+    @Test
+    public void 아이템_추가() {
+        //given
+        //BOOK
+        // 책 생성 요청
+        AddItemRequest bookRequest = createAddBookRequest();
+        ItemEntity book = createBook(bookRequest);
 
-      //then
-      ItemEntity findItem = itemRepository.findById(newItemId).get();
-      assertEquals(findItem.getName(), newItem.getName());
-      assertEquals(findItem.getPrice(), newItem.getPrice());
-      assertEquals(findItem.getStockQuantity(), newItem.getStockQuantity());
-   }
+        // 책 엔티티의 가짜 id
+        Long bookId = 1l;
+        ReflectionTestUtils.setField(book, "itemId", bookId);
+        given(itemRepository.findById(bookId))
+                .willReturn(Optional.ofNullable(book));
+        given(itemFactory.createItem(bookRequest))
+                .willReturn(book);
+        given(itemRepository.save(book))
+                .willReturn(book);
+
+        //when
+        Long newBookId = itemService.saveItem(bookRequest);
+
+        //then
+        ItemEntity findItem = itemRepository.findById(newBookId).get();
+        assertEquals(findItem.getName(), bookRequest.getBookName());
+        assertEquals(findItem.getPrice(), bookRequest.getBookPrice());
+        assertEquals(findItem.getStockQuantity(), bookRequest.getBookStockQuantity());
+    }
+
+    private AddItemRequest createAddBookRequest() {
+        return AddItemRequest.builder()
+                .bookAuthor("TEST")
+                .bookImagePath("TEST")
+                .bookIsbn("TEST")
+                .bookName("TEST")
+                .bookPrice(1000)
+                .bookStockQuantity(2)
+                .build();
+    }
+
+    private ItemEntity createBook(AddItemRequest bookRequest) {
+        ItemEntity book = Book.builder()
+                .price(bookRequest.getBookPrice())
+                .name(bookRequest.getBookName())
+                .isbn(bookRequest.getBookIsbn())
+                .author(bookRequest.getBookAuthor())
+                .imagePath(bookRequest.getBookImagePath())
+                .stockQuantity(bookRequest.getBookStockQuantity())
+                .build();
+
+        return book;
+    }
 }
