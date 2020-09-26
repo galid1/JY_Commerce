@@ -1,67 +1,178 @@
 package com.galid.commerce.domains.order.service;
 
-import com.galid.commerce.common.BaseTest;
 import com.galid.commerce.common.value.Address;
+import com.galid.commerce.domains.cart.domain.CartEntity;
+import com.galid.commerce.domains.cart.service.CartService;
+import com.galid.commerce.domains.delivery.domain.DeliveryEntity;
 import com.galid.commerce.domains.item.domain.Book;
 import com.galid.commerce.domains.item.domain.ItemEntity;
-import com.galid.commerce.domains.item.service.ItemService;
+import com.galid.commerce.domains.item.domain.ItemRepository;
+import com.galid.commerce.domains.item.domain.NotEnoughStockQuantityException;
 import com.galid.commerce.domains.member.domain.MemberEntity;
-import com.galid.commerce.domains.member.domain.MemberRepository;
+import com.galid.commerce.domains.member.service.MemberService;
 import com.galid.commerce.domains.order.domain.OrderEntity;
+import com.galid.commerce.domains.order.domain.OrderItemEntity;
 import com.galid.commerce.domains.order.domain.OrderRepository;
 import com.galid.commerce.domains.order.domain.OrderStatus;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.util.ReflectionTestUtils;
 
 import javax.persistence.EntityManager;
+import java.util.List;
+import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.BDDMockito.willDoNothing;
+import static org.mockito.Mockito.*;
 
-class OrderServiceTest extends BaseTest {
-    @Autowired
+@ExtendWith(MockitoExtension.class)
+class OrderServiceTest {
+    @InjectMocks
     private OrderService orderService;
-    @Autowired
+    @Mock
     private OrderRepository orderRepository;
-
-    @Autowired
-    private EntityManager em;
+    @Mock
+    private MemberService memberService;
+    @Mock
+    private ItemRepository itemRepository;
+    @Mock
+    private CartService cartService;
 
     @Test
+    // ordererId, orderRequest를 매개변수로 받아 orderRepository.save를 orderRepository.save 호출 했는지 확인
+    // TODO OrderItem 비즈니스 로직 수정 필요 (OrderItem 생성시 Item의 재고량을 주문수량 만큼 자동으로 차감하기 때문에
+    // 테스트 코드에서 생성하고, 실제 OrderService에서 생성할때 차감되므로 즉, 주문 수량의 2배만큼 차감됨)
     public void 책_주문() {
         //given
-        MemberEntity TEST_MEMBER = MemberEntity.builder()
-                .authId("TEST")
-                .authPw("TEST")
-                .address(new Address("TEST", "TEST"))
-                .build();
-        em.persist(TEST_MEMBER);
+            // 주문자
+        Long TEST_MEMBER_ID = 1l;
+        MemberEntity TEST_MEMBER = createMember();
+        given(memberService.findMember(TEST_MEMBER_ID))
+                .willReturn(TEST_MEMBER);
 
+            // 주문 상품
+        Long TEST_ITEM_ID = 2l;
+        int stockQuantity = 4;
+        ItemEntity TEST_ITEM = createItem(stockQuantity);
+        ReflectionTestUtils.setField(TEST_ITEM, "itemId", TEST_ITEM_ID);
+        given(itemRepository.findById(TEST_ITEM_ID))
+                .willReturn(Optional.of(TEST_ITEM));
+
+            // 장바구니 비우기
+        willDoNothing()
+                .given(cartService)
+                .removeCartLines(any(), any());
+
+            // 주문 요청
+        int orderCount = 2;
+        OrderRequest orderRequest = createOrderRequest(TEST_ITEM_ID, orderCount);
+
+            // 주문
+        OrderEntity TEST_ORDER = createOrder(TEST_MEMBER, TEST_ITEM, orderCount);
+        given(orderRepository.save(any(OrderEntity.class)))
+                .willReturn(TEST_ORDER);
+
+        //when
+        Long orderId = orderService.order(TEST_MEMBER_ID, orderRequest);
+
+        //then
+        verify(orderRepository, atLeastOnce())
+                .save(any(OrderEntity.class));
+    }
+
+    private OrderEntity createOrder(MemberEntity TEST_MEMBER, ItemEntity TEST_ITEM, int orderCount) {
+        OrderEntity TEST_ORDER = OrderEntity.builder()
+                .deliveryInformation(new DeliveryEntity(TEST_MEMBER.getAddress()))
+                .orderer(TEST_MEMBER)
+                .orderItemEntityList(List.of(
+                        OrderItemEntity.builder()
+                                .orderCount(orderCount)
+                                .item(TEST_ITEM)
+                                .build()
+                ))
+                .build();
+        Long TEST_ORDER_ID = 1l;
+        ReflectionTestUtils.setField(TEST_ORDER, "orderId", TEST_ORDER_ID);
+
+        return TEST_ORDER;
+    }
+
+    private OrderRequest createOrderRequest(Long itemId, int orderCount) {
+        List<OrderLineRequest> orderLineRequests = List.of(new OrderLineRequest(itemId, orderCount));
+
+        OrderRequest orderRequest = new OrderRequest(orderLineRequests);
+
+        return orderRequest;
+    }
+
+    @Test
+    public void 재고수량_초과_주문시_에러() throws Exception {
+        //given
+        Long TEST_MEMBER_ID = 1l;
+        MemberEntity TEST_MEMBER = createMember();
+        ReflectionTestUtils.setField(TEST_MEMBER, "memberId", TEST_MEMBER_ID);
+        given(memberService.findMember(any()))
+                .willReturn(TEST_MEMBER);
+
+        Long TEST_ITEM_ID = 2l;
+        int stockQuantity = 2;
+        ItemEntity TEST_ITEM = createItem(stockQuantity);
+        ReflectionTestUtils.setField(TEST_ITEM, "itemId", TEST_ITEM_ID);
+        given(itemRepository.findById(any()))
+                .willReturn(Optional.of(TEST_ITEM));
+
+        //when
+        int orderCount = 4;
+
+        //then
+        assertThrows(NotEnoughStockQuantityException.class,
+                () -> orderService.order(TEST_MEMBER.getMemberId(), createOrderRequest(TEST_ITEM_ID, orderCount)));
+    }
+
+    @Test
+    public void 주문취소() throws Exception {
+        //given
+        Long TEST_ORDER_ID = 1l;
+        OrderEntity TEST_ORDER = mock(OrderEntity.class);
+        willDoNothing()
+                .given(TEST_ORDER).cancel();
+        given(orderRepository.findById(any()))
+                .willReturn(Optional.of(TEST_ORDER));
+
+        //when
+        orderService.cancel(TEST_ORDER_ID);
+
+        //then
+        verify(TEST_ORDER, atLeastOnce())
+                .cancel();
+    }
+
+    private ItemEntity createItem(int stockQuantity) {
         ItemEntity TEST_ITEM = Book.builder()
                 .author("TEST")
                 .isbn("TEST")
                 .name("TEST")
                 .price(1000)
-                .stockQuantity(2)
+                .stockQuantity(stockQuantity)
                 .build();
-        em.persist(TEST_ITEM);
-
-        int orderCount = 2;
-
-        //when
-        Long orderId = orderService.order(TEST_MEMBER.getMemberId(), TEST_ITEM.getItemId(), 2);
-
-        //then
-        OrderEntity orderEntity = orderRepository.findById(orderId)
-                .get();
-
-        assertEquals(orderEntity.getStatus(), OrderStatus.ORDERED_STATUS);
-        assertEquals(orderEntity.getOrderer(), TEST_MEMBER);
-        assertEquals(orderEntity.getOrderItemList().size(), 1);
-        assertEquals(orderEntity.getTotalAmount(), 1000 * orderCount);
+        return TEST_ITEM;
     }
 
+    private MemberEntity createMember() {
+        MemberEntity TEST_MEMBER = MemberEntity.builder()
+                .authId("TEST")
+                .authPw("TEST")
+                .address(new Address("TEST", "TEST"))
+                .build();
+
+        return TEST_MEMBER;
+    }
 }
