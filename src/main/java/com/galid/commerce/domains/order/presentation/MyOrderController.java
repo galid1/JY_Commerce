@@ -16,7 +16,7 @@ public class MyOrderController {
 
     @GetMapping("/my/orders")
     public String getMyOrderListPage() {
-        return "myOrderList";
+        return "orders/myOrderList";
     }
 
     @GetMapping("/my/orders/{orderId}")
