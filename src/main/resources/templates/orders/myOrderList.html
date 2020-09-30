@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="fragments/configHeader"/>
+<body>
+<div th:replace="fragments/head"/>
+
+<div class="container">
+    <div class="titleContainer">
+        <h2>
+            주문목록/배송조회
+        </h2>
+    </div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>주문번호</th>
+                <th>주문일자</th>
+                <th>주문상품정보</th>
+                <th>결제금액</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="myOrder : ${myOrders}">
+                <td th:text="${myOrder.orderId}"></td>
+                <td th:text="${#temporals.format(myOrder.orderDate, 'yyyy-MM-dd HH:mm')}"></td>
+                <td>
+                    <a class="itemInformationContainer" th:href="@{/my/orders/{orderId}(orderId=${myOrder.orderId})}">
+                        <img class="representativeImage" th:src="@{${myOrder.getRepresentativeImagePath()}}">
+                        <span class="representativeName" th:text="${myOrder.getRepresentativeItemName() + ' 등'}"></span>
+                    </a>
+                </td>
+                <td th:text="${myOrder.getTotalAmount()}"></td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>
+
+</body>
+</html>
+
+<style>
+    .titleContainer {
+        height: 10vh;
+        display: flex;
+        align-items: center;
+    }
+
+    td {
+        font-size: 13px;
+    }
+
+    .itemInformationContainer {
+        display: flex;
+        max-width: 620px;
+        min-width: 620px;
+    }
+
+    .representativeImage {
+        max-width: 60px;
+        max-height: 60px;
+        margin-right: 20px;
+    }
+
+    .representativeName {
+        color: black;
+    }
+
+
+</style>
