@@ -2,10 +2,13 @@ package com.galid.commerce.domains.order.presentation;
 
 import com.galid.commerce.domains.member.domain.MemberEntity;
 import com.galid.commerce.domains.member.service.MemberService;
+import com.galid.commerce.domains.order.query.dto.MyOrderSummaryDto;
 import com.galid.commerce.domains.order.service.MyOrderService;
 import com.galid.commerce.domains.order.service.OrderService;
 import com.galid.commerce.infra.AuthenticationConverter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,7 +28,8 @@ public class MyOrderController {
     public String getMyOrderListPage(Authentication authentication,
                                      Model model) {
         MemberEntity member = authenticationConverter.getMemberFromAuthentication(authentication);
-        model.addAttribute("myOrders", myOrderService.getMyOrderSummary(member.getMemberId()));
+        MyOrderSummaryDto myOrderSummary = myOrderService.getMyOrderSummary(member.getMemberId(), PageRequest.of(0, 10));
+        model.addAttribute("myOrderSummary", myOrderSummary);
         return "orders/myOrderList";
     }
 
