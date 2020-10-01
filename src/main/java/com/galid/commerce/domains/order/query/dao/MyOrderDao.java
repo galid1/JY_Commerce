@@ -1,9 +1,9 @@
 package com.galid.commerce.domains.order.query.dao;
 
 import com.galid.commerce.domains.order.domain.OrderEntity;
-
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public interface MyOrderDao {
-    List<OrderEntity> getMyOrders(Long memberId, int offset, int limit);
+    Page<OrderEntity> getMyOrders(Long ordererId, Pageable pageable);
 }

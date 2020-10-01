@@ -2,8 +2,11 @@ package com.galid.commerce.domains.order.infra.dao;
 
 import com.galid.commerce.domains.order.domain.OrderEntity;
 import com.galid.commerce.domains.order.query.dao.MyOrderDao;
+import com.querydsl.core.QueryResults;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -22,16 +25,20 @@ public class JpaMyOrderDao implements MyOrderDao {
     }
 
     @Override
-    public List<OrderEntity> getMyOrders(Long ordererId, int offset, int limit) {
-        List<OrderEntity> result = query.select(orderEntity)
+    public Page<OrderEntity> getMyOrders(Long ordererId, Pageable pageable) {
+        QueryResults<OrderEntity> searchOrderByOrdererId = query.select(orderEntity)
                 .from(orderEntity)
                 .join(orderEntity.orderer, memberEntity).fetchJoin()
                 .join(orderEntity.deliveryInformation, deliveryEntity).fetchJoin()
                 .where(orderEntity.orderer.memberId.eq(ordererId))
-                .offset(offset)
-                .limit(limit)
-                .fetch();
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .orderBy(orderEntity.orderId.desc())
+                .fetchResults();
 
-        return result;
+        List<OrderEntity> contents = searchOrderByOrdererId.getResults();
+        long total = searchOrderByOrdererId.getTotal();
+
+        return new PageImpl<>(contents, pageable, total);
     }
 }
