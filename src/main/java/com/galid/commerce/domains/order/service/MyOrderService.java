@@ -1,10 +1,12 @@
 package com.galid.commerce.domains.order.service;
 
 import com.galid.commerce.domains.order.domain.OrderEntity;
-import com.galid.commerce.domains.order.domain.OrderRepository;
 import com.galid.commerce.domains.order.query.dao.MyOrderDao;
 import com.galid.commerce.domains.order.query.dto.MyOrderDto;
+import com.galid.commerce.domains.order.query.dto.MyOrderSummaryDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,15 +19,18 @@ import java.util.stream.Collectors;
 public class MyOrderService {
     private final MyOrderDao myOrderDao;
 
-    public List<MyOrderDto> getMyOrderSummary(Long memberId) {
-        List<OrderEntity> myOrders = myOrderDao.getMyOrders(memberId, 0, 100);
+    public MyOrderSummaryDto getMyOrderSummary(Long ordererId, Pageable pageable) {
+        Page<OrderEntity> myOrders = myOrderDao.getMyOrders(ordererId, pageable);
 
-        return myOrders.stream()
+        List<MyOrderDto> contents = myOrders.stream()
                 .map(o -> new MyOrderDto(o.getOrderId(),
                         o.getCreatedDate(),
                         o.getOrderItemList().get(0).getItem().getImagePath(),
                         o.getOrderItemList().get(0).getItem().getName(),
                         o.getTotalAmount()))
                 .collect(Collectors.toList());
+        int total = myOrders.getSize();
+
+        return new MyOrderSummaryDto(contents, total);
     }
 }
