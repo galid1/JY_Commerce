@@ -29,7 +29,7 @@ public class MyOrderService {
                         o.getOrderItemList().get(0).getItem().getName(),
                         o.getTotalAmount()))
                 .collect(Collectors.toList());
-        int total = myOrders.getSize();
+        int total = contents.size();
 
         return new MyOrderSummaryDto(contents, total);
     }
