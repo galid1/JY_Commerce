@@ -5,7 +5,9 @@
 <div th:replace="fragments/head"/>
 
 <div class="container">
-    <h2>주문/결제</h2>
+    <div class="titleContainer">
+        <h2>주문/결제</h2>
+    </div>
 
     <!-- 주문자 정보 -->
     <div class="componentContainer">
@@ -118,6 +120,12 @@
 </html>
 
 <style>
+    .titleContainer {
+        height: 10vh;
+        display: flex;
+        align-items: center;
+    }
+
     h2, h5 {
         font-weight: bold;
     }
