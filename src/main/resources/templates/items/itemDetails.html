@@ -14,7 +14,7 @@
                 <h2 class="itemName" th:text="${item.name}"></h2>
             </div>
             <div class="itemPriceContainer">
-                <h2 class="itemPrice" th:text="${item.price} + ' 원'"></h2>
+                <h2 class="itemPrice" th:text="${#numbers.formatInteger(item.price, 3, 'COMMA')} + ' 원'"></h2>
             </div>
 
             <div th:if="${item.stockQuantity &lt; 1}" class="soldOutContainer">
@@ -125,12 +125,6 @@
   }
 
  $(function () {
-    // 가격에 ,(comma) 부여 ====================
-    function appendComma(integer) {
-      return integer.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    }
-    $(".itemPrice").text(appendComma($(".itemPrice").text()));
-
     // 바로 구매 ====================
     function getCartInputList() {
       let cartInputList = "";
