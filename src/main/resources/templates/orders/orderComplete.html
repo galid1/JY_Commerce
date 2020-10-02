@@ -5,7 +5,10 @@
 <div th:replace="fragments/head"/>
 
 <div class="container">
-    <h2>주문완료</h2>
+    <div class="titleContainer">
+        <h2>주문완료</h2>
+    </div>
+
     <div class="component">
         <div class="messageContainer">
             <div class="completeMessageContainer">
@@ -37,6 +40,12 @@
 </html>
 
 <style>
+    .titleContainer {
+        height: 10vh;
+        display: flex;
+        align-items: center;
+    }
+
     .component {
         border-top: 2px solid #CECECE;
         border-bottom: 1px solid #CECECE;
