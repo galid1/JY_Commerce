@@ -21,7 +21,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr th:each="myOrder : ${myOrders}">
+            <tr th:each="myOrder : ${myOrderSummary.myOrderList}">
                 <td th:text="${myOrder.orderId}"></td>
                 <td th:text="${#temporals.format(myOrder.orderDate, 'yyyy-MM-dd HH:mm')}"></td>
                 <td>
@@ -33,6 +33,7 @@
                 <td th:text="${myOrder.getTotalAmount()}"></td>
             </tr>
         </tbody>
+        <div id="myOrderTotalCount" style="display: none;" th:text="${myOrderSummary.total}"></div>
     </table>
 
 </div>
@@ -59,13 +60,62 @@
 
     .representativeImage {
         max-width: 60px;
+        min-width: 60px;
         max-height: 60px;
+        min-width: 60px;
         margin-right: 20px;
     }
 
     .representativeName {
         color: black;
     }
-
-
 </style>
+
+<script>
+    $(function() {
+      const size = 20;
+      let total = parseInt($("#myOrderTotalCount").text());
+
+      if($(window).scrollTop() + $(window).height() == $(document).height()) {
+        loadMoreOrderList();
+      }
+      else {
+        $(window).scroll(function() {
+          if($(window).scrollTop() + $(window).height() == $(document).height()) {
+            loadMoreOrderList();
+          }
+        });
+      }
+
+      async function loadMoreOrderList() {
+        let nextPage = parseInt(total/size);
+        let data = '';
+        console.log('total : ' + total);
+        await $.get(`/api/my/orders?page=${nextPage}&size=${size}`, function(result) {
+          data = result;
+        })
+        $("tbody").append(toTrList(data.myOrderList));
+        total += data.total;
+      }
+
+      function toTrList(orderList) {
+        let trList = "";
+
+        orderList.forEach(order => {
+          trList +=
+            "<tr>" +
+                `<td>${order.orderId}</td>` +
+                `<td>${order.orderDate}</td>` +
+                "<td>" +
+                    "<a class='itemInformationContainer' href='/my/orders/" + order.orderId + "'></a>" +
+                        "<img class='representativeImage' src='" + order.representativeImagePath + "'>" +
+                            "<span class='representativeName'>" + order.representativeItemName + " </span>" +
+                "</td>" +
+                "<td>" + order.totalAmount + "</td>" +
+            "</tr>";
+        });
+
+        return trList;
+      }
+    });
+</script>
