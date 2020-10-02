@@ -5,7 +5,9 @@
 <div th:replace="fragments/head"/>
 
 <div class="container">
-    <h2>장바구니</h2>
+    <div class="titleContainer">
+        <h2>장바구니</h2>
+    </div>
 
     <div class="cartContainer">
         <table class="table">
@@ -65,8 +67,10 @@
 </html>
 
 <style>
-    .container {
-        margin-top: 5vh;
+    .titleContainer {
+        height: 10vh;
+        display: flex;
+        align-items: center;
     }
 
     .checkBoxTd {
