@@ -28,7 +28,7 @@ public class MyOrderController {
     public String getMyOrderListPage(Authentication authentication,
                                      Model model) {
         MemberEntity member = authenticationConverter.getMemberFromAuthentication(authentication);
-        MyOrderSummaryDto myOrderSummary = myOrderService.getMyOrderSummary(member.getMemberId(), PageRequest.of(0, 10));
+        MyOrderSummaryDto myOrderSummary = myOrderService.getMyOrderSummary(member.getMemberId(), PageRequest.of(0, 20));
         model.addAttribute("myOrderSummary", myOrderSummary);
         return "orders/myOrderList";
     }
