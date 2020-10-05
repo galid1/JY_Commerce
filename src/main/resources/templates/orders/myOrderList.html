@@ -26,7 +26,9 @@
                 <td th:text="${#temporals.format(myOrder.orderDate, 'yyyy-MM-dd HH:mm')}"></td>
                 <td>
                     <a class="itemInformationContainer" th:href="@{/my/orders/{orderId}(orderId=${myOrder.orderId})}">
-                        <img class="representativeImage" th:src="@{${myOrder.getRepresentativeImagePath()}}">
+                        <div class="representativeImageContainer">
+                            <img class="representativeImage" th:src="@{${myOrder.getRepresentativeImagePath()}}">
+                        </div>
                         <span class="representativeName" th:text="${myOrder.getRepresentativeItemName() + ' 등'}"></span>
                     </a>
                 </td>
@@ -58,15 +60,19 @@
         min-width: 620px;
     }
 
+    .representativeImageContainer {
+        width: 60px;
+        height: 60px;
+    }
+
     .representativeImage {
-        max-width: 60px;
-        min-width: 60px;
-        max-height: 60px;
-        min-width: 60px;
+        max-width: 100%;
+        max-height: 100%;
         margin-right: 20px;
     }
 
     .representativeName {
+        margin-left: 10px;
         color: black;
     }
 </style>
@@ -108,8 +114,10 @@
                 `<td>${order.orderDate}</td>` +
                 "<td>" +
                     "<a class='itemInformationContainer' href='/my/orders/" + order.orderId + "'></a>" +
-                        "<img class='representativeImage' src='" + order.representativeImagePath + "'>" +
-                            "<span class='representativeName'>" + order.representativeItemName + " </span>" +
+                        "<div class='representativeImageContainer'>" +
+                            "<img class='representativeImage' src='" + order.representativeImagePath + "'>" +
+                        "</div>" +
+                        "<span class='representativeName'>" + order.representativeItemName + " </span>" +
                 "</td>" +
                 "<td>" + order.totalAmount + "</td>" +
             "</tr>";
