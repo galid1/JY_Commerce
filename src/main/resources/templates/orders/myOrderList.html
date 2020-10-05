@@ -113,11 +113,12 @@
                 `<td>${order.orderId}</td>` +
                 `<td>${order.orderDate}</td>` +
                 "<td>" +
-                    "<a class='itemInformationContainer' href='/my/orders/" + order.orderId + "'></a>" +
+                    "<a class='itemInformationContainer' href='/my/orders/" + order.orderId + "'>" +
                         "<div class='representativeImageContainer'>" +
                             "<img class='representativeImage' src='" + order.representativeImagePath + "'>" +
                         "</div>" +
                         "<span class='representativeName'>" + order.representativeItemName + " </span>" +
+                    "</a>" +
                 "</td>" +
                 "<td>" + order.totalAmount + "</td>" +
             "</tr>";
