@@ -10,10 +10,65 @@
     </div>
 
     <!--  주문일 | 주문번호  -->
-
-    <!--  주문 목록  -->
+    <!-- 아이템 목록  -->
+    <div class="component">
+        <div class="componentHeader">
+            <div class="captionContainer">
+                <span style="margin-right: 5px;">주문일: <strong>2019-02-02</strong></span>
+                <span>| 주문번호: <strong>12</strong></span>
+            </div>
+            <div class="removeBtnContainer">
+                <span style="">주문내역 삭제</span>
+            </div>
+        </div>
+        <div class="componentBody">
+            <div class="orderInformationContainer">
+                <div class="itemContainer">
+                    <div class="itemImageContainer">
+                        <img class="itemImage" src="/images/items/book.png" alt="">
+                    </div>
+                    <div class="itemInformationContainer">
+                        <a href="">
+                            <span style="font-weight: bold;"> 연필 </span>
+                        </a>
+                        <span style="margin-top: 10px;"> 1300원 </span>
+                    </div>
+                    <div class="etcContainer">
+                        <span> 배송중 </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- 받는사람 정보 -->
+    <div class="component receiverComponent">
+        <div class="componentHeader">
+            <div class="captionContainer">받는사람 정보</div>
+        </div>
+        <div class="componentBody">
+            <div class="receiverInformationContainer">
+                <div class="receiverInformationLine">
+                    <span>받는사람</span>
+                    <span><strong>전준엽</strong></span>
+                </div>
+                <div class="receiverInformationLine">
+                    <span>연락처</span>
+                    <span><strong>010-7447-9619</strong></span>
+                </div>
+                <div class="receiverInformationLine">
+                    <span>받는주소</span>
+                    <span><strong>서울시 디지털로 38길</strong></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!--    -->
+<!--    <div class="component">-->
+<!--        <div class="captionContainer"></div>-->
+
+<!--    </div>-->
 
 </div>
 
@@ -25,5 +80,90 @@
         height: 10vh;
         display: flex;
         align-items: center;
+    }
+
+
+    .componentHeader {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 20px;
+    }
+
+    .captionContainer {
+        font-size: 14px;
+        color: #333333;
+    }
+
+    .captionContainer span {
+        font-size: 12px;
+        color: #111111;
+    }
+
+    .componentBody {
+        border-top: 2px solid black;
+    }
+
+    .orderInformationContainer {
+        margin-top: 20px;
+        height: 200px;
+        display: flex;
+        border: 1px solid #CECECE;
+    }
+
+    .receiverComponent {
+        margin-top: 35px;
+    }
+
+    .itemContainer {
+        display: flex;
+    }
+
+    .itemImageContainer {
+        width: 150px;
+        padding: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .itemImage {
+        max-width: 100%;
+    }
+
+    .itemInformationContainer {
+        width: 700px;
+        padding: 30px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+    }
+
+    .itemInformationContainer a {
+        color: black;
+    }
+
+    .itemInformationContainer a:hover {
+        text-decoration: underline;
+    }
+
+    .itemInformationContainer span {
+        font-size: 13px;
+    }
+
+    .etcContainer {
+        width: 250px;
+        padding: 30px 0px;
+        display: flex;
+        justify-content: center;
+    }
+
+    .receiverInformationContainer span {
+        padding: 10px 15px;
+        color: #333333;
+        font-size: 12px;
+    }
+
+    .receiverInformationLine {
+        height: 45px;
     }
 </style>
