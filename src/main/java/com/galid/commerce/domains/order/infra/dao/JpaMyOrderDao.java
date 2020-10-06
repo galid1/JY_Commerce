@@ -1,6 +1,7 @@
 package com.galid.commerce.domains.order.infra.dao;
 
 import com.galid.commerce.domains.order.domain.OrderEntity;
+import com.galid.commerce.domains.order.domain.QOrderEntity;
 import com.galid.commerce.domains.order.query.dao.MyOrderDao;
 import com.querydsl.core.QueryResults;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import java.util.List;
+import java.util.Optional;
 
 import static com.galid.commerce.domains.delivery.domain.QDeliveryEntity.deliveryEntity;
 import static com.galid.commerce.domains.member.domain.QMemberEntity.memberEntity;
@@ -40,5 +42,17 @@ public class JpaMyOrderDao implements MyOrderDao {
         long total = searchOrderByOrdererId.getTotal();
 
         return new PageImpl<>(contents, pageable, total);
+    }
+
+    @Override
+    public Optional<OrderEntity> getMyOrderDetails(Long orderId) {
+        OrderEntity orderEntity = query.select(QOrderEntity.orderEntity)
+                .from(QOrderEntity.orderEntity)
+                .join(QOrderEntity.orderEntity.orderer).fetchJoin()
+                .join(QOrderEntity.orderEntity.deliveryInformation).fetchJoin()
+                .where(QOrderEntity.orderEntity.orderId.eq(orderId))
+                .fetchOne();
+
+        return Optional.of(orderEntity);
     }
 }
