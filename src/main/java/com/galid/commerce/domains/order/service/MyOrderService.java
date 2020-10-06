@@ -1,9 +1,9 @@
 package com.galid.commerce.domains.order.service;
 
+import com.galid.commerce.domains.item.domain.ItemEntity;
 import com.galid.commerce.domains.order.domain.OrderEntity;
 import com.galid.commerce.domains.order.query.dao.MyOrderDao;
-import com.galid.commerce.domains.order.query.dto.MyOrderDto;
-import com.galid.commerce.domains.order.query.dto.MyOrderSummaryDto;
+import com.galid.commerce.domains.order.query.dto.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -32,5 +33,26 @@ public class MyOrderService {
         int total = contents.size();
 
         return new MyOrderSummaryDto(contents, total);
+    }
+
+    public MyOrderDetailsDto getMyOrderDetails(Long orderId) {
+        OrderEntity orderEntity = myOrderDao.getMyOrderDetails(orderId)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 주문번호입니다."));
+
+        List<MyOrderDetailsItemDto> myOrderDetailsItemDtoList = orderEntity.getOrderItemList().stream()
+                .map(oi -> {
+                    ItemEntity item = oi.getItem();
+                    return new MyOrderDetailsItemDto(item.getImagePath(), item.getName(), item.getPrice());
+                })
+                .collect(Collectors.toList());
+
+        MyOrderDetailsDto myOrderDetailsDto = MyOrderDetailsDto.builder()
+                .orderDate(orderEntity.getCreatedDate())
+                .orderId(orderId)
+                .receiverInfoDto(new MyOrderDetailsReceiverInfoDto(orderEntity.getOrderer().getName(), orderEntity.getOrderer().getPhone(), orderEntity.getDeliveryInformation().getAddress()))
+                .orderedItemList(myOrderDetailsItemDtoList)
+                .build();
+
+        return myOrderDetailsDto;
     }
 }
