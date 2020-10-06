@@ -14,24 +14,24 @@
     <div class="component">
         <div class="componentHeader">
             <div class="captionContainer">
-                <span style="margin-right: 5px;">주문일: <strong>2019-02-02</strong></span>
-                <span>| 주문번호: <strong>12</strong></span>
+                <span style="margin-right: 5px;">주문일: <strong th:text="${myOrderDetails.orderDate}"></strong></span>
+                <span>| 주문번호: <strong th:text="${myOrderDetails.orderId}"></strong></span>
             </div>
             <div class="removeBtnContainer">
                 <span style="">주문내역 삭제</span>
             </div>
         </div>
         <div class="componentBody">
-            <div class="orderInformationContainer">
+            <div class="orderInformationContainer" th:each="orderedItem : ${myOrderDetails.orderedItemList}">
                 <div class="itemContainer">
                     <div class="itemImageContainer">
-                        <img class="itemImage" src="/images/items/book.png" alt="">
+                        <img class="itemImage" th:src="@{${orderedItem.itemImagePath}}" alt="">
                     </div>
                     <div class="itemInformationContainer">
                         <a href="">
-                            <span style="font-weight: bold;"> 연필 </span>
+                            <span style="font-weight: bold;" th:text="${orderedItem.itemName}"></span>
                         </a>
-                        <span style="margin-top: 10px;"> 1300원 </span>
+                        <span style="margin-top: 10px;" th:text="${orderedItem.itemPrice}"></span>
                     </div>
                     <div class="etcContainer">
                         <span> 배송중 </span>
@@ -50,15 +50,15 @@
             <div class="receiverInformationContainer">
                 <div class="receiverInformationLine">
                     <span>받는사람</span>
-                    <span><strong>전준엽</strong></span>
+                    <span><strong th:text="${myOrderDetails.receiverInfoDto.receiverName}"></strong></span>
                 </div>
                 <div class="receiverInformationLine">
                     <span>연락처</span>
-                    <span><strong>010-7447-9619</strong></span>
+                    <span><strong th:text="${myOrderDetails.receiverInfoDto.contact}"></strong></span>
                 </div>
                 <div class="receiverInformationLine">
                     <span>받는주소</span>
-                    <span><strong>서울시 디지털로 38길</strong></span>
+                    <span><strong th:text="${myOrderDetails.receiverInfoDto.address.city} + ' ' + ${myOrderDetails.receiverInfoDto.address.street}"></strong></span>
                 </div>
             </div>
         </div>
