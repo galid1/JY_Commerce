@@ -14,7 +14,7 @@
     <div class="component">
         <div class="componentHeader">
             <div class="captionContainer">
-                <span style="margin-right: 5px;">주문일: <strong th:text="${myOrderDetails.orderDate}"></strong></span>
+                <span style="margin-right: 5px;">주문일: <strong th:text="${#temporals.format(myOrderDetails.orderDate, 'yyyy-MM-dd HH:mm')}"></strong></span>
                 <span>| 주문번호: <strong th:text="${myOrderDetails.orderId}"></strong></span>
             </div>
             <div class="removeBtnContainer">
@@ -28,7 +28,7 @@
                         <img class="itemImage" th:src="@{${orderedItem.itemImagePath}}" alt="">
                     </div>
                     <div class="itemInformationContainer">
-                        <a href="">
+                        <a th:href="@{/items/{itemId}(itemId=${orderedItem.itemId})}">
                             <span style="font-weight: bold;" th:text="${orderedItem.itemName}"></span>
                         </a>
                         <span style="margin-top: 10px;" th:text="${orderedItem.itemPrice}"></span>
