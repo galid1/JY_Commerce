@@ -100,7 +100,6 @@
       async function loadMoreOrderList() {
         let nextPage = parseInt(total/size);
         let data = '';
-        console.log('total : ' + total);
         await $.get(`/api/my/orders?page=${nextPage}&size=${size}`, function(result) {
           data = result;
         })
@@ -112,10 +111,12 @@
         let trList = "";
 
         orderList.forEach(order => {
+          let orderDate = formatOrderDate(order);
+
           trList +=
             "<tr>" +
                 `<td>${order.orderId}</td>` +
-                `<td>${order.orderDate}</td>` +
+                `<td>${orderDate}</td>` +
                 "<td>" +
                     "<a class='itemInformationContainer' href='/my/orders/" + order.orderId + "'>" +
                         "<div class='representativeImageContainer'>" +
@@ -127,6 +128,15 @@
                 "<td>" + order.totalAmount + "</td>" +
             "</tr>";
         });
+
+        function formatOrderDate(order) {
+          let splitOrderDate = order.orderDate.split("T");
+          let ymd = splitOrderDate[0];
+          let splitTime = splitOrderDate[1].split(":");
+          let time = splitTime[0] + ":" + splitTime[1];
+          let orderDate = ymd + " " + time;
+          return orderDate;
+        }
 
         return trList;
       }
