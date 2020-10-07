@@ -42,7 +42,7 @@ public class MyOrderService {
         List<MyOrderDetailsItemDto> myOrderDetailsItemDtoList = orderEntity.getOrderItemList().stream()
                 .map(oi -> {
                     ItemEntity item = oi.getItem();
-                    return new MyOrderDetailsItemDto(item.getImagePath(), item.getName(), item.getPrice());
+                    return new MyOrderDetailsItemDto(item.getItemId(), item.getImagePath(), item.getName(), item.getPrice());
                 })
                 .collect(Collectors.toList());
 
