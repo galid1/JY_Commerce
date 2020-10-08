@@ -25,14 +25,9 @@ public class OrderItemEntity extends BaseEntity {
 
     @Builder
     public OrderItemEntity(ItemEntity item, int orderCount) {
-        this.order(item, orderCount);
+        this.item = item;
         this.orderCount = orderCount;
         this.calculateOrderItemAmount();
-    }
-
-    private void order(ItemEntity item, int orderCount) {
-        item.removeStockQuantity(orderCount);
-        this.item = item;
     }
 
     private void calculateOrderItemAmount() {
@@ -40,6 +35,10 @@ public class OrderItemEntity extends BaseEntity {
     }
 
     // ==== 비즈니스 로직 ====
+    public void removeStockQuantity() {
+        this.item.removeStockQuantity(orderCount);
+    }
+
     public void cancel() {
         this.item.addStockQuantity(this.orderCount);
     }
