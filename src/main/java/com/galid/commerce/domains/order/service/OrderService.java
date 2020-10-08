@@ -44,6 +44,10 @@ public class OrderService {
                 })
                 .collect(Collectors.toList());
 
+        // 주문 상품 재고 줄이기
+        orderItemEntityList.stream()
+                .forEach(oi -> oi.removeStockQuantity());
+
         // 주문 생성
         OrderEntity orderEntity = OrderEntity.builder()
                 .orderer(orderer)
