@@ -1,7 +1,6 @@
 package com.galid.commerce.domains.order.service;
 
 import com.galid.commerce.common.value.Address;
-import com.galid.commerce.domains.cart.domain.CartEntity;
 import com.galid.commerce.domains.cart.service.CartService;
 import com.galid.commerce.domains.delivery.domain.DeliveryEntity;
 import com.galid.commerce.domains.item.domain.Book;
@@ -13,20 +12,16 @@ import com.galid.commerce.domains.member.service.MemberService;
 import com.galid.commerce.domains.order.domain.OrderEntity;
 import com.galid.commerce.domains.order.domain.OrderItemEntity;
 import com.galid.commerce.domains.order.domain.OrderRepository;
-import com.galid.commerce.domains.order.domain.OrderStatus;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.util.ReflectionTestUtils;
 
-import javax.persistence.EntityManager;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
@@ -48,8 +43,6 @@ class OrderServiceTest {
 
     @Test
     // ordererId, orderRequest를 매개변수로 받아 orderRepository.save를 orderRepository.save 호출 했는지 확인
-    // TODO OrderItem 비즈니스 로직 수정 필요 (OrderItem 생성시 Item의 재고량을 주문수량 만큼 자동으로 차감하기 때문에
-    // 테스트 코드에서 생성하고, 실제 OrderService에서 생성할때 차감되므로 즉, 주문 수량의 2배만큼 차감됨)
     public void 책_주문() {
         //given
             // 주문자
@@ -60,7 +53,7 @@ class OrderServiceTest {
 
             // 주문 상품
         Long TEST_ITEM_ID = 2l;
-        int stockQuantity = 4;
+        int stockQuantity = 2;
         ItemEntity TEST_ITEM = createItem(stockQuantity);
         ReflectionTestUtils.setField(TEST_ITEM, "itemId", TEST_ITEM_ID);
         given(itemRepository.findById(TEST_ITEM_ID))
@@ -86,6 +79,8 @@ class OrderServiceTest {
         //then
         verify(orderRepository, atLeastOnce())
                 .save(any(OrderEntity.class));
+        verify(cartService, atLeastOnce())
+                .removeCartLines(any(), any());
     }
 
     private OrderEntity createOrder(MemberEntity TEST_MEMBER, ItemEntity TEST_ITEM, int orderCount) {
@@ -123,14 +118,14 @@ class OrderServiceTest {
                 .willReturn(TEST_MEMBER);
 
         Long TEST_ITEM_ID = 2l;
-        int stockQuantity = 2;
+        int stockQuantity = 1;
         ItemEntity TEST_ITEM = createItem(stockQuantity);
         ReflectionTestUtils.setField(TEST_ITEM, "itemId", TEST_ITEM_ID);
         given(itemRepository.findById(any()))
                 .willReturn(Optional.of(TEST_ITEM));
 
         //when
-        int orderCount = 4;
+        int orderCount = 2;
 
         //then
         assertThrows(NotEnoughStockQuantityException.class,
