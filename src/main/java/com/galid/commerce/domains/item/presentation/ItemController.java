@@ -26,7 +26,7 @@ public class ItemController {
     @GetMapping("/items/new")
     public String getNewItemPage(Model model) {
         model.addAttribute("form", new AddItemRequest());
-        return "items/createItemForm";
+        return "items/registerItemForm";
     }
 
     @PostMapping("/items/new")

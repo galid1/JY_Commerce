@@ -60,7 +60,7 @@ class ItemControllerTest {
     @Test
     public void 아이템_생성_페이지() throws Exception {
         mvc.perform(get("/items/new"))
-                .andExpect(view().name("items/createItemForm"))
+                .andExpect(view().name("items/registerItemForm"))
                 .andExpect(status().isOk());
     }
 
