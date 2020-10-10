@@ -22,7 +22,7 @@
                 <select th:field="*{sorter}">
                     <option value="">정렬기준</option>
                     <option
-                        th:each="sorter : ${T(com.galid.commerce.domains.item.presentation.Sorter).values()}"
+                        th:each="sorter : ${T(com.galid.commerce.domains.catalog.presentation.Sorter).values()}"
                         th:value="${sorter}"
                         th:text="${sorter.getSorter()}"/>
                 </select>

@@ -2,8 +2,8 @@ package com.galid.commerce.domains.order.service;
 
 import com.galid.commerce.domains.cart.service.CartService;
 import com.galid.commerce.domains.delivery.domain.DeliveryEntity;
-import com.galid.commerce.domains.item.domain.ItemEntity;
-import com.galid.commerce.domains.item.domain.ItemRepository;
+import com.galid.commerce.domains.catalog.domain.ItemEntity;
+import com.galid.commerce.domains.catalog.domain.ItemRepository;
 import com.galid.commerce.domains.member.domain.MemberEntity;
 import com.galid.commerce.domains.member.service.MemberService;
 import com.galid.commerce.domains.order.domain.OrderEntity;

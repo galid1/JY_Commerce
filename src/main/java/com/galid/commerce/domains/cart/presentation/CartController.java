@@ -4,7 +4,7 @@ import com.galid.commerce.domains.cart.query.dto.CartLineDto;
 import com.galid.commerce.domains.cart.service.AddToCartRequestForm;
 import com.galid.commerce.domains.cart.service.CartService;
 import com.galid.commerce.domains.cart.service.ModifyOrderCountRequestForm;
-import com.galid.commerce.domains.item.domain.ItemRepository;
+import com.galid.commerce.domains.catalog.domain.ItemRepository;
 import com.galid.commerce.domains.member.domain.MemberEntity;
 import com.galid.commerce.domains.member.domain.MemberRepository;
 import com.galid.commerce.infra.AuthenticationConverter;

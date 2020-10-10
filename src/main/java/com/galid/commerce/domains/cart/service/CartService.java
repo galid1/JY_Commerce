@@ -3,8 +3,6 @@ package com.galid.commerce.domains.cart.service;
 import com.galid.commerce.domains.cart.domain.*;
 import com.galid.commerce.domains.cart.query.dao.CartDao;
 import com.galid.commerce.domains.cart.query.dto.CartLineDto;
-import com.galid.commerce.domains.item.domain.ItemEntity;
-import com.galid.commerce.domains.item.domain.ItemRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

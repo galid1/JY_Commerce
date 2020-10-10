@@ -1,7 +1,7 @@
 package com.galid.commerce.domains.order.presentation;
 
-import com.galid.commerce.domains.item.domain.ItemEntity;
-import com.galid.commerce.domains.item.domain.ItemRepository;
+import com.galid.commerce.domains.catalog.domain.ItemEntity;
+import com.galid.commerce.domains.catalog.domain.ItemRepository;
 import com.galid.commerce.domains.member.domain.MemberEntity;
 import com.galid.commerce.domains.order.query.dao.OrderDao;
 import com.galid.commerce.domains.order.query.dto.OrderItemDto;
