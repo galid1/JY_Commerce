@@ -18,8 +18,10 @@ public class CategoryEntity extends BaseEntity {
     @Id @GeneratedValue
     private Long categoryId;
     private String categoryName;
+    private Long parentId;
 
-    public CategoryEntity(String categoryName) {
+    public CategoryEntity(String categoryName, Long parentId) {
         this.categoryName = categoryName;
+        this.parentId = parentId;
     }
 }
