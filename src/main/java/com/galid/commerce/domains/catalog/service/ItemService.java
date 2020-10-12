@@ -1,7 +1,7 @@
 package com.galid.commerce.domains.catalog.service;
 
-import com.galid.commerce.domains.catalog.domain.ItemEntity;
-import com.galid.commerce.domains.catalog.domain.ItemRepository;
+import com.galid.commerce.domains.catalog.domain.item.ItemEntity;
+import com.galid.commerce.domains.catalog.domain.item.ItemRepository;
 import com.galid.commerce.domains.catalog.infra.ItemFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

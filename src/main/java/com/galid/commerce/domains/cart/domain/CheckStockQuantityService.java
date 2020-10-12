@@ -1,8 +1,8 @@
 package com.galid.commerce.domains.cart.domain;
 
-import com.galid.commerce.domains.catalog.domain.ItemEntity;
-import com.galid.commerce.domains.catalog.domain.ItemRepository;
-import com.galid.commerce.domains.catalog.domain.NotEnoughStockQuantityException;
+import com.galid.commerce.domains.catalog.domain.item.ItemEntity;
+import com.galid.commerce.domains.catalog.domain.item.ItemRepository;
+import com.galid.commerce.domains.catalog.service.NotEnoughStockQuantityException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

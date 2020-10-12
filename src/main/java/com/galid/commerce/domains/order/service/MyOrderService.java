@@ -1,6 +1,6 @@
 package com.galid.commerce.domains.order.service;
 
-import com.galid.commerce.domains.catalog.domain.ItemEntity;
+import com.galid.commerce.domains.catalog.domain.item.ItemEntity;
 import com.galid.commerce.domains.order.domain.OrderEntity;
 import com.galid.commerce.domains.order.query.dao.MyOrderDao;
 import com.galid.commerce.domains.order.query.dto.*;

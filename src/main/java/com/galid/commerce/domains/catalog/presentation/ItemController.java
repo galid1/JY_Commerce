@@ -1,7 +1,7 @@
 package com.galid.commerce.domains.catalog.presentation;
 
-import com.galid.commerce.domains.catalog.domain.ItemEntity;
-import com.galid.commerce.domains.catalog.domain.ItemQuery;
+import com.galid.commerce.domains.catalog.domain.item.ItemEntity;
+import com.galid.commerce.domains.catalog.domain.item.ItemQuery;
 import com.galid.commerce.domains.catalog.service.AddItemRequest;
 import com.galid.commerce.domains.catalog.service.ItemSearchForm;
 import com.galid.commerce.domains.catalog.service.ItemService;

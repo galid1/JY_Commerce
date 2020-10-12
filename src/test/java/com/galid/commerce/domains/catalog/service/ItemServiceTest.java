@@ -1,8 +1,8 @@
 package com.galid.commerce.domains.catalog.service;
 
-import com.galid.commerce.domains.catalog.domain.Book;
-import com.galid.commerce.domains.catalog.domain.ItemEntity;
-import com.galid.commerce.domains.catalog.domain.ItemRepository;
+import com.galid.commerce.domains.catalog.domain.item.Book;
+import com.galid.commerce.domains.catalog.domain.item.ItemEntity;
+import com.galid.commerce.domains.catalog.domain.item.ItemRepository;
 import com.galid.commerce.domains.catalog.infra.ItemFactory;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

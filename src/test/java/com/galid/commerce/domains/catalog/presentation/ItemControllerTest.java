@@ -1,8 +1,8 @@
 package com.galid.commerce.domains.catalog.presentation;
 
-import com.galid.commerce.domains.catalog.domain.Book;
-import com.galid.commerce.domains.catalog.domain.ItemEntity;
-import com.galid.commerce.domains.catalog.domain.ItemQuery;
+import com.galid.commerce.domains.catalog.domain.item.Book;
+import com.galid.commerce.domains.catalog.domain.item.ItemEntity;
+import com.galid.commerce.domains.catalog.domain.item.ItemQuery;
 import com.galid.commerce.domains.catalog.service.ItemService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
