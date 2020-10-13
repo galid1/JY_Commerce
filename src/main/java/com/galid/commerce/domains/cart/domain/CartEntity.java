@@ -13,7 +13,7 @@ import java.util.Map;
 @Getter
 @NoArgsConstructor
 public class CartEntity {
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long cartId;
 
     // Member를 참조하는 외래키 역할
