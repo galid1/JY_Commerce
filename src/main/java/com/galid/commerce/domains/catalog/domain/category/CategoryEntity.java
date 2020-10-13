@@ -14,7 +14,7 @@ import javax.persistence.Table;
 @Table(name = "categories")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class CategoryEntity extends BaseEntity {
+public class CategoryEntity {
     @Id @GeneratedValue
     private Long categoryId;
     private String categoryName;
