@@ -1,7 +1,7 @@
 package com.galid.commerce.domains.catalog.domain.item;
 
-import com.galid.commerce.domains.catalog.service.ItemSearchForm;
 import com.galid.commerce.domains.catalog.presentation.Sorter;
+import com.galid.commerce.domains.catalog.service.ItemSearchForm;
 import com.galid.commerce.domains.catalog.service.ItemSummaryInItemList;
 import com.galid.commerce.domains.catalog.service.QItemSummaryInItemList;
 import com.querydsl.core.types.OrderSpecifier;
@@ -12,7 +12,8 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import java.util.List;
 
-import static com.galid.commerce.domains.catalog.domain.QItemEntity.itemEntity;
+import static com.galid.commerce.domains.catalog.domain.item.QItemEntity.itemEntity;
+
 
 @Repository
 public class ItemQuery {

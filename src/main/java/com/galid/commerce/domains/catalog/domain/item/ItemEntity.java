@@ -10,7 +10,6 @@ import java.util.List;
 
 @Entity
 @Table(name = "items")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -22,9 +21,7 @@ public abstract class ItemEntity extends BaseEntity {
     private int price;
     private int stockQuantity;
 
-    @OneToMany
-    @JoinColumn(name = "item_id")
-    private List<CategoryEntity> categoryList;
+    private Long categoryId;
 
     // ==== 비즈니스 로직 ====
     public void removeStockQuantity(int orderQuantity) {
