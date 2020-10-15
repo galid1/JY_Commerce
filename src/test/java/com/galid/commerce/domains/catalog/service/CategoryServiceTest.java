@@ -47,7 +47,6 @@ class CategoryServiceTest {
 
         //when
         CategoryDto categoryRoot = categoryService.createCategoryRoot();
-        System.out.println(categoryRoot.getCategoryId());
 
         //then
         verify(categoryRepository, atLeastOnce()).findAll();
