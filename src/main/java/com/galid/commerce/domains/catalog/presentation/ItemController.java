@@ -35,22 +35,6 @@ public class ItemController {
         return "redirect:/items/"+ newItemId;
     }
 
-    @GetMapping("/items")
-    public String getItemListPage(@ModelAttribute ItemSearchForm searchForm,
-                                  Model model) {
-        // 아이템 검색 form
-        if (searchForm == null)
-            model.addAttribute("itemSearchForm", new ItemSearchForm());
-        else
-            model.addAttribute("itemSearchForm", searchForm);
-
-        // 아이템 리스트
-        List<ItemSummaryInItemList> items = itemQuery.searchItem(searchForm);
-        model.addAttribute("items", items);
-
-        return "items/itemList";
-    }
-
     @GetMapping("/items/{itemId}")
     public String getItemDetailsPage(@PathVariable("itemId") Long itemId,
                                      Model model) {

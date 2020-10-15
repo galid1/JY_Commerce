@@ -1,22 +1,130 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<div th:replace="fragments/configHeader"></div>
+<div th:replace="fragments/configHeader"/>
 <body>
-    <div th:replace="fragments/head"></div>
+<div th:replace="fragments/head"/>
 
-    <div class="container">
-        <div class="jumbotron">
-            <p class="lead">상품 기능</p>
-            <p>
-                <a class="btn btn-lg btn-dark" href="/items/new">상품 등록</a>
-                <a class="btn btn-lg btn-dark" href="/items">상품 목록</a>
-            </p>
-            <p class="lead">주문 기능</p>
-            <p>
-                <a class="btn btn-lg btn-info" href="/order">상품 주문</a>
-                <a class="btn btn-lg btn-info" href="/orders">주문 내역</a>
-            </p>
-        </div>
+<div class="container">
+    <div class="titleContainer">
+        <h3>상품 목록</h3>
     </div>
+
+    <form th:action="@{/templates/items}" th:object="${itemSearchForm}" onsubmit="return isNotEmpty()">
+        <div class="searchContainer">
+            <div class="form-group mb-2">
+                <input id="searchInput" type="text" th:field="*{name}" class="form-control" placeholder="상품 이름">
+            </div>
+            <button type="submit" class="btn btn-primary mb-2">검색</button>
+        </div>
+
+        <div class="itemListContainer">
+            <div class="sortContainer">
+                <select th:field="*{sorter}">
+                    <option value="">정렬기준</option>
+                    <option
+                        th:each="sorter : ${T(com.galid.commerce.domains.catalog.presentation.Sorter).values()}"
+                        th:value="${sorter}"
+                        th:text="${sorter.getSorter()}"/>
+                </select>
+            </div>
+            <div class="itemContainer" th:each="item : ${items}">
+                <a class="item" th:href="@{/items/{itemId}(itemId=${item.getItemId()})}">
+                    <div class="itemImageContainer">
+                        <img class="itemImage" th:src="@{${item.getImagePath()}}" alt="">
+                    </div>
+                    <div class="itemInformationContainer">
+                        <span class="itemName" th:text="${item.name}"></span>
+                        <span class="itemPrice" th:text="${#numbers.formatInteger(item.price, 3, 'COMMA')} + ' 원'"></span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </form>
+
+</div>
+
 </body>
 </html>
+
+<style>
+    .titleContainer {
+        height: 10vh;
+        display: flex;
+        align-items: center;
+    }
+
+    .searchContainer {
+        display: flex;
+    }
+
+    .itemListContainer {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        border-top: 1px solid #CECECE;
+        border-bottom: 1px solid #CECECE;
+    }
+
+    .itemContainer {
+        width: 100%;
+        height: 20vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-bottom: 1px solid #CECECE;
+    }
+
+    .item {
+        width: 90%;
+        padding: 10px;
+        display: flex;
+    }
+
+    .item:hover {
+        box-shadow: 0 2px 10px 0 rgba(0,0,0,0.2);
+    }
+
+    .itemImageContainer {
+        width: 150px;
+        height: 150px;
+        margin-right: 5vw;
+    }
+
+    .itemImage {
+        height: 100%;
+        object-fit: contain;
+    }
+
+    .itemInformationContainer {
+        min-width: 60%;
+        max-width: 90%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .itemName {
+        color: #111111;
+    }
+
+    .itemPrice {
+        font-size: 20px;
+        color: #AE0000;
+    }
+
+    h3 {
+
+    }
+</style>
+
+<script>
+  function isNotEmpty() {
+    let searchText = document.getElementById("searchInput").value;
+
+    if (searchText) {
+      return true
+    }
+    else {
+      return false;
+    }
+  }
+</script>
