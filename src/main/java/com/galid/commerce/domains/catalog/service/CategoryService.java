@@ -3,6 +3,7 @@ package com.galid.commerce.domains.catalog.service;
 import com.galid.commerce.domains.catalog.domain.category.CategoryRepository;
 import com.galid.commerce.domains.catalog.query.dto.CategoryDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,6 +18,7 @@ import static java.util.stream.Collectors.groupingBy;
 public class CategoryService {
     private final CategoryRepository categoryRepository;
 
+    @Cacheable("categories")
     public CategoryDto createCategoryRoot() {
         Map<Long, List<CategoryDto>> groupingByParent = categoryRepository.findAll()
                 .stream()
