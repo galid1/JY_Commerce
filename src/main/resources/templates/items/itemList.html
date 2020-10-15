@@ -9,10 +9,10 @@
         <h3>상품 목록</h3>
     </div>
 
-    <form th:action="@{/items}" th:object="${itemSearchForm}">
+    <form th:action="@{/items}" th:object="${itemSearchForm}" onsubmit="return isNotEmpty()">
         <div class="searchContainer">
             <div class="form-group mb-2">
-                <input type="text" th:field="*{name}" class="form-control" placeholder="상품 이름">
+                <input id="searchInput" type="text" th:field="*{name}" class="form-control" placeholder="상품 이름">
             </div>
             <button type="submit" class="btn btn-primary mb-2">검색</button>
         </div>
@@ -117,6 +117,14 @@
 </style>
 
 <script>
-  $(function () {
-  });
+  function isNotEmpty() {
+    let searchText = document.getElementById("searchInput").value;
+
+    if (searchText) {
+      return true
+    }
+    else {
+      return false;
+    }
+  }
 </script>
