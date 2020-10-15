@@ -1,5 +1,5 @@
 plugins {
-	id 'org.springframework.boot' version '2.2.6.RELEASE'
+	id 'org.springframework.boot' version '2.3.3.RELEASE'
 	id 'io.spring.dependency-management' version '1.0.9.RELEASE'
 	id "com.ewerk.gradle.plugins.querydsl" version "1.0.10"
 	id 'java'
@@ -24,9 +24,13 @@ repositories {
 }
 
 dependencies {
-	// web , thymeleaf
+	// cache(redis)
+	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+
+	// web , thymeleaf , validation
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	
 	// jpa
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
