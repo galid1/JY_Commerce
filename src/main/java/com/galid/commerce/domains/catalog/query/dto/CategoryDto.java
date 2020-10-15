@@ -3,11 +3,12 @@ package com.galid.commerce.domains.catalog.query.dto;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.util.List;
 
 @Setter
 @Getter
-public class CategoryDto {
+public class CategoryDto implements Serializable {
     private Long categoryId;
     private String categoryName;
     private Long parentId;
