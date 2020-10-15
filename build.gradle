@@ -1,16 +1,15 @@
 plugins {
 	id 'org.springframework.boot' version '2.3.3.RELEASE'
-	id 'io.spring.dependency-management' version '1.0.9.RELEASE'
 	id "com.ewerk.gradle.plugins.querydsl" version "1.0.10"
+	id 'io.spring.dependency-management' version '1.0.10.RELEASE'
 	id 'java'
 }
 
 group = 'com.galid'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '1.8'
+sourceCompatibility = '11'
 
 configurations {
-	developmentOnly
 	runtimeClasspath {
 		extendsFrom developmentOnly
 	}
@@ -24,14 +23,14 @@ repositories {
 }
 
 dependencies {
-	// cache(redis)
-	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
-
 	// web , thymeleaf , validation
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
-	
+
+	// cache(redis)
+	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+
 	// jpa
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	// query dsl
