@@ -6,10 +6,10 @@
 
 <div class="container">
     <div class="titleContainer">
-        <h3>상품 목록</h3>
+        <h3>GALID</h3>
     </div>
 
-    <form th:action="@{/templates/items}" th:object="${itemSearchForm}" onsubmit="return isNotEmpty()">
+    <form th:action="@{/main}" th:object="${itemSearchForm}" onsubmit="return isNotEmpty()">
         <div class="searchContainer">
             <div class="form-group mb-2">
                 <input id="searchInput" type="text" th:field="*{name}" class="form-control" placeholder="상품 이름">
