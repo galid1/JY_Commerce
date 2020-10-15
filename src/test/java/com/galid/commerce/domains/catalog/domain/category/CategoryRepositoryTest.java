@@ -18,7 +18,7 @@ class CategoryRepositoryTest {
     @Test
     public void Category_생성_조회() throws Exception {
         //given
-        CategoryEntity category1 = new CategoryEntity("c1", null);
+        CategoryEntity category1 = new CategoryEntity("c1", 1l);
 
         //when
         CategoryEntity savedCategory1 = categoryRepository.save(category1);
@@ -30,8 +30,8 @@ class CategoryRepositoryTest {
     @Test
     public void id_자동증가() throws Exception {
         //given
-        CategoryEntity c1 = new CategoryEntity("c1", null);
-        CategoryEntity c2 = new CategoryEntity("c2", null);
+        CategoryEntity c1 = new CategoryEntity("c1", 1l);
+        CategoryEntity c2 = new CategoryEntity("c2", 1l);
         categoryRepository.saveAll(List.of(c1, c2));
 
         //when
