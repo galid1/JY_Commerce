@@ -1,8 +1,8 @@
 -- ================ Root 카테고리
-insert into categories(category_name, parent_id) values ('패션', null);
-insert into categories(category_name, parent_id) values ('가전/디지털', null);
-insert into categories(category_name, parent_id) values ('도서', null);
-insert into categories(category_name, parent_id) values ('식품', null);
+insert into categories(category_name, parent_id) values ('패션', 0);
+insert into categories(category_name, parent_id) values ('가전/디지털', 0);
+insert into categories(category_name, parent_id) values ('도서', 0);
+insert into categories(category_name, parent_id) values ('식품', 0);
 
 
 -- =============== Level 2 카테고리
