@@ -1,7 +1,5 @@
 package com.galid.commerce.domains.catalog.query.dto;
 
-import com.querydsl.core.annotations.QueryProjection;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,7 +13,6 @@ public class CategoryDto {
     private Long parentId;
     private List<CategoryDto> subCategories;
 
-    @QueryProjection
     public CategoryDto(Long categoryId, String categoryName, Long parentId) {
         this.categoryId = categoryId;
         this.categoryName = categoryName;
