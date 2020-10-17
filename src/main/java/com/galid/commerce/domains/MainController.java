@@ -1,6 +1,7 @@
 package com.galid.commerce.domains;
 
 import com.galid.commerce.domains.catalog.domain.item.ItemQuery;
+import com.galid.commerce.domains.catalog.service.CategoryService;
 import com.galid.commerce.domains.catalog.service.ItemSearchForm;
 import com.galid.commerce.domains.catalog.service.ItemSummaryInItemList;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +16,13 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MainController {
     private final ItemQuery itemQuery;
+    private final CategoryService categoryService;
+
+    @GetMapping("/category")
+    public String getCategory(Model model) {
+        model.addAttribute("rootCategory", categoryService.createCategoryRoot());
+        return "category";
+    }
 
     @GetMapping("/main")
     public String getMainPage(@ModelAttribute ItemSearchForm searchForm,
