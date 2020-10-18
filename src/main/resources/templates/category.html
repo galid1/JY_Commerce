@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="fragments/configHeader"></div>
+<body>
+
+    <div>
+        <div class="category">
+            <i class="far fa-bars" style="font-size: 25px; color:black;"></i>
+        </div>
+        <div class="categories">
+            <!--  LEVEL 1  -->
+            <div class="level1">
+                <div th:each="category, idx : ${rootCategory.subCategories}" th:class="'level1_' + ${idx.index}">
+                    <i class="fal fa-tshirt"></i>
+                    <span th:text="${category.categoryName}"></span>
+                </div>
+            </div>
+
+            <!--  LEVEL 2  -->
+            <div class="level2">
+                <!-- 패션  -->
+                <div class="fashion" th:each="category, idx : ${rootCategory.subCategories.get(0).subCategories}" th:class="'level2_fashion_' + ${idx.index}">
+                    <i class="fal fa-tshirt"></i>
+                    <span th:text="${category.categoryName}"></span>
+                </div>
+                <!-- 가전/디지털  -->
+                <div class="home" th:each="category, idx: ${rootCategory.subCategories.get(1).subCategories}" th:class="'level2_home_' + ${idx.index}">
+                    <i class="fal fa-tshirt"></i>
+                    <span th:text="${category.categoryName}"></span>
+                </div>
+                <!-- 도서  -->
+                <div class="book" th:each="category, idx: ${rootCategory.subCategories.get(2).subCategories}" th:class="'level2_book_' + ${idx.index}">
+                    <i class="fal fa-tshirt"></i>
+                    <span th:text="${category.categoryName}"></span>
+                </div>
+                <!-- 식품  -->
+                <div class="food" th:each="category, idx: ${rootCategory.subCategories.get(3).subCategories}" th:class="'level2_food_' + ${idx.index}">
+                    <i class="fal fa-tshirt"></i>
+                    <span th:text="${category.categoryName}"></span>
+                </div>
+            </div>
+
+            <!--  LEVEL 3  -->
+            <div class="level3">
+                <!--  패션 차하위  -->
+                <div>
+                    <div th:each="category, idx: ${rootCategory.subCategories.get(0).subCategories.get(0).subCategories}" th:class="'level3_fashion_femalie_' + ${idx.index}">
+                        <i class="fal fa-tshirt"></i>
+                        <span th:text="${category.categoryName}"></span>
+                    </div>
+                    <div th:each="category, idx: ${rootCategory.subCategories.get(0).subCategories.get(1).subCategories}" th:class="'level3_fashion_male_' + ${idx.index}">
+                        <i class="fal fa-tshirt"></i>
+                        <span th:text="${category.categoryName}"></span>
+                    </div>
+                    <div th:each="category, idx: ${rootCategory.subCategories.get(0).subCategories.get(2).subCategories}" th:class="'level3_kids_' + ${idx.index}">
+                        <i class="fal fa-tshirt"></i>
+                        <span th:text="${category.categoryName}"></span>
+                    </div>
+                    <div th:each="category, idx: ${rootCategory.subCategories.get(0).subCategories.get(3).subCategories}" th:class="'level3_sports_' + ${idx.index}">
+                        <i class="fal fa-tshirt"></i>
+                        <span th:text="${category.categoryName}"></span>
+                    </div>
+                    <div th:each="category, idx: ${rootCategory.subCategories.get(0).subCategories.get(4).subCategories}" th:class="'level3_etc_' + ${idx.index}">
+                        <i class="fal fa-tshirt"></i>
+                        <span th:text="${category.categoryName}"></span>
+                    </div>
+                </div>
+
+                <!-- 가전 차하위 -->
+                <div>
+                    <div th:each="category, idx: ${rootCategory.subCategories.get(1).subCategories.get(0).subCategories}" th:class="'level3_home_computer_' + ${idx.index}">
+                        <i class="fal fa-tshirt"></i>
+                        <span th:text="${category.categoryName}"></span>
+                    </div>
+                    <div th:each="category, idx: ${rootCategory.subCategories.get(1).subCategories.get(1).subCategories}" th:class="'level3_home_refri_' + ${idx.index}">
+                        <i class="fal fa-tshirt"></i>
+                        <span th:text="${category.categoryName}"></span>
+                    </div>
+                    <div th:each="category, idx: ${rootCategory.subCategories.get(1).subCategories.get(2).subCategories}" th:class="'level3_home_cleaner_' + ${idx.index}">
+                        <i class="fal fa-tshirt"></i>
+                        <span th:text="${category.categoryName}"></span>
+                    </div>
+                    <div th:each="category, idx: ${rootCategory.subCategories.get(1).subCategories.get(3).subCategories}" th:class="'level3_washing_' + ${idx.index}">
+                        <i class="fal fa-tshirt"></i>
+                        <span th:text="${category.categoryName}"></span>
+                    </div>
+                </div>
+
+                <!-- 책 차하위 -->
+                <div>
+                    <div th:each="category, idx: ${rootCategory.subCategories.get(2).subCategories.get(0).subCategories}" th:class="'level3_book_travel_' + ${idx.index}">
+                        <i class="fal fa-tshirt"></i>
+                        <span th:text="${category.categoryName}"></span>
+                    </div>
+                    <div th:each="category, idx: ${rootCategory.subCategories.get(2).subCategories.get(1).subCategories}" th:class="'level3_book_history_' + ${idx.index}">
+                        <i class="fal fa-tshirt"></i>
+                        <span th:text="${category.categoryName}"></span>
+                    </div>
+                    <div th:each="category, idx: ${rootCategory.subCategories.get(2).subCategories.get(2).subCategories}" th:class="'level3_book_art_' + ${idx.index}">
+                        <i class="fal fa-tshirt"></i>
+                        <span th:text="${category.categoryName}"></span>
+                    </div>
+                    <div th:each="category, idx: ${rootCategory.subCategories.get(2).subCategories.get(3).subCategories}" th:class="'level3_book_science_' + ${idx.index}">
+                        <i class="fal fa-tshirt"></i>
+                        <span th:text="${category.categoryName}"></span>
+                    </div>
+                </div>
+
+                <!-- 음식 차하위 -->
+                <div>
+                    <div th:each="category, idx: ${rootCategory.subCategories.get(3).subCategories.get(0).subCategories}" th:class="'level3_food_fruit_' + ${idx.index}">
+                        <i class="fal fa-tshirt"></i>
+                        <span th:text="${category.categoryName}"></span>
+                    </div>
+                    <div th:each="category, idx: ${rootCategory.subCategories.get(3).subCategories.get(1).subCategories}" th:class="'level3_food_vegetable_' + ${idx.index}">
+                        <i class="fal fa-tshirt"></i>
+                        <span th:text="${category.categoryName}"></span>
+                    </div>
+                    <div th:each="category, idx: ${rootCategory.subCategories.get(3).subCategories.get(2).subCategories}" th:class="'level3_food_drink_' + ${idx.index}">
+                        <i class="fal fa-tshirt"></i>
+                        <span th:text="${category.categoryName}"></span>
+                    </div>
+                    <div th:each="category, idx: ${rootCategory.subCategories.get(3).subCategories.get(3).subCategories}" th:class="'level3_food_marine_' + ${idx.index}">
+                        <i class="fal fa-tshirt"></i>
+                        <span th:text="${category.categoryName}"></span>
+                    </div>
+                    <div th:each="category, idx: ${rootCategory.subCategories.get(3).subCategories.get(4).subCategories}" th:class="'level3_livestock_' + ${idx.index}">
+                        <i class="fal fa-tshirt"></i>
+                        <span th:text="${category.categoryName}"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+
+<style>
+    .categories {
+        display: flex;
+    }
+
+    .categories {
+        display: none;
+    }
+</style>
+
+<script>
+    $(function() {
+      $(".category").mouseover(function() {
+        $(".categories").css("display", "block");
+      });
+
+    });
+</script>
