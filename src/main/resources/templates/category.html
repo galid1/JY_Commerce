@@ -11,7 +11,7 @@
         <div class="categories">
             <!--  LEVEL 1  -->
             <div class="level1">
-                <div class="level1Categories category" th:each="category, idx : ${rootCategory.subCategories}" th:class="'level1_' + ${idx.index}">
+                <div th:each="category, idx : ${rootCategory.subCategories}" th:class="'level1_' + ${idx.index}">
                     <i class="fal fa-tshirt"></i>
                     <span th:text="${category.categoryName}"></span>
                 </div>
@@ -20,19 +20,19 @@
             <!--  LEVEL 2  -->
             <div class="level2">
                 <!-- 패션  -->
-                <div class="fashion" th:each="category, idx : ${rootCategory.subCategories.get(0).subCategories}" th:class="'category level2_fashion level2_fashion_' + ${idx.index}">
+                <div th:each="category, idx : ${rootCategory.subCategories.get(0).subCategories}" th:class="'category level2_0 level2_0_' + ${idx.index}">
                     <span th:text="${category.categoryName}"></span>
                 </div>
                 <!-- 가전/디지털  -->
-                <div class="home" th:each="category, idx: ${rootCategory.subCategories.get(1).subCategories}" th:class="'category level2_home level2_home_' + ${idx.index}">
+                <div th:each="category, idx: ${rootCategory.subCategories.get(1).subCategories}" th:class="'category level2_1 level2_1_' + ${idx.index}">
                     <span th:text="${category.categoryName}"></span>
                 </div>
                 <!-- 도서  -->
-                <div class="book" th:each="category, idx: ${rootCategory.subCategories.get(2).subCategories}" th:class="'category level2_book level2_book_' + ${idx.index}">
+                <div th:each="category, idx: ${rootCategory.subCategories.get(2).subCategories}" th:class="'category level2_2 level2_2_' + ${idx.index}">
                     <span th:text="${category.categoryName}"></span>
                 </div>
                 <!-- 식품  -->
-                <div class="food" th:each="category, idx: ${rootCategory.subCategories.get(3).subCategories}" th:class="'category level2_food level2_food_' + ${idx.index}">
+                <div th:each="category, idx: ${rootCategory.subCategories.get(3).subCategories}" th:class="'category level2_3 level2_3_' + ${idx.index}">
                     <span th:text="${category.categoryName}"></span>
                 </div>
             </div>
@@ -127,6 +127,10 @@
     .categories, .level2, .level3 {
         display: none;
     }
+
+    .level2_0, .level2_1, .level2_2, .level2_3 {
+        display: none;
+    }
 </style>
 
 <script>
@@ -134,40 +138,56 @@
       $("#categoryMenu").mouseover(function() {
         $(".categories").css("display", "flex");
         $(".categories").css("flex-direction", "row");
+        $(".level1").css("display", "inline-block");
       });
 
-      $(".categories, .level1Categories, .level2").mouseleave(function() {
+      // 카테고리 안보이게
+      $(".categories, .level1Categories").mouseleave(function() {
         $(".categories").css("display", "none");
       });
 
       // level 1
       $(".level1_0").mouseover(function() {
-        $(".level2, .level2_fashion").css("display", "inline-block");
+        $(".level2, .level2_0").css("display", "flex");
+        $(".level2, .level2_0").css("flex-direction", "column");
       });
       $(".level1_0").mouseleave(function() {
-        // $(".level2, .level2_fashion").css("display", "none");
+        $(".level2_0").css("display", "none");
       });
 
       $(".level1_1").mouseover(function() {
-        $(".level2, .level2_home").css("display", "inline-block");
+        $(".level2, .level2_1").css("display", "flex");
+        $(".level2, .level2_1").css("flex-direction", "column");
       });
-      $(".level1_1").mouseover(function() {
-        $(".level2, .level2_home").css("display", "none");
-      });
-
-      $(".level_2").mouseover(function() {
-        $(".level2, .level2_book").css("display", "inline-block");
-      });
-      $(".level_2").mouseover(function() {
-        $(".level2, .level2_book").css("display", "none");
+      $(".level1_1").mouseleave(function() {
+        $(".level2_1").css("display", "none");
       });
 
-      $(".level_3").mouseover(function() {
-        $(".level2, .fashion_food").css("display", "inline-block");
+      $(".level1_2").mouseover(function() {
+        $(".level2, .level2_2").css("display", "flex");
+        $(".level2, .level2_2").css("flex-direction", "column");
       });
-      $(".level_3").mouseover(function() {
-        $(".level2, .fashion_food").css("display", "none");
+      $(".level1_2").mouseleave(function() {
+        $(".level2_2").css("display", "none");
       });
+
+      $(".level1_3").mouseover(function() {
+        $(".level2, .level2_3").css("display", "flex");
+        $(".level2, .level2_3").css("flex-direction", "column");
+      });
+      $(".level1_3").mouseleave(function() {
+        $(".level2_3").css("display", "none");
+      });
+
+      // level 2
+      $(".level2_0").mouseover(function() {
+        $(".level2, .level2_0").css("display", "flex");
+        $(".level2, .level2_0").css("flex-direction", "column");
+      });
+      $(".level1_0").mouseleave(function() {
+        $(".level2_0").css("display", "none");
+      });
+
 
     });
 </script>
