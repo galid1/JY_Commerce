@@ -41,70 +41,70 @@
             <div class="level3">
                 <!--  패션 차하위  -->
                 <div class="">
-                    <div th:each="category, idx: ${rootCategory.subCategories.get(0).subCategories.get(0).subCategories}" th:class="'category level3_fashion_femalie_' + ${idx.index}">
+                    <div th:each="category, idx: ${rootCategory.subCategories.get(0).subCategories.get(0).subCategories}" th:class="'category level3_0_0 level3_0_0_' + ${idx.index}">
                         <span th:text="${category.categoryName}"></span>
                     </div>
-                    <div th:each="category, idx: ${rootCategory.subCategories.get(0).subCategories.get(1).subCategories}" th:class="'category level3_fashion_male_' + ${idx.index}">
+                    <div th:each="category, idx: ${rootCategory.subCategories.get(0).subCategories.get(1).subCategories}" th:class="'category level3_0_1 level3_0_1_' + ${idx.index}">
                         <span th:text="${category.categoryName}"></span>
                     </div>
-                    <div th:each="category, idx: ${rootCategory.subCategories.get(0).subCategories.get(2).subCategories}" th:class="'category level3_kids_' + ${idx.index}">
+                    <div th:each="category, idx: ${rootCategory.subCategories.get(0).subCategories.get(2).subCategories}" th:class="'category level3_0_2 level3_0_2_' + ${idx.index}">
                         <span th:text="${category.categoryName}"></span>
                     </div>
-                    <div th:each="category, idx: ${rootCategory.subCategories.get(0).subCategories.get(3).subCategories}" th:class="'category level3_sports_' + ${idx.index}">
+                    <div th:each="category, idx: ${rootCategory.subCategories.get(0).subCategories.get(3).subCategories}" th:class="'category level3_0_3 level3_0_3_' + ${idx.index}">
                         <span th:text="${category.categoryName}"></span>
                     </div>
-                    <div th:each="category, idx: ${rootCategory.subCategories.get(0).subCategories.get(4).subCategories}" th:class="'category level3_etc_' + ${idx.index}">
+                    <div th:each="category, idx: ${rootCategory.subCategories.get(0).subCategories.get(4).subCategories}" th:class="'category level3_0_4 level3_0_4_' + ${idx.index}">
                         <span th:text="${category.categoryName}"></span>
                     </div>
                 </div>
 
                 <!-- 가전 차하위 -->
                 <div>
-                    <div th:each="category, idx: ${rootCategory.subCategories.get(1).subCategories.get(0).subCategories}" th:class="'category level3_home_computer_' + ${idx.index}">
+                    <div th:each="category, idx: ${rootCategory.subCategories.get(1).subCategories.get(0).subCategories}" th:class="'category level3_1_0 level3_1_0_' + ${idx.index}">
                         <span th:text="${category.categoryName}"></span>
                     </div>
-                    <div th:each="category, idx: ${rootCategory.subCategories.get(1).subCategories.get(1).subCategories}" th:class="'category level3_home_refri_' + ${idx.index}">
+                    <div th:each="category, idx: ${rootCategory.subCategories.get(1).subCategories.get(1).subCategories}" th:class="'category level3_1_1 level3_1_1_' + ${idx.index}">
                         <span th:text="${category.categoryName}"></span>
                     </div>
-                    <div th:each="category, idx: ${rootCategory.subCategories.get(1).subCategories.get(2).subCategories}" th:class="'category level3_home_cleaner_' + ${idx.index}">
+                    <div th:each="category, idx: ${rootCategory.subCategories.get(1).subCategories.get(2).subCategories}" th:class="'category level3_1_2 level3_1_2_' + ${idx.index}">
                         <span th:text="${category.categoryName}"></span>
                     </div>
-                    <div th:each="category, idx: ${rootCategory.subCategories.get(1).subCategories.get(3).subCategories}" th:class="'category level3_washing_' + ${idx.index}">
+                    <div th:each="category, idx: ${rootCategory.subCategories.get(1).subCategories.get(3).subCategories}" th:class="'category level3_1_3 level3_1_3_' + ${idx.index}">
                         <span th:text="${category.categoryName}"></span>
                     </div>
                 </div>
 
                 <!-- 책 차하위 -->
                 <div>
-                    <div th:each="category, idx: ${rootCategory.subCategories.get(2).subCategories.get(0).subCategories}" th:class="'category level3_book_travel_' + ${idx.index}">
+                    <div th:each="category, idx: ${rootCategory.subCategories.get(2).subCategories.get(0).subCategories}" th:class="'category level3_2_0 level3_2_0_' + ${idx.index}">
                         <span th:text="${category.categoryName}"></span>
                     </div>
-                    <div th:each="category, idx: ${rootCategory.subCategories.get(2).subCategories.get(1).subCategories}" th:class="'category level3_book_history_' + ${idx.index}">
+                    <div th:each="category, idx: ${rootCategory.subCategories.get(2).subCategories.get(1).subCategories}" th:class="'category level3_2_1 level3_2_1_' + ${idx.index}">
                         <span th:text="${category.categoryName}"></span>
                     </div>
-                    <div th:each="category, idx: ${rootCategory.subCategories.get(2).subCategories.get(2).subCategories}" th:class="'category level3_book_art_' + ${idx.index}">
+                    <div th:each="category, idx: ${rootCategory.subCategories.get(2).subCategories.get(2).subCategories}" th:class="'category level3_2_2 level3_2_2_' + ${idx.index}">
                         <span th:text="${category.categoryName}"></span>
                     </div>
-                    <div th:each="category, idx: ${rootCategory.subCategories.get(2).subCategories.get(3).subCategories}" th:class="'category level3_book_science_' + ${idx.index}">
+                    <div th:each="category, idx: ${rootCategory.subCategories.get(2).subCategories.get(3).subCategories}" th:class="'category level3_2_3 level3_2_3_' + ${idx.index}">
                         <span th:text="${category.categoryName}"></span>
                     </div>
                 </div>
 
                 <!-- 음식 차하위 -->
                 <div>
-                    <div th:each="category, idx: ${rootCategory.subCategories.get(3).subCategories.get(0).subCategories}" th:class="'category level3_food_fruit_' + ${idx.index}">
+                    <div th:each="category, idx: ${rootCategory.subCategories.get(3).subCategories.get(0).subCategories}" th:class="'category level3_3_0 level3_3_0_' + ${idx.index}">
                         <span th:text="${category.categoryName}"></span>
                     </div>
-                    <div th:each="category, idx: ${rootCategory.subCategories.get(3).subCategories.get(1).subCategories}" th:class="'category level3_food_vegetable_' + ${idx.index}">
+                    <div th:each="category, idx: ${rootCategory.subCategories.get(3).subCategories.get(1).subCategories}" th:class="'category level3_3_1 level3_3_3_1_' + ${idx.index}">
                         <span th:text="${category.categoryName}"></span>
                     </div>
-                    <div th:each="category, idx: ${rootCategory.subCategories.get(3).subCategories.get(2).subCategories}" th:class="'category level3_food_drink_' + ${idx.index}">
+                    <div th:each="category, idx: ${rootCategory.subCategories.get(3).subCategories.get(2).subCategories}" th:class="'category level3_3_2 level3_3_3_2_' + ${idx.index}">
                         <span th:text="${category.categoryName}"></span>
                     </div>
-                    <div th:each="category, idx: ${rootCategory.subCategories.get(3).subCategories.get(3).subCategories}" th:class="'category level3_food_marine_' + ${idx.index}">
+                    <div th:each="category, idx: ${rootCategory.subCategories.get(3).subCategories.get(3).subCategories}" th:class="'category level3_3_3 level3_3_3_3_' + ${idx.index}">
                         <span th:text="${category.categoryName}"></span>
                     </div>
-                    <div th:each="category, idx: ${rootCategory.subCategories.get(3).subCategories.get(4).subCategories}" th:class="'category level3_livestock_' + ${idx.index}">
+                    <div th:each="category, idx: ${rootCategory.subCategories.get(3).subCategories.get(4).subCategories}" th:class="'category level3_3_4 level3_3_3_4' + ${idx.index}">
                         <span th:text="${category.categoryName}"></span>
                     </div>
                 </div>
@@ -124,13 +124,14 @@
         display: flex;
     }
 
-    .categories, .level2, .level3 {
+    .categories {
         display: none;
     }
 
-    .level2_0, .level2_1, .level2_2, .level2_3 {
+    .category {
         display: none;
     }
+
 </style>
 
 <script>
@@ -143,8 +144,9 @@
 
       // 카테고리 안보이게
       $(".categories, .level1Categories").mouseleave(function() {
-        $(".categories").css("display", "none");
+        $(".categories, .category").css("display", "none");
       });
+
 
       // level 1
       $(".level1_0").mouseover(function() {
@@ -179,15 +181,172 @@
         $(".level2_3").css("display", "none");
       });
 
+
       // level 2
-      $(".level2_0").mouseover(function() {
-        $(".level2, .level2_0").css("display", "flex");
-        $(".level2, .level2_0").css("flex-direction", "column");
+      // 패션 ==
+      // 여성
+      $(".level2_0_0").mouseover(function() {
+        $(".level2, .level2_0, .level3, .level3_0_0").css("display", "flex");
+        $(".level2, .level2_0, .level3, .level3_0_0").css("flex-direction", "column");
       });
-      $(".level1_0").mouseleave(function() {
-        $(".level2_0").css("display", "none");
+      $(".level2_0_0").mouseleave(function() {
+        $(".level3, .level2_0, .level3_0_0").css("display", "none");
       });
 
+      // 남성
+      $(".level2_0_1").mouseover(function() {
+        $(".level2, .level2_0, .level3, .level3_0_1").css("display", "flex");
+        $(".level2, .level2_0, .level3, .level3_0_1").css("flex-direction", "column");
+      });
+      $(".level2_0_1").mouseleave(function() {
+        $(".level3, .level2_0, .level3_0_1").css("display", "none");
+      });
 
+      // 아동
+      $(".level2_0_2").mouseover(function() {
+        $(".level2, .level2_0, .level3, .level3_0_2").css("display", "flex");
+        $(".level2, .level2_0, .level3, .level3_0_2").css("flex-direction", "column");
+      });
+      $(".level2_0_2").mouseleave(function() {
+        $(".level3, .level2_0, .level3_0_2").css("display", "none");
+      });
+
+      // 스포츠
+      $(".level2_0_3").mouseover(function() {
+        $(".level2, .level2_0, .level3, .level3_0_3").css("display", "flex");
+        $(".level2, .level2_0, .level3, .level3_0_3").css("flex-direction", "column");
+      });
+      $(".level2_0_3").mouseleave(function() {
+        $(".level3, .level2_0, .level3_0_3").css("display", "none");
+      });
+
+      // 잡화
+      $(".level2_0_4").mouseover(function() {
+        $(".level2, .level2_0, .level3, .level3_0_4").css("display", "flex");
+        $(".level2, .level2_0, .level3, .level3_0_4").css("flex-direction", "column");
+      });
+      $(".level2_0_4").mouseleave(function() {
+        $(".level3, .level2_0, .level3_0_4").css("display", "none");
+      });
+
+      // 가전/디지털 ==
+      // 컴퓨터
+      $(".level2_1_0").mouseover(function() {
+        $(".level2, .level2_1, .level3, .level3_1_0").css("display", "flex");
+        $(".level2, .level2_1, .level3, .level3_1_0").css("flex-direction", "column");
+      });
+      $(".level2_1_0").mouseleave(function() {
+        $(".level3, .level2_1, .level3_1_0").css("display", "none");
+      });
+
+      // 냉장고
+      $(".level2_1_1").mouseover(function() {
+        $(".level2, .level2_1, .level3, .level3_1_1").css("display", "flex");
+        $(".level2, .level2_1, .level3, .level3_1_1").css("flex-direction", "column");
+      });
+      $(".level2_1_1").mouseleave(function() {
+        $(".level3, .level2_1, .level3_1_1").css("display", "none");
+      });
+
+      // 청소기
+      $(".level2_1_2").mouseover(function() {
+        $(".level2, .level2_1, .level3, .level3_1_2").css("display", "flex");
+        $(".level2, .level2_1, .level3, .level3_1_2").css("flex-direction", "column");
+      });
+      $(".level2_1_2").mouseleave(function() {
+        $(".level3, .level2_1, .level3_1_2").css("display", "none");
+      });
+
+      // 세탁기/건조기
+      $(".level2_1_3").mouseover(function() {
+        $(".level2, .level2_1, .level3, .level3_1_3").css("display", "flex");
+        $(".level2, .level2_1, .level3, .level3_1_3").css("flex-direction", "column");
+      });
+      $(".level2_1_3").mouseleave(function() {
+        $(".level3, .level2_1, .level3_1_3").css("display", "none");
+      });
+
+      // 도서 ==
+      // 여행
+      $(".level2_2_0").mouseover(function() {
+        $(".level2, .level2_2, .level3, .level3_2_0").css("display", "flex");
+        $(".level2, .level2_2, .level3, .level3_2_0").css("flex-direction", "column");
+      });
+      $(".level2_2_0").mouseleave(function() {
+        $(".level3, .level2_2, .level3_2_0").css("display", "none");
+      });
+
+      // 역사
+      $(".level2_2_1").mouseover(function() {
+        $(".level2, .level2_2, .level3, .level3_2_1").css("display", "flex");
+        $(".level2, .level2_2, .level3, .level3_2_1").css("flex-direction", "column");
+      });
+      $(".level2_2_1").mouseleave(function() {
+        $(".level3, .level2_2, .level3_2_1").css("display", "none");
+      });
+
+      // 예술
+      $(".level2_2_2").mouseover(function() {
+        $(".level2, .level2_2, .level3, .level3_2_2").css("display", "flex");
+        $(".level2, .level2_2, .level3, .level3_2_2").css("flex-direction", "column");
+      });
+      $(".level2_2_2").mouseleave(function() {
+        $(".level3, .level2_2, .level3_2_2").css("display", "none");
+      });
+
+      // 공학/과학
+      $(".level2_2_3").mouseover(function() {
+        $(".level2, .level2_2, .level3, .level3_2_3").css("display", "flex");
+        $(".level2, .level2_2, .level3, .level3_2_3").css("flex-direction", "column");
+      });
+      $(".level2_2_3").mouseleave(function() {
+        $(".level3, .level2_2, .level3_2_3").css("display", "none");
+      });
+
+      // 식품 ==
+      // 과일
+      $(".level2_3_0").mouseover(function() {
+        $(".level2, .level2_3, .level3, .level3_3_0").css("display", "flex");
+        $(".level2, .level2_3, .level3, .level3_3_0").css("flex-direction", "column");
+      });
+      $(".level2_3_0").mouseleave(function() {
+        $(".level3, .level2_3, .level3_3_0").css("display", "none");
+      });
+
+      // 채소
+      $(".level2_3_1").mouseover(function() {
+        $(".level2, .level2_3, .level3, .level3_3_1").css("display", "flex");
+        $(".level2, .level2_3, .level3, .level3_3_1").css("flex-direction", "column");
+      });
+      $(".level2_3_1").mouseleave(function() {
+        $(".level3, .level2_3, .level3_3_1").css("display", "none");
+      });
+
+      // 생수/음료
+      $(".level2_3_2").mouseover(function() {
+        $(".level2, .level2_3, .level3, .level3_3_2").css("display", "flex");
+        $(".level2, .level2_3, .level3, .level3_3_2").css("flex-direction", "column");
+      });
+      $(".level2_3_2").mouseleave(function() {
+        $(".level3, .level2_3, .level3_3_2").css("display", "none");
+      });
+
+      // 수산물
+      $(".level2_3_3").mouseover(function() {
+        $(".level2, .level2_3, .level3, .level3_3_3").css("display", "flex");
+        $(".level2, .level2_3, .level3, .level3_3_3").css("flex-direction", "column");
+      });
+      $(".level2_3_3").mouseleave(function() {
+        $(".level3, .level2_3, .level3_3_3").css("display", "none");
+      });
+
+      // 축산물
+      $(".level2_3_4").mouseover(function() {
+        $(".level2, .level2_3, .level3, .level3_3_4").css("display", "flex");
+        $(".level2, .level2_3, .level3, .level3_3_4").css("flex-direction", "column");
+      });
+      $(".level2_3_4").mouseleave(function() {
+        $(".level3, .level2_3, .level3_3_4").css("display", "none");
+      });
     });
 </script>
