@@ -42,70 +42,96 @@
                 <!--  패션 차하위  -->
                 <div class="">
                     <div th:each="category, idx: ${rootCategory.subCategories.get(0).subCategories.get(0).subCategories}" th:class="'category level3_0_0 level3_0_0_' + ${idx.index}">
-                        <span th:text="${category.categoryName}"></span>
+                        <a href="">
+                            <span th:text="${category.categoryName}"></span>
+                        </a>
                     </div>
                     <div th:each="category, idx: ${rootCategory.subCategories.get(0).subCategories.get(1).subCategories}" th:class="'category level3_0_1 level3_0_1_' + ${idx.index}">
-                        <span th:text="${category.categoryName}"></span>
+                        <a href="">
+                            <span th:text="${category.categoryName}"></span>
+                        </a>
                     </div>
                     <div th:each="category, idx: ${rootCategory.subCategories.get(0).subCategories.get(2).subCategories}" th:class="'category level3_0_2 level3_0_2_' + ${idx.index}">
-                        <span th:text="${category.categoryName}"></span>
-                    </div>
+                        <a href="">
+                            <span th:text="${category.categoryName}"></span>
+                        </a>                    </div>
                     <div th:each="category, idx: ${rootCategory.subCategories.get(0).subCategories.get(3).subCategories}" th:class="'category level3_0_3 level3_0_3_' + ${idx.index}">
-                        <span th:text="${category.categoryName}"></span>
-                    </div>
+                        <a href="">
+                            <span th:text="${category.categoryName}"></span>
+                        </a>                    </div>
                     <div th:each="category, idx: ${rootCategory.subCategories.get(0).subCategories.get(4).subCategories}" th:class="'category level3_0_4 level3_0_4_' + ${idx.index}">
-                        <span th:text="${category.categoryName}"></span>
-                    </div>
+                        <a href="">
+                            <span th:text="${category.categoryName}"></span>
+                        </a>                    </div>
                 </div>
 
                 <!-- 가전 차하위 -->
                 <div>
                     <div th:each="category, idx: ${rootCategory.subCategories.get(1).subCategories.get(0).subCategories}" th:class="'category level3_1_0 level3_1_0_' + ${idx.index}">
-                        <span th:text="${category.categoryName}"></span>
-                    </div>
+                        <a href="">
+                            <span th:text="${category.categoryName}"></span>
+                        </a>                    </div>
                     <div th:each="category, idx: ${rootCategory.subCategories.get(1).subCategories.get(1).subCategories}" th:class="'category level3_1_1 level3_1_1_' + ${idx.index}">
-                        <span th:text="${category.categoryName}"></span>
-                    </div>
+                        <a href="">
+                            <span th:text="${category.categoryName}"></span>
+                        </a>                    </div>
                     <div th:each="category, idx: ${rootCategory.subCategories.get(1).subCategories.get(2).subCategories}" th:class="'category level3_1_2 level3_1_2_' + ${idx.index}">
-                        <span th:text="${category.categoryName}"></span>
-                    </div>
+                        <a href="">
+                            <span th:text="${category.categoryName}"></span>
+                        </a>                    </div>
                     <div th:each="category, idx: ${rootCategory.subCategories.get(1).subCategories.get(3).subCategories}" th:class="'category level3_1_3 level3_1_3_' + ${idx.index}">
-                        <span th:text="${category.categoryName}"></span>
-                    </div>
+                        <a href="">
+                            <span th:text="${category.categoryName}"></span>
+                        </a>                    </div>
                 </div>
 
                 <!-- 책 차하위 -->
                 <div>
                     <div th:each="category, idx: ${rootCategory.subCategories.get(2).subCategories.get(0).subCategories}" th:class="'category level3_2_0 level3_2_0_' + ${idx.index}">
-                        <span th:text="${category.categoryName}"></span>
-                    </div>
+                        <a href="">
+                            <span th:text="${category.categoryName}"></span>
+                        </a>                    </div>
                     <div th:each="category, idx: ${rootCategory.subCategories.get(2).subCategories.get(1).subCategories}" th:class="'category level3_2_1 level3_2_1_' + ${idx.index}">
-                        <span th:text="${category.categoryName}"></span>
-                    </div>
+                        <a href="">
+                            <span th:text="${category.categoryName}"></span>
+                        </a>                    </div>
                     <div th:each="category, idx: ${rootCategory.subCategories.get(2).subCategories.get(2).subCategories}" th:class="'category level3_2_2 level3_2_2_' + ${idx.index}">
-                        <span th:text="${category.categoryName}"></span>
-                    </div>
+                        <a href="">
+                            <span th:text="${category.categoryName}"></span>
+                        </a>                    </div>
                     <div th:each="category, idx: ${rootCategory.subCategories.get(2).subCategories.get(3).subCategories}" th:class="'category level3_2_3 level3_2_3_' + ${idx.index}">
-                        <span th:text="${category.categoryName}"></span>
+                        <a href="">
+                            <span th:text="${category.categoryName}"></span>
+                        </a>
                     </div>
                 </div>
 
                 <!-- 음식 차하위 -->
                 <div>
                     <div th:each="category, idx: ${rootCategory.subCategories.get(3).subCategories.get(0).subCategories}" th:class="'category level3_3_0 level3_3_0_' + ${idx.index}">
-                        <span th:text="${category.categoryName}"></span>
+                        <a href="">
+                            <span th:text="${category.categoryName}"></span>
+                        </a>
                     </div>
                     <div th:each="category, idx: ${rootCategory.subCategories.get(3).subCategories.get(1).subCategories}" th:class="'category level3_3_1 level3_3_3_1_' + ${idx.index}">
-                        <span th:text="${category.categoryName}"></span>
+                        <a href="">
+                            <span th:text="${category.categoryName}"></span>
+                        </a>
                     </div>
                     <div th:each="category, idx: ${rootCategory.subCategories.get(3).subCategories.get(2).subCategories}" th:class="'category level3_3_2 level3_3_3_2_' + ${idx.index}">
-                        <span th:text="${category.categoryName}"></span>
+                        <a href="">
+                            <span th:text="${category.categoryName}"></span>
+                        </a>
                     </div>
                     <div th:each="category, idx: ${rootCategory.subCategories.get(3).subCategories.get(3).subCategories}" th:class="'category level3_3_3 level3_3_3_3_' + ${idx.index}">
-                        <span th:text="${category.categoryName}"></span>
+                        <a href="">
+                            <span th:text="${category.categoryName}"></span>
+                        </a>
                     </div>
                     <div th:each="category, idx: ${rootCategory.subCategories.get(3).subCategories.get(4).subCategories}" th:class="'category level3_3_4 level3_3_3_4' + ${idx.index}">
-                        <span th:text="${category.categoryName}"></span>
+                        <a href="">
+                            <span th:text="${category.categoryName}"></span>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -148,7 +174,7 @@
       });
 
 
-      // level 1
+      // level 1 ====================
       $(".level1_0").mouseover(function() {
         $(".level2, .level2_0").css("display", "flex");
         $(".level2, .level2_0").css("flex-direction", "column");
@@ -182,7 +208,7 @@
       });
 
 
-      // level 2
+      // level 2 ====================
       // 패션 ==
       // 여성
       $(".level2_0_0").mouseover(function() {
@@ -348,5 +374,9 @@
       $(".level2_3_4").mouseleave(function() {
         $(".level3, .level2_3, .level3_3_4").css("display", "none");
       });
+
+
+      // level 3 ====================
+
     });
 </script>
