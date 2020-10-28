@@ -158,6 +158,18 @@
         display: none;
     }
 
+    .level1 {
+        height: 200px;
+    }
+
+    .level2 {
+        height: 200px;
+    }
+
+    .level3 {
+        height: 300px;
+    }
+
 </style>
 
 <script>
@@ -175,208 +187,125 @@
 
 
       // level 1 ====================
+      $(".level1_0, .level1_1, .level1_2, .level1_3").mouseover(function() {
+        $(".level2_0, .level2_1, .level2_2, .level2_3, .level3_0_0, .level3_0_1, .level3_0_2, .level3_0_3, .level3_0_4, .level3_1_0, .level3_1_1, .level3_1_2, .level3_1_3, .level3_1_4, .level3_2_0, .level3_2_1, .level3_2_2, .level3_2_3, .level3_2_4, .level3_3_0, .level3_3_1, .level3_3_2, .level3_3_3, .level3_3_4, .level3_4_0, .level3_4_1, .level3_4_2, .level3_4_3, .level3_4_4").css("display", "none");
+      });
+
       $(".level1_0").mouseover(function() {
-        $(".level2, .level2_0").css("display", "flex");
-        $(".level2, .level2_0").css("flex-direction", "column");
+        $(".level2_0").css("display", "flex");
       });
-      $(".level1_0").mouseleave(function() {
-        $(".level2_0").css("display", "none");
-      });
-
       $(".level1_1").mouseover(function() {
-        $(".level2, .level2_1").css("display", "flex");
-        $(".level2, .level2_1").css("flex-direction", "column");
+        $(".level2_1").css("display", "flex");
       });
-      $(".level1_1").mouseleave(function() {
-        $(".level2_1").css("display", "none");
-      });
-
       $(".level1_2").mouseover(function() {
-        $(".level2, .level2_2").css("display", "flex");
-        $(".level2, .level2_2").css("flex-direction", "column");
+        $(".level2_2").css("display", "flex");
       });
-      $(".level1_2").mouseleave(function() {
-        $(".level2_2").css("display", "none");
-      });
-
       $(".level1_3").mouseover(function() {
-        $(".level2, .level2_3").css("display", "flex");
-        $(".level2, .level2_3").css("flex-direction", "column");
-      });
-      $(".level1_3").mouseleave(function() {
-        $(".level2_3").css("display", "none");
+        $(".level2_3").css("display", "flex");
       });
 
+      // level2 ======================
+      $(".level2_0_0, .level2_0_1, .level2_0_2, .level2_0_3, .level2_0_4").mouseover(function() {
+        $(".level3_0_0, .level3_0_1, .level3_0_2, .level3_0_3, .level3_0_4").css("display", "none");
+      });
 
-      // level 2 ====================
-      // 패션 ==
-      // 여성
       $(".level2_0_0").mouseover(function() {
-        $(".level2, .level2_0, .level3, .level3_0_0").css("display", "flex");
-        $(".level2, .level2_0, .level3, .level3_0_0").css("flex-direction", "column");
+        $(".level3_0_0").css("display", "flex");
       });
-      $(".level2_0_0").mouseleave(function() {
-        $(".level3, .level2_0, .level3_0_0").css("display", "none");
-      });
-
-      // 남성
       $(".level2_0_1").mouseover(function() {
-        $(".level2, .level2_0, .level3, .level3_0_1").css("display", "flex");
-        $(".level2, .level2_0, .level3, .level3_0_1").css("flex-direction", "column");
+        $(".level3_0_1").css("display", "flex");
       });
-      $(".level2_0_1").mouseleave(function() {
-        $(".level3, .level2_0, .level3_0_1").css("display", "none");
-      });
-
-      // 아동
       $(".level2_0_2").mouseover(function() {
-        $(".level2, .level2_0, .level3, .level3_0_2").css("display", "flex");
-        $(".level2, .level2_0, .level3, .level3_0_2").css("flex-direction", "column");
+        $(".level3_0_2").css("display", "flex");
       });
-      $(".level2_0_2").mouseleave(function() {
-        $(".level3, .level2_0, .level3_0_2").css("display", "none");
-      });
-
-      // 스포츠
       $(".level2_0_3").mouseover(function() {
-        $(".level2, .level2_0, .level3, .level3_0_3").css("display", "flex");
-        $(".level2, .level2_0, .level3, .level3_0_3").css("flex-direction", "column");
+        $(".level3_0_3").css("display", "flex");
       });
-      $(".level2_0_3").mouseleave(function() {
-        $(".level3, .level2_0, .level3_0_3").css("display", "none");
-      });
-
-      // 잡화
       $(".level2_0_4").mouseover(function() {
-        $(".level2, .level2_0, .level3, .level3_0_4").css("display", "flex");
-        $(".level2, .level2_0, .level3, .level3_0_4").css("flex-direction", "column");
-      });
-      $(".level2_0_4").mouseleave(function() {
-        $(".level3, .level2_0, .level3_0_4").css("display", "none");
+        $(".level3_0_4").css("display", "flex");
       });
 
-      // 가전/디지털 ==
-      // 컴퓨터
+
+      $(".level2_1_0, .level2_1_1, .level2_1_2, .level2_1_3, .level2_1_4").mouseover(function() {
+        $(".level3_1_0, .level3_1_1, .level3_1_2, .level3_1_3, .level3_1_4").css("display", "none");
+      });
+
       $(".level2_1_0").mouseover(function() {
-        $(".level2, .level2_1, .level3, .level3_1_0").css("display", "flex");
-        $(".level2, .level2_1, .level3, .level3_1_0").css("flex-direction", "column");
+        $(".level3_1_0").css("display", "flex");
       });
-      $(".level2_1_0").mouseleave(function() {
-        $(".level3, .level2_1, .level3_1_0").css("display", "none");
-      });
-
-      // 냉장고
       $(".level2_1_1").mouseover(function() {
-        $(".level2, .level2_1, .level3, .level3_1_1").css("display", "flex");
-        $(".level2, .level2_1, .level3, .level3_1_1").css("flex-direction", "column");
+        $(".level3_1_1").css("display", "flex");
       });
-      $(".level2_1_1").mouseleave(function() {
-        $(".level3, .level2_1, .level3_1_1").css("display", "none");
-      });
-
-      // 청소기
       $(".level2_1_2").mouseover(function() {
-        $(".level2, .level2_1, .level3, .level3_1_2").css("display", "flex");
-        $(".level2, .level2_1, .level3, .level3_1_2").css("flex-direction", "column");
+        $(".level3_1_2").css("display", "flex");
       });
-      $(".level2_1_2").mouseleave(function() {
-        $(".level3, .level2_1, .level3_1_2").css("display", "none");
-      });
-
-      // 세탁기/건조기
       $(".level2_1_3").mouseover(function() {
-        $(".level2, .level2_1, .level3, .level3_1_3").css("display", "flex");
-        $(".level2, .level2_1, .level3, .level3_1_3").css("flex-direction", "column");
+        $(".level3_1_3").css("display", "flex");
       });
-      $(".level2_1_3").mouseleave(function() {
-        $(".level3, .level2_1, .level3_1_3").css("display", "none");
+      $(".level2_1_4").mouseover(function() {
+        $(".level3_1_4").css("display", "flex");
       });
 
-      // 도서 ==
-      // 여행
+      $(".level2_2_0, .level2_2_1, .level2_2_2, .level2_2_3, .level2_2_4").mouseover(function() {
+        $(".level3_2_0, .level3_2_1, .level3_2_2, .level3_2_3, .level3_2_4").css("display", "none");
+      });
+
       $(".level2_2_0").mouseover(function() {
-        $(".level2, .level2_2, .level3, .level3_2_0").css("display", "flex");
-        $(".level2, .level2_2, .level3, .level3_2_0").css("flex-direction", "column");
+        $(".level3_2_0").css("display", "flex");
       });
-      $(".level2_2_0").mouseleave(function() {
-        $(".level3, .level2_2, .level3_2_0").css("display", "none");
-      });
-
-      // 역사
       $(".level2_2_1").mouseover(function() {
-        $(".level2, .level2_2, .level3, .level3_2_1").css("display", "flex");
-        $(".level2, .level2_2, .level3, .level3_2_1").css("flex-direction", "column");
+        $(".level3_2_1").css("display", "flex");
       });
-      $(".level2_2_1").mouseleave(function() {
-        $(".level3, .level2_2, .level3_2_1").css("display", "none");
-      });
-
-      // 예술
       $(".level2_2_2").mouseover(function() {
-        $(".level2, .level2_2, .level3, .level3_2_2").css("display", "flex");
-        $(".level2, .level2_2, .level3, .level3_2_2").css("flex-direction", "column");
+        $(".level3_2_2").css("display", "flex");
       });
-      $(".level2_2_2").mouseleave(function() {
-        $(".level3, .level2_2, .level3_2_2").css("display", "none");
-      });
-
-      // 공학/과학
       $(".level2_2_3").mouseover(function() {
-        $(".level2, .level2_2, .level3, .level3_2_3").css("display", "flex");
-        $(".level2, .level2_2, .level3, .level3_2_3").css("flex-direction", "column");
+        $(".level3_2_3").css("display", "flex");
       });
-      $(".level2_2_3").mouseleave(function() {
-        $(".level3, .level2_2, .level3_2_3").css("display", "none");
+      $(".level2_2_4").mouseover(function() {
+        $(".level3_2_4").css("display", "flex");
       });
 
-      // 식품 ==
-      // 과일
+
+      $(".level2_3_0, .level2_3_1, .level2_3_2, .level2_3_3, .level2_3_4").mouseover(function() {
+        $(".level3_3_0, .level3_3_1, .level3_3_2, .level3_3_3, .level3_3_4").css("display", "none");
+      });
+
       $(".level2_3_0").mouseover(function() {
-        $(".level2, .level2_3, .level3, .level3_3_0").css("display", "flex");
-        $(".level2, .level2_3, .level3, .level3_3_0").css("flex-direction", "column");
+        $(".level3_3_0").css("display", "flex");
       });
-      $(".level2_3_0").mouseleave(function() {
-        $(".level3, .level2_3, .level3_3_0").css("display", "none");
-      });
-
-      // 채소
       $(".level2_3_1").mouseover(function() {
-        $(".level2, .level2_3, .level3, .level3_3_1").css("display", "flex");
-        $(".level2, .level2_3, .level3, .level3_3_1").css("flex-direction", "column");
+        $(".level3_3_1").css("display", "flex");
       });
-      $(".level2_3_1").mouseleave(function() {
-        $(".level3, .level2_3, .level3_3_1").css("display", "none");
-      });
-
-      // 생수/음료
       $(".level2_3_2").mouseover(function() {
-        $(".level2, .level2_3, .level3, .level3_3_2").css("display", "flex");
-        $(".level2, .level2_3, .level3, .level3_3_2").css("flex-direction", "column");
+        $(".level3_3_2").css("display", "flex");
       });
-      $(".level2_3_2").mouseleave(function() {
-        $(".level3, .level2_3, .level3_3_2").css("display", "none");
-      });
-
-      // 수산물
       $(".level2_3_3").mouseover(function() {
-        $(".level2, .level2_3, .level3, .level3_3_3").css("display", "flex");
-        $(".level2, .level2_3, .level3, .level3_3_3").css("flex-direction", "column");
+        $(".level3_3_3").css("display", "flex");
       });
-      $(".level2_3_3").mouseleave(function() {
-        $(".level3, .level2_3, .level3_3_3").css("display", "none");
-      });
-
-      // 축산물
       $(".level2_3_4").mouseover(function() {
-        $(".level2, .level2_3, .level3, .level3_3_4").css("display", "flex");
-        $(".level2, .level2_3, .level3, .level3_3_4").css("flex-direction", "column");
-      });
-      $(".level2_3_4").mouseleave(function() {
-        $(".level3, .level2_3, .level3_3_4").css("display", "none");
+        $(".level3_3_4").css("display", "flex");
       });
 
 
-      // level 3 ====================
+      $(".level2_4_0, .level2_4_1, .level2_4_2, .level2_4_3, .level2_4_4").mouseover(function() {
+        $(".level3_4_0, .level3_4_1, .level3_4_2, .level3_4_3, .level3_4_4").css("display", "none");
+      });
 
+      $(".level2_4_0").mouseover(function() {
+        $(".level3_4_0").css("display", "flex");
+      });
+      $(".level2_4_1").mouseover(function() {
+        $(".level3_4_1").css("display", "flex");
+      });
+      $(".level2_4_2").mouseover(function() {
+        $(".level3_4_2").css("display", "flex");
+      });
+      $(".level2_4_3").mouseover(function() {
+        $(".level3_4_3").css("display", "flex");
+      });
+      $(".level2_4_4").mouseover(function() {
+        $(".level3_4_4").css("display", "flex");
+      });
     });
 </script>
