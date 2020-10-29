@@ -3,7 +3,8 @@
 <div th:replace="fragments/configHeader"></div>
 <body>
     <div id="categoryMenu">
-        <i class="fas fa-bars" style="font-size: 30px; color: black;"></i>
+        <i class="category_icon fas fa-bars" style="font-size: 30px; color: black;"></i>
+        <div class="category_text">카테고리</div>
     </div>
 
     <div>
@@ -150,11 +151,23 @@
     }
 
     #categoryMenu {
-        display: inline-block;
+        margin-top: 10px;
+        width: 5vw;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .category_icon {
+    }
+
+    .category_text {
+        font-size: 12px;
     }
 
     .categories {
         display: flex;
+        position: relative;
     }
 
     .categories {
@@ -171,25 +184,36 @@
     }
 
     .level1 {
+        position: absolute;
+        top: -20px;
         width: 150px;
         height: 200px;
         border: 1px solid #ddd;
+        background-color: white;
         box-shadow: -1px 4px 5px rgba(0,0,0,0.3);
     }
 
     .level2 {
+        position: absolute;
+        top: -20px;
+        left: 150px;
         display: none;
         width: 200px;
         height: 200px;
         border: 1px solid #ddd;
+        background-color: white;
         box-shadow: -1px 4px 5px rgba(0,0,0,0.3);
     }
 
     .level3 {
+        position: absolute;
+        top: -20px;
+        left: 350px;
         display: none;
         width: 200px;
         height: 300px;
         border: 1px solid #ddd;
+        background-color: white;
         box-shadow: -1px 4px 5px rgba(0,0,0,0.3);
     }
 
@@ -208,14 +232,19 @@
         $(".level1").css("display", "inline-block");
       });
 
-      // 카테고리 안보이게
+      $("#categoryMenu").mouseleave(function() {
+        $(".level1").css("display", "none");
+      });
+
+        // 카테고리 안보이게
       $(".categories, .level1Categories").mouseleave(function() {
-        $(".categories, .category, .level2, .level3").css("display", "none");
+        $(".categories, .category, .level1, .level2, .level3").css("display", "none");
         $(".level1_0, .level1_1, .level1_2, .level1_3").css("color", "#111111");
       });
 
       // level 1 ====================
       $(".level1_0, .level1_1, .level1_2, .level1_3").mouseover(function() {
+        $(".level1").css("display", "block");
         $(".level1_0, .level1_1, .level1_2, .level1_3").css("color", "#111111");
         $(".category").css("color", "#111111");
         $(".level2").css("display", "block");

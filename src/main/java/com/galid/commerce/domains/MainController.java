@@ -18,15 +18,12 @@ public class MainController {
     private final ItemQuery itemQuery;
     private final CategoryService categoryService;
 
-    @GetMapping("/category")
-    public String getCategory(Model model) {
-        model.addAttribute("rootCategory", categoryService.createCategoryRoot());
-        return "category";
-    }
-
     @GetMapping("/main")
     public String getMainPage(@ModelAttribute ItemSearchForm searchForm,
-                                  Model model) {
+                              Model model) {
+        // category
+        model.addAttribute("rootCategory", categoryService.createCategoryRoot());
+
         // 아이템 검색 form
         if (searchForm == null)
             model.addAttribute("itemSearchForm", new ItemSearchForm());
