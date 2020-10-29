@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -19,7 +20,8 @@ public class MainController {
     private final CategoryService categoryService;
 
     @GetMapping("/main")
-    public String getMainPage(@ModelAttribute ItemSearchForm searchForm,
+    public String getMainPage(@RequestParam(value = "category", required = false) Long category,
+                              @ModelAttribute ItemSearchForm searchForm,
                               Model model) {
         // category
         model.addAttribute("rootCategory", categoryService.createCategoryRoot());
@@ -31,6 +33,7 @@ public class MainController {
             model.addAttribute("itemSearchForm", searchForm);
 
         // 아이템 리스트
+        searchForm.setCategoryId(category);
         List<ItemSummaryInItemList> items = itemQuery.searchItem(searchForm);
         model.addAttribute("items", items);
 
