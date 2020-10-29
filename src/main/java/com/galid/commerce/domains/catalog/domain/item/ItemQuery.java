@@ -27,7 +27,7 @@ public class ItemQuery {
         return query
                 .select(new QItemSummaryInItemList(itemEntity.itemId, itemEntity.imagePath, itemEntity.name, itemEntity.price))
                 .from(itemEntity)
-                .where(nameLike(searchForm.getName()))
+                .where(nameLike(searchForm.getName()), categoryEq(searchForm.getCategoryId()))
                 .orderBy(sorter(searchForm.getSorter()))
                 .fetch();
     }
@@ -35,6 +35,12 @@ public class ItemQuery {
     private Predicate nameLike(String name) {
         if (name != null && name.length() > 0)
             return itemEntity.name.like("%" + name + "%");
+        return null;
+    }
+
+    private Predicate categoryEq(Long categoryId) {
+        if (categoryId != null)
+            return itemEntity.categoryId.eq(categoryId);
         return null;
     }
 

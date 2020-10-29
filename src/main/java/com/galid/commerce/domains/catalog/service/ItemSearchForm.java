@@ -9,4 +9,5 @@ import lombok.Setter;
 public class ItemSearchForm {
     private String name;
     private Sorter sorter;
+    private Long categoryId;
 }
