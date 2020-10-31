@@ -10,7 +10,7 @@ import lombok.*;
 @Builder
 @ToString
 public class AddItemRequest {
-    private ItemType itemType;
+    private ItemType itemType = ItemType.BOOK;
 
     // BOOK
     private String bookName;
