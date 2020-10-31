@@ -2,10 +2,7 @@ package com.galid.commerce.domains.catalog.presentation;
 
 import com.galid.commerce.domains.catalog.domain.item.ItemEntity;
 import com.galid.commerce.domains.catalog.domain.item.ItemQuery;
-import com.galid.commerce.domains.catalog.service.AddItemRequest;
-import com.galid.commerce.domains.catalog.service.ItemSearchForm;
-import com.galid.commerce.domains.catalog.service.ItemService;
-import com.galid.commerce.domains.catalog.service.ItemSummaryInItemList;
+import com.galid.commerce.domains.catalog.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -38,7 +35,7 @@ public class ItemController {
     @GetMapping("/items/{itemId}")
     public String getItemDetailsPage(@PathVariable("itemId") Long itemId,
                                      Model model) {
-        ItemEntity item = itemService.findItem(itemId);
+        ItemDetails item = itemService.findItem(itemId);
         model.addAttribute("item", item);
         return "items/itemDetails";
     }

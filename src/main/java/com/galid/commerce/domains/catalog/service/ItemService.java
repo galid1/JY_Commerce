@@ -22,13 +22,11 @@ public class ItemService {
         return itemRepository.save(newItem).getItemId();
     }
 
-    public List<ItemEntity> findAllItem() {
-        return itemRepository.findAll();
-    }
-
-    public ItemEntity findItem(Long itemId) {
-        return itemRepository.findById(itemId)
+    public ItemDetails findItem(Long itemId) {
+        ItemEntity itemEntity = itemRepository.findById(itemId)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 상품입니다."));
+
+        return new ItemDetails(itemEntity);
     }
 }
 

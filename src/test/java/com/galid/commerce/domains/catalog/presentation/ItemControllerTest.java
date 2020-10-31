@@ -3,6 +3,7 @@ package com.galid.commerce.domains.catalog.presentation;
 import com.galid.commerce.domains.catalog.domain.item.Book;
 import com.galid.commerce.domains.catalog.domain.item.ItemEntity;
 import com.galid.commerce.domains.catalog.domain.item.ItemQuery;
+import com.galid.commerce.domains.catalog.service.ItemDetails;
 import com.galid.commerce.domains.catalog.service.ItemService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -37,8 +38,9 @@ class ItemControllerTest {
                 .willReturn(itemId);
 
         ItemEntity itemEntity = createItem();
+
         given(itemService.findItem(itemId))
-                .willReturn(itemEntity);
+                .willReturn(new ItemDetails(itemEntity));
     }
 
     private ItemEntity createItem() {
@@ -74,21 +76,14 @@ class ItemControllerTest {
     }
 
     @Test
-    public void 아이템_리스트_페이지() throws Exception {
-        mvc.perform(get("/items"))
-                .andExpect(status().isOk())
-                .andExpect(view().name("items/itemList"));
-    }
-
-    @Test
     public void 아이템_상세_페이지() throws Exception {
         //given
-        ItemEntity itemInModel = itemService.findItem(itemId);
+        ItemDetails item = itemService.findItem(itemId);
 
         //when, then
         mvc.perform(get("/items/{itemId}", itemId))
                 .andExpect(status().isOk())
-                .andExpect(model().attribute("item", itemInModel))
+                .andExpect(model().attribute("item", item))
                 .andExpect(view().name("items/itemDetails"));
     }
 }
