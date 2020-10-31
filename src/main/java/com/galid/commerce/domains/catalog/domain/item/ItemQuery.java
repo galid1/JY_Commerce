@@ -56,10 +56,4 @@ public class ItemQuery {
 
         return itemEntity.createdDate.desc();
     }
-
-    public List<ItemEntity> findItemsByIds(List<Long> ids) {
-        return query.selectFrom(itemEntity)
-                .where(itemEntity.itemId.in(ids))
-                .fetch();
-    }
 }
