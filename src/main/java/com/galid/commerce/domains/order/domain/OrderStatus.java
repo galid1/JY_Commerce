@@ -1,8 +1,14 @@
 package com.galid.commerce.domains.order.domain;
 
-import javax.persistence.Embeddable;
+import lombok.Getter;
 
-@Embeddable
+@Getter
 public enum OrderStatus {
-    ORDERED_STATUS, CANCEL_STATUS
+    ORDERED_STATUS("주문완료"), CANCEL_STATUS("주문취소");
+
+    private String status;
+
+    OrderStatus(String status) {
+        this.status = status;
+    }
 }
