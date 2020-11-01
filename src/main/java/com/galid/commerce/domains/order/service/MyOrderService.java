@@ -23,11 +23,14 @@ public class MyOrderService {
         Page<OrderEntity> myOrders = myOrderDao.getMyOrders(ordererId, pageable);
 
         List<MyOrderDto> contents = myOrders.stream()
-                .map(o -> new MyOrderDto(o.getOrderId(),
-                        o.getCreatedDate(),
-                        o.getOrderItemList().get(0).getItem().getImagePath(),
-                        o.getOrderItemList().get(0).getItem().getName(),
-                        o.getTotalAmount()))
+                .map(o -> MyOrderDto.builder()
+                        .orderId(o.getOrderId())
+                        .orderDate(o.getCreatedDate())
+                        .representativeImagePath(o.getOrderItemList().get(0).getItem().getImagePath())
+                        .representativeItemName(o.getOrderItemList().get(0).getItem().getName())
+                        .totalAmount(o.getTotalAmount())
+                        .orderStatus(o.getStatus())
+                        .build())
                 .collect(Collectors.toList());
         int total = contents.size();
 

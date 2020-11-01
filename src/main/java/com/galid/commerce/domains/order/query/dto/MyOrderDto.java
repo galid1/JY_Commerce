@@ -1,5 +1,7 @@
 package com.galid.commerce.domains.order.query.dto;
 
+import com.galid.commerce.domains.order.domain.OrderStatus;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -15,12 +17,17 @@ public class MyOrderDto {
     private String representativeImagePath;
     private String representativeItemName;
     private int totalAmount;
+    private OrderStatus orderStatus;
 
-    public MyOrderDto(Long orderId, LocalDateTime orderDate, String representativeImagePath, String representativeItemName, int totalAmount) {
+    @Builder
+    public MyOrderDto(Long orderId, LocalDateTime orderDate,
+                      String representativeImagePath, String representativeItemName,
+                      int totalAmount, OrderStatus orderStatus) {
         this.orderId = orderId;
         this.orderDate = orderDate;
         this.representativeImagePath = representativeImagePath;
         this.representativeItemName = representativeItemName;
         this.totalAmount = totalAmount;
+        this.orderStatus = orderStatus;
     }
 }
