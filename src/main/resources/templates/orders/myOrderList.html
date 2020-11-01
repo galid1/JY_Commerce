@@ -18,22 +18,31 @@
                 <th>주문일자</th>
                 <th>주문상품정보</th>
                 <th>결제금액</th>
+                <th>주문상태</th>
             </tr>
         </thead>
         <tbody>
-            <tr th:each="myOrder : ${myOrderSummary.myOrderList}">
-                <td th:text="${myOrder.orderId}"></td>
-                <td th:text="${#temporals.format(myOrder.orderDate, 'yyyy-MM-dd HH:mm')}"></td>
-                <td>
-                    <a class="itemInformationContainer" th:href="@{/my/orders/{orderId}(orderId=${myOrder.orderId})}">
-                        <div class="representativeImageContainer">
-                            <img class="representativeImage" th:src="@{${myOrder.getRepresentativeImagePath()}}">
-                        </div>
-                        <span class="representativeName" th:text="${myOrder.getRepresentativeItemName() + ' 등'}"></span>
-                    </a>
-                </td>
-                <td th:text="${myOrder.getTotalAmount()}"></td>
-            </tr>
+<!--            <tr th:each="myOrder : ${myOrderSummary.myOrderList}">-->
+<!--                <td th:text="${myOrder.orderId}"></td>-->
+<!--                <td th:text="${#temporals.format(myOrder.orderDate, 'yyyy-MM-dd HH:mm')}"></td>-->
+<!--                <td>-->
+<!--                    <a class="itemInformationContainer" th:href="@{/my/orders/{orderId}(orderId=${myOrder.orderId})}">-->
+<!--                        <div class="representativeImageContainer">-->
+<!--                            <img class="representativeImage" th:src="@{${myOrder.getRepresentativeImagePath()}}">-->
+<!--                        </div>-->
+<!--                        <span class="representativeName" th:text="${myOrder.getRepresentativeItemName() + ' 등'}"></span>-->
+<!--                    </a>-->
+<!--                </td>-->
+<!--                <td th:text="${myOrder.getTotalAmount()}"></td>-->
+<!--                <td>-->
+<!--                    <div>-->
+<!--                        <span th:text="${myOrder.getOrderStatus()}"></span>-->
+<!--                    </div>-->
+<!--                    <div class="write_review_btn">-->
+<!--                        <a href="">리뷰작성</a>-->
+<!--                    </div>-->
+<!--                </td>-->
+<!--            </tr>-->
         </tbody>
         <div id="myOrderTotalCount" style="display: none;" th:text="${myOrderSummary.total}"></div>
     </table>
@@ -56,8 +65,8 @@
 
     .itemInformationContainer {
         display: flex;
-        max-width: 620px;
-        min-width: 620px;
+        max-width: 500px;
+        min-width: 500px;
     }
 
     .itemInformationContainer:hover {
@@ -126,6 +135,14 @@
                     "</a>" +
                 "</td>" +
                 "<td>" + order.totalAmount + "</td>" +
+                "<td>" +
+                    "<div>" +
+                        "<span>" + order.orderStatus + "</span>" +
+                    "</div>" +
+                    "<div>" +
+                        "<a href='/reviews/review'><span>리뷰작성</span></a>"
+                    "</div>" +
+                "</td>" +
             "</tr>";
         });
 
