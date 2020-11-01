@@ -29,7 +29,7 @@ public class MyOrderService {
                         .representativeImagePath(o.getOrderItemList().get(0).getItem().getImagePath())
                         .representativeItemName(o.getOrderItemList().get(0).getItem().getName())
                         .totalAmount(o.getTotalAmount())
-                        .orderStatus(o.getStatus())
+                        .orderStatus(o.getStatus().getStatus())
                         .build())
                 .collect(Collectors.toList());
         int total = contents.size();

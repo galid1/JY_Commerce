@@ -17,12 +17,12 @@ public class MyOrderDto {
     private String representativeImagePath;
     private String representativeItemName;
     private int totalAmount;
-    private OrderStatus orderStatus;
+    private String orderStatus;
 
     @Builder
     public MyOrderDto(Long orderId, LocalDateTime orderDate,
                       String representativeImagePath, String representativeItemName,
-                      int totalAmount, OrderStatus orderStatus) {
+                      int totalAmount, String orderStatus) {
         this.orderId = orderId;
         this.orderDate = orderDate;
         this.representativeImagePath = representativeImagePath;
