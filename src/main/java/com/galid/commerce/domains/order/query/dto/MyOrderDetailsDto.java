@@ -1,5 +1,6 @@
 package com.galid.commerce.domains.order.query.dto;
 
+import com.galid.commerce.domains.order.domain.OrderStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -15,4 +16,5 @@ public class MyOrderDetailsDto {
     private Long orderId;
     private List<MyOrderDetailsItemDto> orderedItemList;
     private MyOrderDetailsReceiverInfoDto receiverInfoDto;
+    private OrderStatus orderStatus;
 }
