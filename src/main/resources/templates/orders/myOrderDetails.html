@@ -34,7 +34,7 @@
                         <span style="margin-top: 10px;" th:text="${orderedItem.itemPrice}"></span>
                     </div>
                     <div class="etcContainer">
-                        <span> 배송중 </span>
+                        <span th:text="${myOrderDetails.orderStatus.getStatus()}"></span>
                     </div>
                 </div>
             </div>
