@@ -13,6 +13,7 @@
     .subMenuContainer {
         display: flex;
         align-items: center;
+        position: relative;
     }
 
     .menuLink {
@@ -41,7 +42,7 @@
         width: 40px;
     }
 
-    .gnbNameContainer:hover {
+    .gnb a:hover {
         cursor: pointer;
     }
 
@@ -55,21 +56,27 @@
 
     .gnb {
         display: none;
+        position: absolute;
         border-radius: 5px;
         margin-top: 15px;
-        width: 250px;
-        height: 150px;
+        width: 100px;
         z-index: 1;
         background-color: white;
+        border: 1px solid #ddd;
+        box-shadow: 0 4px 5px rgba(0,0,0,0.3);
     }
 
     .gnb > a {
         color: black;
+        margin: 3px;
+        font-size: 14px;
     }
 
     .gnbActive {
-        display: block;
-        position: fixed;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        align-items: center;
     }
 </style>
 
@@ -125,7 +132,7 @@
 
 <script>
     $(function() {
-      $(".gnbNameContainer").mouseover(function() {
+      $(".gnbNameContainer, .gnb").mouseover(function() {
         $(".gnb").addClass("gnbActive");
       });
 
