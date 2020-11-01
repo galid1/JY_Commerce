@@ -10,6 +10,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -34,5 +35,11 @@ public class MyOrderController {
         MyOrderDetailsDto myOrderDetails = myOrderService.getMyOrderDetails(orderId);
         model.addAttribute("myOrderDetails", myOrderDetails);
         return "orders/myOrderDetails";
+    }
+
+    @GetMapping("/my/orders/delete/{orderId}")
+    public String deleteMyOrder(@PathVariable("orderId") Long orderId) {
+        myOrderService.deleteMyOrder(orderId);
+        return "redirect:/my/orders";
     }
 }

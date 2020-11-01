@@ -18,7 +18,7 @@
                 <span>| 주문번호: <strong th:text="${myOrderDetails.orderId}"></strong></span>
             </div>
             <div class="removeBtnContainer">
-                <span style="">주문내역 삭제</span>
+                <a th:href="@{/my/orders/delete/{orderId}(orderId=${myOrderDetails.orderId})}" onclick="return confirm('주문내역 삭제시 복구할 수 없습니다. 삭제하시겠습니까?')">주문내역 삭제</a>
             </div>
         </div>
         <div class="componentBody">
@@ -35,6 +35,8 @@
                     </div>
                     <div class="etcContainer">
                         <span th:text="${myOrderDetails.orderStatus.getStatus()}"></span>
+                        <!-- todo 주문상태에 따라 분기처리 필요 -->
+                        <a th:href="@{/reviews/review?productId={productId}(productId=${orderedItem.itemId})}">리뷰작성</a>
                     </div>
                 </div>
             </div>
@@ -64,12 +66,6 @@
         </div>
     </div>
 
-<!--    -->
-<!--    <div class="component">-->
-<!--        <div class="captionContainer"></div>-->
-
-<!--    </div>-->
-
 </div>
 
 </body>
@@ -97,6 +93,15 @@
     .captionContainer span {
         font-size: 12px;
         color: #111111;
+    }
+
+    .removeBtnContainer {
+        border: 1px solid #CECECE;
+    }
+
+    .removeBtnContainer a {
+        font-size: 14px;
+        padding: 5px;
     }
 
     .componentBody {
@@ -151,10 +156,13 @@
     }
 
     .etcContainer {
+        border-left: 1px solid #CECECE;
         width: 250px;
         padding: 30px 0px;
         display: flex;
-        justify-content: center;
+        flex-direction: column;
+        justify-content: space-evenly;
+        align-items: center;
     }
 
     .receiverInformationContainer span {

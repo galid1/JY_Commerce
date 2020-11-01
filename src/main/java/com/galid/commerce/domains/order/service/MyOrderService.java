@@ -2,6 +2,7 @@ package com.galid.commerce.domains.order.service;
 
 import com.galid.commerce.domains.catalog.domain.item.ItemEntity;
 import com.galid.commerce.domains.order.domain.OrderEntity;
+import com.galid.commerce.domains.order.domain.OrderRepository;
 import com.galid.commerce.domains.order.query.dao.MyOrderDao;
 import com.galid.commerce.domains.order.query.dto.*;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +19,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class MyOrderService {
     private final MyOrderDao myOrderDao;
+    private final OrderRepository orderRepository;
 
     public MyOrderSummaryDto getMyOrderSummary(Long ordererId, Pageable pageable) {
         Page<OrderEntity> myOrders = myOrderDao.getMyOrders(ordererId, pageable);
@@ -57,5 +59,9 @@ public class MyOrderService {
                 .build();
 
         return myOrderDetailsDto;
+    }
+
+    public void deleteMyOrder(Long orderId) {
+        orderRepository.deleteById(orderId);
     }
 }

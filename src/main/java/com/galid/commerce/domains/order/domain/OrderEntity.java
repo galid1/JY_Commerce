@@ -25,7 +25,7 @@ public class OrderEntity extends BaseEntity {
     @Enumerated(value = EnumType.STRING)
     private OrderStatus status;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private MemberEntity orderer;
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
