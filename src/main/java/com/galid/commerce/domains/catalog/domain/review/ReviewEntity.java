@@ -16,23 +16,23 @@ public class ReviewEntity extends BaseEntity {
     private Long reviewId;
 
     @Embedded
-    private ReviewProduct reviewProduct;
+    private Product product;
     @Embedded
     private Reviewer reviewer;
     @Embedded
     private Review review;
 
     @Builder
-    public ReviewEntity(ReviewProduct reviewProduct, Reviewer reviewer, Review review) {
-        setReviewProduct(reviewProduct);
+    public ReviewEntity(Product product, Reviewer reviewer, Review review) {
+        setProduct(product);
         setReviewer(reviewer);
         setReview(review);
     }
 
-    private void setReviewProduct(ReviewProduct reviewProduct) {
+    private void setProduct(Product reviewProduct) {
         if (reviewProduct == null)
             throw new IllegalArgumentException("no reviewproduct");
-        this.reviewProduct = reviewProduct;
+        this.product = reviewProduct;
     }
 
     private void setReviewer(Reviewer reviewer) {
