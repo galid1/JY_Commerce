@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="fragments/configHeader"/>
+
+
+<body>
+<div th:replace="fragments/head"/>
+    <div class="container">
+        <div class="titleContainer">
+            <h2>리뷰작성</h2>
+        </div>
+
+        <div>
+            <!-- 상품정보 -->
+            <div>
+                <div class="productHeaderContainer">
+                    <span class="headerTitle" style="">상품</span>
+                </div>
+                <div class="productContainer">
+                    <div id="productId" th:text="${product.itemId}" style="display: none;"></div>
+                    <div class="productImageContainer">
+                        <img th:src="@{${product.imagePath}}" alt="">
+                    </div>
+                    <div class="productInfoContainer">
+                        <span id="productName" th:text="${product.name}"></span>
+                    </div>
+                </div>
+            </div>
+            <!-- 별점 -->
+            <div class="starRateContainer">
+                <span class="headerTitle" style="margin-right: 40px; vertical-align: middle; line-height: 50px;">별점</span>
+
+                <div class="rate">
+                    <input type="radio" class="star" id="star5" name="rate" value="5" />
+                    <label for="star5" title="text">5 stars</label>
+                    <input type="radio" class="star" id="star4" name="rate" value="4" />
+                    <label for="star4" title="text">4 stars</label>
+                    <input type="radio" class="star" id="star3" name="rate" value="3" />
+                    <label for="star3" title="text">3 stars</label>
+                    <input type="radio" class="star" id="star2" name="rate" value="2" />
+                    <label for="star2" title="text">2 stars</label>
+                    <input type="radio" class="star" id="star1" name="rate" value="1" />
+                    <label for="star1" title="text">1 star</label>
+                </div>
+            </div>
+            <!-- 구매후기 -->
+            <div class="reviewContainer">
+                <div class="reviewHeaderCotainer">
+                    <span class="headerTitle">상품후기</span>
+                </div>
+                <div class="reviewContents">
+                    <textarea id="review" placeholder="10글자 이상 정성스레 작성해주세요~"/></textarea>
+                </div>
+            </div>
+            <!-- 후기사진 -->
+            <div>
+
+            </div>
+
+            <div class="reviewBtnContainer">
+                <div class="btn btn-primary" id="reviewBtn">작성완료</div>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+</html>
+
+<style>
+    .titleContainer {
+        height: 10vh;
+        display: flex;
+        align-items: center;
+    }
+
+    .headerTitle {
+        margin-left: 20px;
+        font-size: 16px;
+        font-weight: bold;
+    }
+
+    .productHeaderContainer {
+        border-top: 1px solid black;
+        border-bottom: 1px solid #eee;
+        padding: 20px 0px;
+    }
+
+    .productContainer {
+        display: flex;
+        padding: 15px 0px;
+        flex-direction: row;
+    }
+
+    .productImageContainer {
+        margin: 10px;
+        max-width: 100px;
+        max-height: 100px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .productImageContainer img {
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    .productInfoContainer {
+        margin-left: 15px;
+        max-height: 100px;
+        min-height: 100px;
+    }
+
+
+    /* 별점 */
+    .starRateContainer {
+        display: flex;
+        padding: 15px 0px;
+        border-top: 1px solid black;
+        border-bottom: 1px solid #eee;
+    }
+
+    .rate {
+        float: left;
+        height: 46px;
+        padding: 0 10px;
+    }
+    .rate:not(:checked) > input {
+        position:absolute;
+        top:-9999px;
+    }
+    .rate:not(:checked) > label {
+        float:right;
+        width:1em;
+        overflow:hidden;
+        white-space:nowrap;
+        cursor:pointer;
+        font-size:30px;
+        color:#ccc;
+    }
+    .rate:not(:checked) > label:before {
+        content: '★ ';
+    }
+    .rate > input:checked ~ label {
+        color: #ffc700;
+    }
+    .rate:not(:checked) > label:hover,
+    .rate:not(:checked) > label:hover ~ label {
+        color: #deb217;
+    }
+    .rate > input:checked + label:hover,
+    .rate > input:checked + label:hover ~ label,
+    .rate > input:checked ~ label:hover,
+    .rate > input:checked ~ label:hover ~ label,
+    .rate > label:hover ~ input:checked ~ label {
+        color: #c59b08;
+    }
+
+    .reviewContainer {
+        padding: 15px 0px;
+        border-bottom: 1px solid #eee;
+        display: flex;
+    }
+
+    .reviewContents {
+        min-width: 70%;
+        max-width: 70%;
+        margin-left: 20px;
+    }
+
+    #review {
+        border: 1px solid #d7d7d7;
+        width: 90%;
+        height: 200px;
+    }
+
+    .reviewBtnContainer {
+        min-height: 100px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #reviewBtn {
+
+    }
+</style>
+
+<script>
+    $(function() {
+        let rating = null;
+        $(".star").click(function() {
+            rating = $(this).val();
+        });
+
+        $("#reviewBtn").click(function() {
+            let body = createBody();
+            validation(body);
+
+            $.ajax({
+                type: "POST",
+                url: "/reviews/review",
+                data: JSON.stringify(body),
+                success: function(data) {
+                    alert("리뷰 작성 완료 !");
+                    location.href = "/main";
+                },
+                contentType: "application/json"
+            });
+        });
+
+        // 리뷰 작성에 필요값 만들기
+        function createBody() {
+            let productId = $("#productId").text();
+            let productName = $("#productName").text();
+            let review = $("#review").val().trim();
+
+            return {
+                productId: productId,
+                productName: productName,
+                rating: rating,
+                review: review
+            };
+        }
+
+        function validation(body) {
+            // 별점 체크 여부
+            if (body.rating <= 0)
+                throw alert("별점을 주세요!");
+            // 후기 글자수
+            if (body.review.length < 10)
+                throw alert("후기를 10글자 이상 입력해주세요.");
+        }
+    });
+</script>
