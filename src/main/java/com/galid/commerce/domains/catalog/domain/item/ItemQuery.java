@@ -13,6 +13,7 @@ import javax.persistence.EntityManager;
 import java.util.List;
 
 import static com.galid.commerce.domains.catalog.domain.item.QItemEntity.itemEntity;
+import static com.galid.commerce.domains.catalog.domain.review.QReviewProductEntity.reviewProductEntity;
 
 
 @Repository
@@ -25,8 +26,11 @@ public class ItemQuery {
 
     public List<ItemSummaryInItemList> searchItem(ItemSearchForm searchForm)  {
         return query
-                .select(new QItemSummaryInItemList(itemEntity.itemId, itemEntity.imagePath, itemEntity.name, itemEntity.price))
+                .select(new QItemSummaryInItemList(itemEntity.itemId, itemEntity.imagePath, itemEntity.name, itemEntity.price,
+                        reviewProductEntity.ratingAverage, reviewProductEntity.totalCount))
                 .from(itemEntity)
+                .join(reviewProductEntity)
+                .on(itemEntity.itemId.eq(reviewProductEntity.productId))
                 .where(nameLike(searchForm.getName()), categoryEq(searchForm.getCategoryId()))
                 .orderBy(sorter(searchForm.getSorter()))
                 .fetch();
