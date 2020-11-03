@@ -2,7 +2,7 @@ package com.galid.commerce.domains.catalog.presentation;
 
 import com.galid.commerce.domains.catalog.domain.item.Book;
 import com.galid.commerce.domains.catalog.domain.item.ItemEntity;
-import com.galid.commerce.domains.catalog.domain.item.ItemQuery;
+import com.galid.commerce.domains.catalog.query.dao.CatalogDao;
 import com.galid.commerce.domains.catalog.service.ItemDetails;
 import com.galid.commerce.domains.catalog.service.ItemService;
 import org.junit.jupiter.api.BeforeEach;
@@ -28,7 +28,7 @@ class ItemControllerTest {
     @MockBean
     private ItemService itemService;
     @MockBean
-    private ItemQuery itemQuery;
+    private CatalogDao itemQuery;
 
     private Long itemId = 1l;
 
