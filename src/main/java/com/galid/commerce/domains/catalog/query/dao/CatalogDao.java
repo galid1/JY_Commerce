@@ -1,4 +1,4 @@
-package com.galid.commerce.domains.catalog.domain.item;
+package com.galid.commerce.domains.catalog.query.dao;
 
 import com.galid.commerce.domains.catalog.presentation.Sorter;
 import com.galid.commerce.domains.catalog.service.ItemSearchForm;
@@ -17,10 +17,10 @@ import static com.galid.commerce.domains.catalog.domain.review.QReviewProductEnt
 
 
 @Repository
-public class ItemQuery {
+public class CatalogDao {
     private JPAQueryFactory query;
 
-    public ItemQuery(EntityManager entityManager) {
+    public CatalogDao(EntityManager entityManager) {
         this.query = new JPAQueryFactory(entityManager);
     }
 
