@@ -1,6 +1,7 @@
-package com.galid.commerce.domains;
+package com.galid.commerce.domains.catalog.presentation;
 
-import com.galid.commerce.domains.catalog.domain.item.ItemQuery;
+import com.galid.commerce.domains.catalog.query.application.CatalogService;
+import com.galid.commerce.domains.catalog.query.dao.CatalogDao;
 import com.galid.commerce.domains.catalog.service.CategoryService;
 import com.galid.commerce.domains.catalog.service.ItemSearchForm;
 import com.galid.commerce.domains.catalog.service.ItemSummaryInItemList;
@@ -15,8 +16,8 @@ import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
-public class MainController {
-    private final ItemQuery itemQuery;
+public class CatalogController {
+    private final CatalogService catalogService;
     private final CategoryService categoryService;
 
     @GetMapping("/main")
@@ -34,7 +35,7 @@ public class MainController {
 
         // 아이템 리스트
         searchForm.setCategoryId(category);
-        List<ItemSummaryInItemList> items = itemQuery.searchItem(searchForm);
+        List<ItemSummaryInItemList> items = catalogService.getCatalog(searchForm);
         model.addAttribute("items", items);
 
         return "main";
