@@ -1,9 +1,9 @@
 package com.galid.commerce.domains.catalog.query.dao;
 
 import com.galid.commerce.domains.catalog.presentation.Sorter;
+import com.galid.commerce.domains.catalog.query.dto.QCatalogSummary;
 import com.galid.commerce.domains.catalog.service.ItemSearchForm;
 import com.galid.commerce.domains.catalog.query.dto.CatalogSummary;
-import com.galid.commerce.domains.catalog.service.QItemSummaryInItemList;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Predicate;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -26,7 +26,7 @@ public class CatalogDao {
 
     public List<CatalogSummary> searchItem(ItemSearchForm searchForm)  {
         return query
-                .select(new QItemSummaryInItemList(itemEntity.itemId, itemEntity.imagePath, itemEntity.name, itemEntity.price,
+                .select(new QCatalogSummary(itemEntity.itemId, itemEntity.imagePath, itemEntity.name, itemEntity.price,
                         reviewProductEntity.ratingAverage, reviewProductEntity.totalCount))
                 .from(itemEntity)
                 .join(reviewProductEntity)
