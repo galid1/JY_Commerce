@@ -1,8 +1,8 @@
 package com.galid.commerce.domains.catalog.presentation;
 
-import com.galid.commerce.domains.catalog.domain.item.ItemEntity;
-import com.galid.commerce.domains.catalog.domain.item.ItemQuery;
-import com.galid.commerce.domains.catalog.service.*;
+import com.galid.commerce.domains.catalog.service.AddItemRequest;
+import com.galid.commerce.domains.catalog.service.ItemDetails;
+import com.galid.commerce.domains.catalog.service.ItemService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,13 +12,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
 public class ItemController {
     private final ItemService itemService;
-    private final ItemQuery itemQuery;
 
     @GetMapping("/items/new")
     public String getNewItemPage(Model model) {
