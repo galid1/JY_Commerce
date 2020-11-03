@@ -1,10 +1,9 @@
 package com.galid.commerce.domains.catalog.presentation;
 
 import com.galid.commerce.domains.catalog.query.application.CatalogService;
-import com.galid.commerce.domains.catalog.query.dao.CatalogDao;
 import com.galid.commerce.domains.catalog.service.CategoryService;
 import com.galid.commerce.domains.catalog.service.ItemSearchForm;
-import com.galid.commerce.domains.catalog.service.ItemSummaryInItemList;
+import com.galid.commerce.domains.catalog.query.dto.CatalogSummary;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,7 +34,7 @@ public class CatalogController {
 
         // 아이템 리스트
         searchForm.setCategoryId(category);
-        List<ItemSummaryInItemList> items = catalogService.getCatalog(searchForm);
+        List<CatalogSummary> items = catalogService.getCatalog(searchForm);
         model.addAttribute("items", items);
 
         return "main";

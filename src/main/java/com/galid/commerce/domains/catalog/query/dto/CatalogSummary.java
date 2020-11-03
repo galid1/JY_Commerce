@@ -1,4 +1,4 @@
-package com.galid.commerce.domains.catalog.service;
+package com.galid.commerce.domains.catalog.query.dto;
 
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.Getter;
@@ -8,7 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class ItemSummaryInItemList {
+public class CatalogSummary {
     private Long itemId;
     private String imagePath;
     private String name;
@@ -17,7 +17,7 @@ public class ItemSummaryInItemList {
     private int reviewCount;
 
     @QueryProjection
-    public ItemSummaryInItemList(Long itemId, String imagePath, String name, int price, double reviewRating, int reviewCount) {
+    public CatalogSummary(Long itemId, String imagePath, String name, int price, double reviewRating, int reviewCount) {
         this.itemId = itemId;
         this.imagePath = imagePath;
         this.name = name;
