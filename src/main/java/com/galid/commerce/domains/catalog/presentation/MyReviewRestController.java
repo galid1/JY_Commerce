@@ -16,7 +16,7 @@ public class MyReviewRestController {
     private final AuthenticationConverter authenticationConverter;
     private final MyReviewService myReviewService;
 
-    @GetMapping("/my/reviews")
+    @GetMapping("/api/my/reviews")
     public MyReviewSummary getMyReviewSummary(Authentication authentication,
                                               Pageable pageable) {
         MemberEntity member = authenticationConverter.getMemberFromAuthentication(authentication);
