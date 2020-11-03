@@ -36,6 +36,12 @@
                     <div class="itemInformationContainer">
                         <span class="itemName" th:text="${item.name}"></span>
                         <span class="itemPrice" th:text="${#numbers.formatInteger(item.price, 3, 'COMMA')} + ' 원'"></span>
+                        <div class="starRatingContainer">
+                            <div class="ratingContainer">
+                                <div class="rating" th:style="'width: ' + 20 * ${item.reviewRating} + '%'"></div>
+                            </div>
+                            <div class="reviewCount" th:text="'(' + ${item.reviewCount} + ')'"></div>
+                        </div>
                     </div>
                 </a>
             </div>
@@ -112,9 +118,31 @@
         color: #AE0000;
     }
 
-    h3 {
-
+    .starRatingContainer {
+        display: flex;
     }
+
+    .ratingContainer{
+        position: relative;
+        background: url("/images/reviews/star_rating.png") no-repeat -39px -43px;
+        min-width: 75px;
+        max-width: 75px;
+        max-height: 15px;
+        min-height: 15px;
+    }
+
+    .rating {
+        position: absolute;
+        background: url("/images/reviews/star_rating.png") no-repeat -39px -58px;
+        max-height: 15px;
+        min-height: 15px;
+    }
+
+    .reviewCount {
+        color: #888888;
+        font-size: 12px;
+    }
+
 </style>
 
 <script>
