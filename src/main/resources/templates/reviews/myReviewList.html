@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="fragments/configHeader"/>
+
+<body>
+<div th:replace="fragments/head"/>
+
+<div class="container">
+    <div class="titleContainer">
+        <h2>
+            리뷰목록
+        </h2>
+    </div>
+
+    <div id="myReviewTotalCount" style="display: none;" th:text="${myReviewSummary.total}"></div>
+
+    <div class="reviewContainer">
+        <div class="reviewHeaderContainer">
+            <span th:text="'나의 리뷰 목록 (' + ${myReviewSummary.total} + ')'"></span>
+        </div>
+
+        <div class="reviewContainer">
+<!--            <div>-->
+<!--                <div class="reviewProductContainer">-->
+<!--                    <img th:src="@{${review.itemImagePath}}" alt="">-->
+<!--                    <span th:text="${review.itemName}"></span>-->
+<!--                </div>-->
+<!--                <div class="reviewContentsContainer">-->
+<!--                    <div>-->
+<!--                        <span>별 별 별 별 별</span>-->
+<!--                        <span> 2020. 11. 03</span>-->
+<!--                    </div>-->
+<!--                    <div>-->
+<!--                        맛있습니다~~~-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
+
+<style>
+    .titleContainer {
+        height: 10vh;
+        display: flex;
+        align-items: center;
+    }
+
+    .reviewHeaderContainer {
+        border-top: 1px solid black;
+        border-bottom: 1px solid #eee;
+        padding: 20px 10px;
+        font-weight: bold;
+    }
+
+    .reviewLineContainer {
+        border-bottom: 1px solid #aaa;
+        padding-bottom: 30px;
+    }
+
+    .reviewProductContainer {
+        display: flex;
+        padding: 10px 20px;
+        border-bottom: 1px solid #eee;
+    }
+
+    .reviewItemImageContainer {
+        height: 40px;
+    }
+
+    .reviewItemImage {
+        max-width: 100%;
+        max-height: 100%;
+        margin-right: 20px;
+        vertical-align: middle;
+    }
+
+    .reviewItemName {
+        display: inline-flex;
+        align-items: center;
+        color: #346aff;
+    }
+
+    .star {
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        margin-right: 2px;
+        background: url("/images/reviews/star.png") 0 0px no-repeat;
+        background-size: 16px 16px;
+    }
+
+    .emptyStar {
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        margin-right: 2px;
+        background: url("/images/reviews/empty_star.png") 0 0px no-repeat;
+        background-size: 16px 16px;
+    }
+
+    .rating {
+        margin-top: 20px;
+    }
+
+    .reviewContainer {
+        padding-left: 20px;
+    }
+
+    .reviewContentsContainer {
+        margin-top: 20px;
+    }
+
+    .review {
+        letter-spacing: 0px;
+        font-family: Dotum,"돋움",Helvetica,AppleSDGothicNeo,sans-serif;
+    }
+
+</style>
+
+<script>
+    $(function() {
+        const size = 0;
+        let total = parseInt($("#myReviewTotalCount").text());
+
+        if($(window).scrollTop() + $(window).height() == $(document).height()) {
+            loadMoreOrderList();
+        }
+        else {
+            $(window).scroll(function() {
+                if($(window).scrollTop() + $(window).height() == $(document).height()) {
+                    loadMoreOrderList();
+                }
+            });
+        }
+
+        async function loadMoreOrderList() {
+            let nextPage = parseInt(total/size);
+            let data = '';
+            await $.get(`/api/my/reviews?page=${nextPage}&size=${size}`, function(result) {
+                data = result;
+            })
+            $(".reviewContainer").append(toReviewList(data.myReviewSummaryList));
+            total += data.total;
+        }
+
+        function toReviewList(reviewList) {
+            let reviewViewList = "";
+
+            console.log(reviewList);
+
+            reviewList.forEach(review => {
+                let orderDate = formatOrderDate(review);
+
+                reviewViewList +=
+                    "<div class='reviewLineContainer'>" +
+                        "<div class='reviewProductContainer'>" +
+                            "<div class='reviewItemImageContainer'>" +
+                                "<img class='reviewItemImage' src=" + review.itemImagePath + ">" +
+                            "</div>" +
+                            "<span class='reviewItemName'>" + review.itemName + "</span>" +
+                        "</div>" +
+                        "<div class='reviewContainer'>" +
+                            "<div class='rating'>" +
+                                paintStarRating(review.rating) +
+                                "<span style='margin-left: 6px;'>" + orderDate + "</span>" +
+                            "</div>"+
+                            "<div class='reviewContentsContainer'>" +
+                                "<pre class='review''>" + review.review + "</pre>" +
+                            "</div>"+
+                        "</div>"+
+                    "</div>";
+            });
+
+            function formatOrderDate(review) {
+                let splitOrderDate = review.reviewDate.split("T");
+                let ymd = splitOrderDate[0];
+                let splitTime = splitOrderDate[1].split(":");
+                let time = splitTime[0] + ":" + splitTime[1];
+                let reviewDate = ymd + " " + time;
+                return reviewDate;
+            }
+
+            function paintStarRating(rating) {
+                const starCount = rating;
+                const emptyStarCount = 5-rating;
+
+                return "<span class='star'></span>".repeat(starCount)
+                    + "<span class='emptyStar'></span>".repeat(emptyStarCount);
+            }
+
+            return reviewViewList;
+        }
+    });
+</script>
