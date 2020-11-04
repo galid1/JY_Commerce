@@ -44,7 +44,7 @@
 <!--                </td>-->
 <!--            </tr>-->
         </tbody>
-        <div id="myOrderTotalCount" style="display: none;" th:text="${myOrderSummary.total}"></div>
+<!--        <div id="myOrderTotalCount" style="display: none;" th:text="${myOrderSummary.total}"></div>-->
     </table>
 
 </div>
@@ -93,27 +93,29 @@
 <script>
     $(function() {
       const size = 20;
-      let total = parseInt($("#myOrderTotalCount").text());
+      let total = 0;
 
-      if($(window).scrollTop() + $(window).height() == $(document).height()) {
+      if($(window).scrollTop() + $(window).height() <= $(document).height()) {
         loadMoreOrderList();
       }
-      else {
-        $(window).scroll(function() {
-          if($(window).scrollTop() + $(window).height() == $(document).height()) {
-            loadMoreOrderList();
-          }
-        });
-      }
+      $(window).scroll(function() {
+        if($(window).scrollTop() + $(window).height() == $(document).height()) {
+          loadMoreOrderList();
+        }
+      });
 
       async function loadMoreOrderList() {
         let nextPage = parseInt(total/size);
         let data = '';
+
         await $.get(`/api/my/orders?page=${nextPage}&size=${size}`, function(result) {
           data = result;
         })
         $("tbody").append(toTrList(data.myOrderList));
         total += data.total;
+        if (data.total < size) {
+            $(window).unbind();
+        }
       }
 
       function toTrList(orderList) {
