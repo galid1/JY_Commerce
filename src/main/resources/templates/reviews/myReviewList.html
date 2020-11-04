@@ -14,7 +14,7 @@
 
     <div id="myReviewTotalCount" style="display: none;" th:text="${myReviewSummary.total}"></div>
 
-    <div class="reviewContainer">
+    <div class="wholeReviewContainer">
         <div class="reviewHeaderContainer">
             <span th:text="'나의 리뷰 목록 (' + ${myReviewSummary.total} + ')'"></span>
         </div>
@@ -107,7 +107,7 @@
         margin-top: 20px;
     }
 
-    .reviewContainer {
+    .contentsContainer {
         padding-left: 20px;
     }
 
@@ -124,19 +124,17 @@
 
 <script>
     $(function() {
-        const size = 0;
-        let total = parseInt($("#myReviewTotalCount").text());
+        const size = 20;
+        let total = 0;
 
-        if($(window).scrollTop() + $(window).height() == $(document).height()) {
+        if($(window).scrollTop() + $(window).height() <= $(document).height()) {
             loadMoreOrderList();
         }
-        else {
-            $(window).scroll(function() {
-                if($(window).scrollTop() + $(window).height() == $(document).height()) {
-                    loadMoreOrderList();
-                }
-            });
-        }
+        $(window).scroll(function() {
+            if($(window).scrollTop() + $(window).height() == $(document).height()) {
+                loadMoreOrderList();
+            }
+        });
 
         async function loadMoreOrderList() {
             let nextPage = parseInt(total/size);
@@ -146,12 +144,13 @@
             })
             $(".reviewContainer").append(toReviewList(data.myReviewSummaryList));
             total += data.total;
+            if (data.total < size) {
+                $(window).unbind();
+            }
         }
 
         function toReviewList(reviewList) {
             let reviewViewList = "";
-
-            console.log(reviewList);
 
             reviewList.forEach(review => {
                 let orderDate = formatOrderDate(review);
@@ -164,7 +163,7 @@
                             "</div>" +
                             "<span class='reviewItemName'>" + review.itemName + "</span>" +
                         "</div>" +
-                        "<div class='reviewContainer'>" +
+                        "<div class='contentsContainer'>" +
                             "<div class='rating'>" +
                                 paintStarRating(review.rating) +
                                 "<span style='margin-left: 6px;'>" + orderDate + "</span>" +
