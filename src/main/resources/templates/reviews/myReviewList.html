@@ -11,12 +11,9 @@
             리뷰목록
         </h2>
     </div>
-
-    <div id="myReviewTotalCount" style="display: none;" th:text="${myReviewSummary.total}"></div>
-
     <div class="wholeReviewContainer">
         <div class="reviewHeaderContainer">
-            <span th:text="'나의 리뷰 목록 (' + ${myReviewSummary.total} + ')'"></span>
+            <span id="myReviewTotalCount">나의 리뷰 목록 (0)</span>
         </div>
 
         <div class="reviewContainer">
@@ -142,8 +139,13 @@
             await $.get(`/api/my/reviews?page=${nextPage}&size=${size}`, function(result) {
                 data = result;
             })
+
+            // 새로운 reivew 목록을 DOM에 추가
             $(".reviewContainer").append(toReviewList(data.myReviewSummaryList));
+            // 총 리뷰 수 갱신
             total += data.total;
+            $("#myReviewTotalCount").text(`나의 리뷰 목록(${total})`);
+
             if (data.total < size) {
                 $(window).unbind();
             }

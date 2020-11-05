@@ -21,7 +21,7 @@ public class MyReviewService {
         Page<MyReviewSummaryLine> myReviewSummaryLienList = myReviewDao.myReviewSummary(memberId, pageable);
 
         List<MyReviewSummaryLine> contents = myReviewSummaryLienList.getContent();
-        int size = myReviewSummaryLienList.getSize();
+        int size = contents.size();
 
         return new MyReviewSummary(contents, size);
     }
