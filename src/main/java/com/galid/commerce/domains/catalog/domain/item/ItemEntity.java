@@ -13,7 +13,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public abstract class ItemEntity extends BaseEntity {
+public class ItemEntity extends BaseEntity {
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private Long itemId;
     private String imagePath;
@@ -22,6 +22,15 @@ public abstract class ItemEntity extends BaseEntity {
     private int stockQuantity;
 
     private Long categoryId;
+
+    @Builder
+    public ItemEntity(String imagePath, String name, int price, int stockQuantity, Long categoryId) {
+        this.imagePath = imagePath;
+        this.name = name;
+        this.price = price;
+        this.stockQuantity = stockQuantity;
+        this.categoryId = categoryId;
+    }
 
     // ==== 비즈니스 로직 ====
     public void removeStockQuantity(int orderQuantity) {
