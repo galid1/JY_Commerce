@@ -38,8 +38,10 @@ public class MyOrderController {
     }
 
     @GetMapping("/my/orders/delete/{orderId}")
-    public String deleteMyOrder(@PathVariable("orderId") Long orderId) {
-        myOrderService.deleteMyOrder(orderId);
+    public String deleteMyOrder(Authentication authentication,
+                                @PathVariable("orderId") Long orderId) {
+        MemberEntity member = authenticationConverter.getMemberFromAuthentication(authentication);
+        myOrderService.deleteMyOrder(member.getMemberId(), orderId);
         return "redirect:/my/orders";
     }
 }
