@@ -5,7 +5,6 @@ import com.galid.commerce.domains.cart.domain.CartRepository;
 import com.galid.commerce.domains.cart.query.dto.CartLineDto;
 import com.galid.commerce.domains.cart.service.AddToCartRequestForm;
 import com.galid.commerce.domains.cart.service.CartService;
-import com.galid.commerce.domains.catalog.domain.item.Book;
 import com.galid.commerce.domains.catalog.domain.item.ItemEntity;
 import com.galid.commerce.domains.catalog.domain.item.ItemRepository;
 import com.galid.commerce.domains.member.service.MemberService;
@@ -15,11 +14,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.EntityManager;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import java.util.List;
 import java.util.Map;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class JpaCartDaoTest extends BaseTest {
     @Autowired
@@ -80,10 +78,8 @@ class JpaCartDaoTest extends BaseTest {
     }
 
     private Long createItem(String itemName) {
-        ItemEntity itemEntity = Book.builder()
-                .author("TEST")
+        ItemEntity itemEntity = ItemEntity.builder()
                 .imagePath("TEST")
-                .isbn("TEST")
                 .name(itemName)
                 .price(1000)
                 .stockQuantity(3)

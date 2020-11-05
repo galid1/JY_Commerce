@@ -1,6 +1,5 @@
 package com.galid.commerce.domains.catalog.presentation;
 
-import com.galid.commerce.domains.catalog.domain.item.Book;
 import com.galid.commerce.domains.catalog.domain.item.ItemEntity;
 import com.galid.commerce.domains.catalog.query.dao.CatalogDao;
 import com.galid.commerce.domains.catalog.service.ItemDetails;
@@ -44,13 +43,11 @@ class ItemControllerTest {
     }
 
     private ItemEntity createItem() {
-        return Book.builder()
+        return ItemEntity.builder()
                 .imagePath("test")
                 .name("test")
                 .price(1000)
                 .stockQuantity(1)
-                .isbn("test")
-                .author("test")
                 .build();
     }
 
@@ -68,8 +65,6 @@ class ItemControllerTest {
                 .param("imagePath", "TEST")
                 .param("price", "1000")
                 .param("stockQuantity", "1")
-                .param("author", "TEST")
-                .param("isbn", "TEST")
         )
             .andExpect(status().is3xxRedirection())
             .andExpect(view().name("redirect:/items/" + itemId));

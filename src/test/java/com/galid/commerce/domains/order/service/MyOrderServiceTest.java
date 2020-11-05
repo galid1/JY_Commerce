@@ -1,9 +1,8 @@
 package com.galid.commerce.domains.order.service;
 
 import com.galid.commerce.common.value.Address;
-import com.galid.commerce.domains.delivery.domain.DeliveryEntity;
 import com.galid.commerce.domains.catalog.domain.item.ItemEntity;
-import com.galid.commerce.domains.catalog.domain.item.Movie;
+import com.galid.commerce.domains.delivery.domain.DeliveryEntity;
 import com.galid.commerce.domains.member.domain.MemberEntity;
 import com.galid.commerce.domains.order.domain.OrderEntity;
 import com.galid.commerce.domains.order.domain.OrderItemEntity;
@@ -92,13 +91,16 @@ class MyOrderServiceTest {
                 .address(member.getAddress())
                 .build();
 
-        ItemEntity movieItem = Movie.builder()
-                .director("TEST")
-                .actor("TEST")
+        ItemEntity item = ItemEntity.builder()
+                .stockQuantity(2)
+                .categoryId(1l)
+                .price(1000)
+                .imagePath("TEST")
+                .name("TEST")
                 .build();
 
         OrderItemEntity orderItem = OrderItemEntity.builder()
-                .item(movieItem)
+                .item(item)
                 .orderCount(1)
                 .build();
 

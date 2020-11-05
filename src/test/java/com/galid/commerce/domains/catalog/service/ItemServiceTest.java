@@ -1,9 +1,7 @@
 package com.galid.commerce.domains.catalog.service;
 
-import com.galid.commerce.domains.catalog.domain.item.Book;
 import com.galid.commerce.domains.catalog.domain.item.ItemEntity;
 import com.galid.commerce.domains.catalog.domain.item.ItemRepository;
-import com.galid.commerce.domains.catalog.infra.ItemFactory;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -14,14 +12,13 @@ import org.springframework.test.util.ReflectionTestUtils;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 
 @ExtendWith(MockitoExtension.class)
 class ItemServiceTest {
     @InjectMocks
     private ItemService itemService;
-    @Mock
-    private ItemFactory itemFactory;
     @Mock
     private ItemRepository itemRepository;
 
@@ -30,50 +27,44 @@ class ItemServiceTest {
         //given
         //BOOK
         // 책 생성 요청
-        AddItemRequest bookRequest = createAddBookRequest();
-        ItemEntity book = createBook(bookRequest);
+        AddItemRequest request = createAddItemRequest();
+        ItemEntity item = createItem(request);
 
-        // 책 엔티티의 가짜 id
-        Long bookId = 1l;
-        ReflectionTestUtils.setField(book, "itemId", bookId);
-        given(itemRepository.findById(bookId))
-                .willReturn(Optional.ofNullable(book));
-        given(itemFactory.createItem(bookRequest))
-                .willReturn(book);
-        given(itemRepository.save(book))
-                .willReturn(book);
+        // 엔티티의 가짜 id
+        ReflectionTestUtils.setField(item, "itemId", item.getItemId());
+        given(itemRepository.findById(any(Long.class)))
+                .willReturn(Optional.of(item));
+        given(itemRepository.save(any(ItemEntity.class)))
+                .willReturn(item);
 
         //when
-        Long newBookId = itemService.saveItem(bookRequest);
+        Long newItemId = itemService.saveItem(request);
 
         //then
-        ItemEntity findItem = itemRepository.findById(newBookId).get();
-        assertEquals(findItem.getName(), bookRequest.getBookName());
-        assertEquals(findItem.getPrice(), bookRequest.getBookPrice());
-        assertEquals(findItem.getStockQuantity(), bookRequest.getBookStockQuantity());
+        ItemEntity findItem = itemRepository.findById(newItemId).get();
+        assertEquals(findItem.getName(), request.getName());
+        assertEquals(findItem.getPrice(), request.getPrice());
+        assertEquals(findItem.getStockQuantity(), request.getStockQuantity());
     }
 
-    private AddItemRequest createAddBookRequest() {
+    private AddItemRequest createAddItemRequest() {
         return AddItemRequest.builder()
-                .bookAuthor("TEST")
-                .bookImagePath("TEST")
-                .bookIsbn("TEST")
-                .bookName("TEST")
-                .bookPrice(1000)
-                .bookStockQuantity(2)
+                .imagePath("TEST")
+                .name("TEST")
+                .price(1000)
+                .stockQuantity(2)
                 .build();
     }
 
-    private ItemEntity createBook(AddItemRequest bookRequest) {
-        ItemEntity book = Book.builder()
-                .price(bookRequest.getBookPrice())
-                .name(bookRequest.getBookName())
-                .isbn(bookRequest.getBookIsbn())
-                .author(bookRequest.getBookAuthor())
-                .imagePath(bookRequest.getBookImagePath())
-                .stockQuantity(bookRequest.getBookStockQuantity())
+    private ItemEntity createItem(AddItemRequest request) {
+        ItemEntity item = ItemEntity.builder()
+                .price(request.getPrice())
+                .name(request.getName())
+                .imagePath(request.getImagePath())
+                .stockQuantity(request.getStockQuantity())
                 .build();
 
-        return book;
+        ReflectionTestUtils.setField(item, "itemId", 1l);
+        return item;
     }
 }

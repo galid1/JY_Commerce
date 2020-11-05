@@ -3,7 +3,6 @@ package com.galid.commerce.domains.order.service;
 import com.galid.commerce.common.value.Address;
 import com.galid.commerce.domains.cart.service.CartService;
 import com.galid.commerce.domains.delivery.domain.DeliveryEntity;
-import com.galid.commerce.domains.catalog.domain.item.Book;
 import com.galid.commerce.domains.catalog.domain.item.ItemEntity;
 import com.galid.commerce.domains.catalog.domain.item.ItemRepository;
 import com.galid.commerce.domains.catalog.service.NotEnoughStockQuantityException;
@@ -151,12 +150,12 @@ class OrderServiceTest {
     }
 
     private ItemEntity createItem(int stockQuantity) {
-        ItemEntity TEST_ITEM = Book.builder()
-                .author("TEST")
-                .isbn("TEST")
+        ItemEntity TEST_ITEM = ItemEntity.builder()
                 .name("TEST")
                 .price(1000)
                 .stockQuantity(stockQuantity)
+                .imagePath("TEST")
+                .categoryId(1l)
                 .build();
         return TEST_ITEM;
     }
