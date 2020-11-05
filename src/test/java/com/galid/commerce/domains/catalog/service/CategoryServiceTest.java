@@ -28,17 +28,6 @@ class CategoryServiceTest {
     private CategoryRepository categoryRepository;
 
     @Test
-    public void 카테고리_전체조회() throws Exception {
-        //given
-        List<CategoryEntity> categoryEntities = createCategoryEntities();
-        given(categoryRepository.findAll())
-                .willReturn(categoryEntities);
-
-        //then
-        verify(categoryRepository, atLeastOnce()).findAll();
-    }
-
-    @Test
     public void 최상위_카테고리_생성() throws Exception {
         //given
         List<CategoryEntity> categoryEntities = createCategoryEntities();
