@@ -21,7 +21,7 @@ Commerce Web Application 입니다.
 3. 엔티티개발 - https://galid1.tistory.com/729
 4. 서비스 및 리포지토리 개발 - https://galid1.tistory.com/778
 5. 컨트롤러 개발 및 뷰 개발 - https://galid1.tistory.com/782
-6. 계층별 테스트코드 작성 - 
+6. 계층별 테스트코드 작성 - https://galid1.tistory.com/784
 7. 장바구니 기능 추가 -
 8. 장바구니 기능 별도 모듈로 분리 후 Nosql로 변경 - 
 9. 무한 스크롤, 페이지 네이션 기능 추가 - 
