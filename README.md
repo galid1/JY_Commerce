@@ -2,9 +2,9 @@
 
 ### 설명 
 Commerce Web Application 입니다.
-
-
 <br><br>
+
+
 
 ### 목표
 1. JPA를 이용해 구축하며 JPA에 대한 이해와 성능 최적화
