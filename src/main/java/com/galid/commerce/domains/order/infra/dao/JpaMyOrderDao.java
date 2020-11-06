@@ -32,6 +32,7 @@ public class JpaMyOrderDao implements MyOrderDao {
                 .from(orderEntity)
                 .join(orderEntity.orderer, memberEntity).fetchJoin()
                 .join(orderEntity.deliveryInformation, deliveryEntity).fetchJoin()
+                .where(orderEntity.removed.eq(false))
                 .where(orderEntity.orderer.memberId.eq(ordererId))
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
