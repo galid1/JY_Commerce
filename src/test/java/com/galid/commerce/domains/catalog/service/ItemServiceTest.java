@@ -14,6 +14,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class ItemServiceTest {
@@ -24,27 +25,16 @@ class ItemServiceTest {
 
     @Test
     public void 아이템_추가() {
-        //given
-        //BOOK
-        // 책 생성 요청
-        AddItemRequest request = createAddItemRequest();
-        ItemEntity item = createItem(request);
-
-        // 엔티티의 가짜 id
-        ReflectionTestUtils.setField(item, "itemId", item.getItemId());
-        given(itemRepository.findById(any(Long.class)))
-                .willReturn(Optional.of(item));
+        // given
+        AddItemRequest addItemRequest = createAddItemRequest();
         given(itemRepository.save(any(ItemEntity.class)))
-                .willReturn(item);
+                .willReturn(createItem(addItemRequest));
 
-        //when
-        Long newItemId = itemService.saveItem(request);
+        // when
+        itemService.saveItem(addItemRequest);
 
-        //then
-        ItemEntity findItem = itemRepository.findById(newItemId).get();
-        assertEquals(findItem.getName(), request.getName());
-        assertEquals(findItem.getPrice(), request.getPrice());
-        assertEquals(findItem.getStockQuantity(), request.getStockQuantity());
+        // then
+        verify(itemRepository, atLeastOnce()).save(any(ItemEntity.class));
     }
 
     private AddItemRequest createAddItemRequest() {
