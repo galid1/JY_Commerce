@@ -10,8 +10,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Entity
@@ -24,6 +24,9 @@ public class OrderEntity extends BaseEntity {
     private int totalAmount;
     @Enumerated(value = EnumType.STRING)
     private OrderStatus status;
+
+    private boolean removed;
+    private LocalDateTime removedAt;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
@@ -65,6 +68,14 @@ public class OrderEntity extends BaseEntity {
                 .forEach(orderItem -> orderItem.cancel());
 
         this.status = OrderStatus.CANCEL_STATUS;
+    }
+
+    public void deleteOrder(Long ordererId) {
+        if (ordererId != this.orderer.getMemberId())
+            throw new IllegalStateException("주문자와 삭제 요청자가 일치하지 않습니다.");
+
+        this.removed = true;
+        this.removedAt = LocalDateTime.now();
     }
 }
 

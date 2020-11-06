@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -66,9 +65,6 @@ public class MyOrderService {
         OrderEntity order  = orderRepository.findById(orderId)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 주문입니다."));
 
-        if (ordererId == order.getOrderer().getMemberId())
-            orderRepository.deleteById(orderId);
-        else
-            throw new IllegalStateException("주문자와 삭제 요청자가 일치하지 않습니다.");
+        order.deleteOrder(ordererId);
     }
 }
