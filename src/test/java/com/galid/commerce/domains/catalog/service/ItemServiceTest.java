@@ -37,6 +37,21 @@ class ItemServiceTest {
         verify(itemRepository, atLeastOnce()).save(any(ItemEntity.class));
     }
 
+    @Test
+    public void 아이템_찾기() throws Exception {
+        //given
+        Long ITEM_ID = 1l;
+        given(itemRepository.findById(any(Long.class)))
+                .willReturn(Optional.of(createItem(createAddItemRequest())));
+
+        //when
+        itemService.findItem(ITEM_ID);
+
+        //then
+        verify(itemRepository, atLeastOnce())
+                .findById(any(Long.class));
+    }
+
     private AddItemRequest createAddItemRequest() {
         return AddItemRequest.builder()
                 .imagePath("TEST")
