@@ -14,6 +14,7 @@ Commerce Web Application 입니다.
 <br><br>
 
 
+
 ### 프로젝트 진행 과정
 1. 프로젝트 설정 - https://galid1.tistory.com/718
 2. 설계(요구사항 분석, 도메인모델, 엔티티 설계) - https://galid1.tistory.com/725
