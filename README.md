@@ -20,7 +20,7 @@ Commerce Web Application 입니다.
 2. 설계(요구사항 분석, 도메인모델, 엔티티 설계) - https://galid1.tistory.com/725
 3. 엔티티개발 - https://galid1.tistory.com/729
 4. 서비스 및 리포지토리 개발 - https://galid1.tistory.com/778
-5. 컨트롤러 개발 및 뷰 개발 - 
+5. 컨트롤러 개발 및 뷰 개발 - https://galid1.tistory.com/782
 6. 계층별 테스트코드 작성 - 
 7. 장바구니 기능 추가 -
 8. 장바구니 기능 별도 모듈로 분리 후 Nosql로 변경 - 
