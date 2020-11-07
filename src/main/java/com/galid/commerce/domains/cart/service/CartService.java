@@ -52,6 +52,7 @@ public class CartService {
     }
 
     public void removeCartLine(Long memberId, Long itemId) {
-        removeCartLines(memberId, List.of(itemId));
+        CartEntity cartEntity = cartRepository.findFirstByMemberId(memberId);
+        cartEntity.removeCartLine(itemId);
     }
 }
