@@ -22,7 +22,7 @@ Commerce Web Application 입니다.
 4. 서비스 및 리포지토리 개발 - https://galid1.tistory.com/778
 5. 컨트롤러 개발 및 뷰 개발 - https://galid1.tistory.com/782
 6. 계층별 테스트코드 작성 - https://galid1.tistory.com/784
-7. 장바구니 기능 추가 -
+7. 장바구니 기능 추가 - https://galid1.tistory.com/785
 8. 무한 스크롤, 페이지 네이션 기능 추가 - 
 9. 무한 카테고리 기능 확장 및 Redis를 이용한 캐싱 - 
 10. 상품 후기 기능 확장 - 
