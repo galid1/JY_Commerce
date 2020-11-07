@@ -55,7 +55,7 @@ public class OrderService {
                 .orderItemEntityList(orderItemEntityList)
                 .build();
 
-        // 장바구니 비우기
+        // 장바구니 비우기 (특정 상품들만 주문하는 경우가 존재하므로, 장바구니를 그냥 비우는게 아닌, id를 기준으로 비워야함)
         List<Long> itemIdList = orderRequest.getOrderLineList().stream()
                 .map(ol -> ol.getItemId())
                 .collect(Collectors.toList());

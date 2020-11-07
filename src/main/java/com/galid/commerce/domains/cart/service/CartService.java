@@ -43,6 +43,7 @@ public class CartService {
         cartEntity.modifyOrderCount(checkStockQuantityService, newCartLine);
     }
 
+    //  특정 상품들만 주문하는 경우가 존재하므로, 장바구니를 그냥 비우는게 아닌, id를 기준으로 비워야함
     public void removeCartLines(Long memberId, List<Long> itemIds) {
         CartEntity cartEntity = cartRepository.findFirstByMemberId(memberId);
 
