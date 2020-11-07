@@ -4,9 +4,7 @@ import com.galid.commerce.domains.cart.query.dto.CartLineDto;
 import com.galid.commerce.domains.cart.service.AddToCartRequestForm;
 import com.galid.commerce.domains.cart.service.CartService;
 import com.galid.commerce.domains.cart.service.ModifyOrderCountRequestForm;
-import com.galid.commerce.domains.catalog.domain.item.ItemRepository;
 import com.galid.commerce.domains.member.domain.MemberEntity;
-import com.galid.commerce.domains.member.domain.MemberRepository;
 import com.galid.commerce.infra.AuthenticationConverter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -21,8 +19,6 @@ import java.util.List;
 @Controller
 @RequiredArgsConstructor
 public class CartController {
-    private final MemberRepository memberRepository;
-    private final ItemRepository itemRepository;
     private final CartService cartService;
     private final AuthenticationConverter authenticationConverter;
 
