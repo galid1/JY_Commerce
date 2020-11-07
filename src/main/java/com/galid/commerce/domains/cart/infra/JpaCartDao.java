@@ -25,11 +25,9 @@ public class JpaCartDao implements CartDao {
                         " from CartEntity c" +
                         " join c.cart cl" +
                         " on c.cartId = cl.cartId" +
-                        " join MemberEntity m" +
-                        " on c.memberId = m.memberId" +
                         " join ItemEntity i" +
                         " on cl.itemId = i.itemId" +
-                        " where m.memberId = :memberId", CartLineDto.class)
+                        " where c.memberId = :memberId", CartLineDto.class)
                 .setParameter("memberId", memberId)
                 .getResultList();
 
