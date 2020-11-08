@@ -24,7 +24,7 @@ Commerce Web Application 입니다.
 5. 컨트롤러 개발 및 뷰 개발 - https://galid1.tistory.com/782
 6. 계층별 테스트코드 작성 - https://galid1.tistory.com/784
 7. 장바구니 기능 추가 - https://galid1.tistory.com/785
-8. 무한 스크롤, 페이지 네이션 기능 추가(컬렉션 조회 최적화와 N+1 문제 제거, QueryDsl 가독성 유지보수성) - https://galid1.tistory.com/786
+8. 무한 스크롤, 페이지 네이션 기능 추가 - https://galid1.tistory.com/786 (컬렉션 조회 최적화와 N+1 문제 제거, QueryDsl 가독성 유지보수성)
 9. 무한 카테고리 기능 확장 및 Redis를 이용한 캐싱 - 
 10. 상품 후기 기능 확장 - 
 11. 이벤트 소싱을 이용한 기능별 모듈 분리 - 
