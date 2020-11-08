@@ -21,11 +21,7 @@ public class MyOrderController {
     private final AuthenticationConverter authenticationConverter;
 
     @GetMapping("/my/orders")
-    public String getMyOrderListPage(Authentication authentication,
-                                     Model model) {
-        MemberEntity member = authenticationConverter.getMemberFromAuthentication(authentication);
-        MyOrderSummaryDto myOrderSummary = myOrderService.getMyOrderSummary(member.getMemberId(), PageRequest.of(0, 20));
-        model.addAttribute("myOrderSummary", myOrderSummary);
+    public String getMyOrderListPage() {
         return "orders/myOrderList";
     }
 
