@@ -16,6 +16,6 @@ public class SignInSuccessHandler implements AuthenticationSuccessHandler {
             .getSession()
             .setAttribute("login", true);
 
-        response.sendRedirect("/main");
+        response.sendRedirect("/catalog");
     }
 }

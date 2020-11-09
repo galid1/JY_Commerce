@@ -19,7 +19,7 @@ public class CatalogController {
     private final CatalogService catalogService;
     private final CategoryService categoryService;
 
-    @GetMapping("/main")
+    @GetMapping("/catalog")
     public String getMainPage(@RequestParam(value = "category", required = false) Long category,
                               @ModelAttribute ItemSearchForm searchForm,
                               Model model) {
@@ -37,6 +37,6 @@ public class CatalogController {
         List<CatalogSummary> items = catalogService.getCatalog(searchForm);
         model.addAttribute("items", items);
 
-        return "main";
+        return "catalog";
     }
 }
