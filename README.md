@@ -25,9 +25,8 @@ Commerce Web Application 입니다.
 6. 계층별 테스트코드 작성 - https://galid1.tistory.com/784
 7. 장바구니 기능 추가 - https://galid1.tistory.com/785
 8. 무한 스크롤, 페이지 네이션 기능 추가 - https://galid1.tistory.com/786 (컬렉션 조회 최적화와 N+1 문제 제거, QueryDsl 가독성 유지보수성)
-9. 무한 카테고리 기능 확장 및 Redis를 이용한 캐싱 - https://galid1.tistory.com/774 (무한 카테고리 기능 설계 및 구현)
-                                                 https://galid1.tistory.com/777 (Redis를 이용한 카테고리 생성 연산 캐싱)
-                                                
+9. 무한 카테고리 기능 확장 및 Redis를 이용한 캐싱 - https://galid1.tistory.com/774 (무한 카테고리 기능 설계 및 구현) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; https://galid1.tistory.com/777 (Redis를 이용한 카테고리 생성 연산 캐싱)                                           
 10. 상품 후기 기능 확장 - 
 11. 이벤트 소싱을 이용한 기능별 모듈 분리 - 
 <br><br>
