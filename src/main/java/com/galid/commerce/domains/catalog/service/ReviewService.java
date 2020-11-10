@@ -27,7 +27,18 @@ public class ReviewService {
         checkOrderedProductService.checkOrderedProduct(reviewRequest.getProductId(), orderedItemIdSet);
 
         // 리뷰 생성
-        ReviewEntity reviewEntity = ReviewEntity.builder()
+        ReviewEntity reviewEntity = createReview(reviewerId, reviewRequest);
+        ReviewEntity savedReview = reviewRepository.save(reviewEntity);
+
+        // 리뷰 수 관리
+        reviewProductRepository.findByProductId(reviewRequest.getProductId())
+                .rate(Rating.valueOf(reviewRequest.getRating()));
+
+        return savedReview.getReviewId();
+    }
+
+    private ReviewEntity createReview(Long reviewerId, ReviewRequest reviewRequest) {
+        return ReviewEntity.builder()
                 .review(new Review(
                         Rating.valueOf(reviewRequest.getRating()),
                         reviewRequest.getReview()
@@ -38,13 +49,6 @@ public class ReviewService {
                 ))
                 .reviewerId(reviewerId)
                 .build();
-        ReviewEntity savedReview = reviewRepository.save(reviewEntity);
-
-        // 리뷰 수 관리
-        reviewProductRepository.findByProductId(reviewRequest.getProductId())
-                .rate(Rating.valueOf(reviewRequest.getRating()));
-
-        return savedReview.getReviewId();
     }
 
     private Set<Long> getOrderedItemIdSet(List<OrderEntity> myOrderedItemIdListFromLastMonth) {
