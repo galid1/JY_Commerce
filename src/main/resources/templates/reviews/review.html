@@ -206,6 +206,9 @@
                     alert("리뷰 작성 완료 !");
                     location.href = "/catalog";
                 },
+                error: function(data) {
+                    alert(data.responseText);
+                },
                 contentType: "application/json"
             });
         });
