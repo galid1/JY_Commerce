@@ -3,7 +3,6 @@ package com.galid.commerce.domains.catalog.service;
 import com.galid.commerce.domains.catalog.domain.review.*;
 import com.galid.commerce.domains.catalog.query.dao.MyOrderedItemDao;
 import com.galid.commerce.domains.order.domain.OrderEntity;
-import com.galid.commerce.domains.order.domain.OrderItemEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

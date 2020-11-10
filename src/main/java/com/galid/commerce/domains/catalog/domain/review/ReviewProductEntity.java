@@ -19,7 +19,7 @@ public class ReviewProductEntity {
     private double ratingAverage;
     private double totalRating;
 
-    // 각 별점 평가 수
+    // 각 별점 평가 수 (상품이 별점을 각각 몇개 받았는지 보여줄 때 필요)
     private int oneCount;
     private int twoCount;
     private int threeCount;

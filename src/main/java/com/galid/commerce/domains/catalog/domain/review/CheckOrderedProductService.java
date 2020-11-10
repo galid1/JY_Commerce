@@ -1,12 +1,10 @@
 package com.galid.commerce.domains.catalog.domain.review;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
 
 @Service
-@RequiredArgsConstructor
 public class CheckOrderedProductService {
     public void checkOrderedProduct(Long reviewTargetProductId, Set<Long> usersOrderedProductIdList) {
         if (! usersOrderedProductIdList.contains(reviewTargetProductId))
