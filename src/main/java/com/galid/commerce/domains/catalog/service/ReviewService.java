@@ -39,7 +39,7 @@ public class ReviewService {
 
     private ReviewEntity createReview(Long reviewerId, ReviewRequest reviewRequest) {
         return ReviewEntity.builder()
-                .review(new Review(
+                .review(new ReviewContent(
                         Rating.valueOf(reviewRequest.getRating()),
                         reviewRequest.getReview()
                 ))

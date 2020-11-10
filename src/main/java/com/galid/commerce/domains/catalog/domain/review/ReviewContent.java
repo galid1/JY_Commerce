@@ -13,7 +13,7 @@ import javax.persistence.Enumerated;
 @AllArgsConstructor
 @Embeddable
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Review {
+public class ReviewContent {
     @Enumerated(EnumType.STRING)
     private Rating rating;
     private String comment;

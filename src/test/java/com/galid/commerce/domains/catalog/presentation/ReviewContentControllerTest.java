@@ -17,7 +17,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @WebMvcTest(value = ReviewController.class)
 @WithMockUser("spring")
-class ReviewControllerTest {
+class ReviewContentControllerTest {
     @MockBean
     private ItemService itemService;
     @Autowired
