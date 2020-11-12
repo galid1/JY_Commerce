@@ -7,7 +7,7 @@ spring:
 
 ---
 spring:
-  profiles: test
+  profiles: devel
 
   #### jpa
   jpa:
