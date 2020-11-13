@@ -1,5 +1,6 @@
 package com.galid.commerce.domains.cart.domain;
 
+import com.galid.commerce.domains.catalog.service.NotEnoughStockQuantityException;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -34,8 +35,8 @@ public class CartEntity {
         this.memberId = memberId;
     }
 
-    public void addItemToCart(CheckStockQuantityService checkStockQuantityService, CartLine cartLine) {
-        checkStockQuantityService.checkEnoughStockQuantity(cartLine.getOrderCount(), cartLine.getItemId());
+    public void addItemToCart(int targetStockQuantity, CartLine cartLine) {
+        verifyEnoughStockQuantity(targetStockQuantity, cartLine.getOrderCount());
 
         Long mapKey = cartLine.getItemId();
 
@@ -50,8 +51,9 @@ public class CartEntity {
         }
     }
 
-    public void modifyOrderCount(CheckStockQuantityService checkStockQuantityService, CartLine newCartLine) {
-        checkStockQuantityService.checkEnoughStockQuantity(newCartLine.getOrderCount(), newCartLine.getItemId());
+    public void modifyOrderCount(int targetStockQuantity, CartLine newCartLine) {
+        verifyEnoughStockQuantity(targetStockQuantity, newCartLine.getOrderCount());
+
         this.cart.replace(newCartLine.getItemId(), newCartLine);
     }
 
@@ -59,4 +61,9 @@ public class CartEntity {
         this.cart.remove(cartItemId);
     }
 
+    private void verifyEnoughStockQuantity(int targetStockQuantity, int orderCount) {
+        if (orderCount > targetStockQuantity) {
+            throw new NotEnoughStockQuantityException("재고량이 충분하지 않습니다.");
+        }
+    }
 }

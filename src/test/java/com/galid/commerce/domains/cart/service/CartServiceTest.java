@@ -3,7 +3,6 @@ package com.galid.commerce.domains.cart.service;
 import com.galid.commerce.domains.cart.domain.CartEntity;
 import com.galid.commerce.domains.cart.domain.CartLine;
 import com.galid.commerce.domains.cart.domain.CartRepository;
-import com.galid.commerce.domains.cart.domain.CheckStockQuantityService;
 import com.galid.commerce.domains.cart.query.dao.CartDao;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
