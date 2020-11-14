@@ -4,6 +4,8 @@ import com.galid.commerce.domains.cart.domain.CartEntity;
 import com.galid.commerce.domains.cart.domain.CartLine;
 import com.galid.commerce.domains.cart.domain.CartRepository;
 import com.galid.commerce.domains.cart.query.dao.CartDao;
+import com.galid.commerce.domains.catalog.domain.item.ItemEntity;
+import com.galid.commerce.domains.catalog.domain.item.ItemRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,13 +13,14 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.util.Map;
+import java.util.Optional;
 
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.util.AssertionErrors.assertEquals;
 
 @SpringBootTest(classes = {
         CartService.class,
-        CheckStockQuantityService.class
 })
 class CartServiceTest {
     @Autowired
@@ -26,9 +29,9 @@ class CartServiceTest {
     @MockBean
     private CartRepository cartRepository;
     @MockBean
-    private CartDao cartDao;
+    private ItemRepository itemRepository;
     @MockBean
-    private CheckStockQuantityService checkStockQuantityService;
+    private CartDao cartDao;
 
     private final Long TEST_MEMBER_ID = 1l;
     private final Long TEST_ITEM_ID = 2l;
@@ -40,6 +43,18 @@ class CartServiceTest {
                 .willReturn(cart);
         given(cartRepository.findFirstByMemberId(TEST_MEMBER_ID))
                 .willReturn(cart);
+        given(itemRepository.findById(anyLong()))
+                .willReturn(Optional.of(createItemEntity()));
+    }
+
+    private ItemEntity createItemEntity() {
+        return ItemEntity.builder()
+                .price(1000)
+                .name("TEST")
+                .imagePath("TEST")
+                .categoryId(1l)
+                .stockQuantity(10)
+                .build();
     }
 
     @Test
