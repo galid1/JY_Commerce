@@ -1,7 +1,6 @@
 package com.galid.commerce.domains.cart.domain;
 
 import com.galid.commerce.domains.catalog.service.NotEnoughStockQuantityException;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
