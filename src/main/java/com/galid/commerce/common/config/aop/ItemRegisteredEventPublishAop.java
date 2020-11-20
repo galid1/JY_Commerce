@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 @Aspect
 @Component
-@Profile("deploy")
+@Profile("deploy | devel")
 @RequiredArgsConstructor
 public class ItemRegisteredEventPublishAop {
     private final ApplicationContext context;
